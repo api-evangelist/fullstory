@@ -1,0 +1,399 @@
+openapi: 3.1.0
+info:
+  title: FullStory Segments Export API
+  description: >-
+    The FullStory Segments Export API provides an asynchronous workflow for
+    downloading captured event data from FullStory. Developers can initiate
+    export jobs to aggregate segment data, query for the status of running
+    jobs, and retrieve download URLs for completed exports. Two types of
+    segment data are available for export: individuals matching a segment
+    and events performed by those individuals. This API is useful for
+    integrating FullStory behavioral data into external analytics pipelines
+    and data warehouses.
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+externalDocs:
+  description: FullStory Segments Export API Documentation
+  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/
+servers:
+  - url: https://api.fullstory.com
+    description: FullStory Production API Server
+tags:
+  - name: Segments
+    description: >-
+      Retrieve segment metadata including name, creator, and creation time.
+  - name: Exports
+    description: >-
+      Create and manage asynchronous export jobs for segment data, including
+      both individual and event exports.
+  - name: Operations
+    description: >-
+      Query the status of long-running asynchronous operations such as
+      segment exports, and retrieve results when complete.
+security:
+  - basicAuth: []
+paths:
+  /segments/v1:
+    get:
+      operationId: listSegments
+      summary: List segments
+      description: >-
+        Returns a paginated list of segments for the organization. You can
+        optionally limit the number of segments returned, with a default of
+        20 and a maximum of 100 per page. Use the pagination token to
+        retrieve additional pages of results.
+      tags:
+        - Segments
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/PaginationToken'
+      responses:
+        '200':
+          description: List of segments retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentList'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /segments/v1/{segmentId}:
+    get:
+      operationId: getSegment
+      summary: Get a segment
+      description: >-
+        Returns segment information for the provided segment ID, including
+        the segment name, creator email, and creation timestamp.
+      tags:
+        - Segments
+      parameters:
+        - $ref: '#/components/parameters/SegmentIdPath'
+      responses:
+        '200':
+          description: Segment retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Segment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /segments/v1/exports:
+    post:
+      operationId: createSegmentExport
+      summary: Create a segment export
+      description: >-
+        Schedules an asynchronous export based on the provided segment. The
+        progress and results of the export can be fetched from the operations
+        API. Two export types are available: individuals (information about
+        users matching the segment) and events (events performed by matching
+        users).
+      tags:
+        - Exports
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExportRequest'
+      responses:
+        '200':
+          description: Export job created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /operations/v1/{operationId}:
+    get:
+      operationId: getOperationStatus
+      summary: Get operation status
+      description: >-
+        Returns the status of a particular operation given the operation ID.
+        When an operation is running, the response includes state, estimated
+        completion percentage, and timestamps. When complete, results include
+        download URLs for exported data.
+      tags:
+        - Operations
+      parameters:
+        - $ref: '#/components/parameters/OperationIdPath'
+      responses:
+        '200':
+          description: Operation status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Operation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        API key passed in the Authorization header using Basic authentication.
+        Admin or Architect level keys are required.
+  parameters:
+    SegmentIdPath:
+      name: segmentId
+      in: path
+      required: true
+      description: >-
+        The unique identifier for the segment
+      schema:
+        type: string
+    OperationIdPath:
+      name: operationId
+      in: path
+      required: true
+      description: >-
+        The unique identifier for the operation
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: >-
+        Maximum number of segments to return per page. Default is 20,
+        maximum is 100.
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+    PaginationToken:
+      name: pagination_token
+      in: query
+      required: false
+      description: >-
+        Token for retrieving the next page of results. Do not change other
+        list parameters between consecutive paginated requests.
+      schema:
+        type: string
+  schemas:
+    Segment:
+      type: object
+      description: >-
+        A FullStory segment representing a saved group of users matching
+        specific behavioral criteria
+      properties:
+        id:
+          type: string
+          description: >-
+            Unique identifier for the segment
+        name:
+          type: string
+          description: >-
+            Display name of the segment
+        creator:
+          type: string
+          format: email
+          description: >-
+            Email address of the FullStory user who created the segment
+        created:
+          type: string
+          format: date-time
+          description: >-
+            UTC RFC 3339 timestamp for when the segment was created. Not
+            present for built-in segments.
+    SegmentList:
+      type: object
+      description: >-
+        Paginated list of segments
+      properties:
+        segments:
+          type: array
+          description: >-
+            Array of segment objects
+          items:
+            $ref: '#/components/schemas/Segment'
+        pagination_token:
+          type: string
+          description: >-
+            Token to retrieve the next page of results. Absent when no
+            more pages are available.
+    CreateExportRequest:
+      type: object
+      required:
+        - segmentId
+        - type
+      description: >-
+        Request body for creating a segment export job
+      properties:
+        segmentId:
+          type: string
+          description: >-
+            The ID of the segment to export
+        type:
+          type: string
+          description: >-
+            The type of data to export. Use individuals for user data or
+            events for behavioral event data.
+          enum:
+            - individuals
+            - events
+        format:
+          type: string
+          description: >-
+            The output format for the export
+          enum:
+            - json
+            - csv
+        timeRange:
+          type: object
+          description: >-
+            Optional time range to filter the exported data
+          properties:
+            start:
+              type: string
+              format: date-time
+              description: >-
+                Start of the time range in RFC 3339 format
+            end:
+              type: string
+              format: date-time
+              description: >-
+                End of the time range in RFC 3339 format
+        segmentTimeRange:
+          type: object
+          description: >-
+            Optional time range for segment membership evaluation
+          properties:
+            start:
+              type: string
+              format: date-time
+              description: >-
+                Start of the segment evaluation time range
+            end:
+              type: string
+              format: date-time
+              description: >-
+                End of the segment evaluation time range
+    Operation:
+      type: object
+      description: >-
+        Represents an asynchronous operation such as a segment export
+      properties:
+        id:
+          type: string
+          description: >-
+            Unique identifier for the operation
+        type:
+          type: string
+          description: >-
+            The type of operation
+        state:
+          type: string
+          description: >-
+            Current state of the operation
+          enum:
+            - PENDING
+            - RUNNING
+            - COMPLETED
+            - FAILED
+        errorDetails:
+          type: string
+          description: >-
+            Error details if the operation failed
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the operation was created
+        finishedAt:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the operation finished. Null while running.
+        estimatePctComplete:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: >-
+            Estimated percentage of completion for the operation
+        results:
+          type: object
+          description: >-
+            Results of the operation when completed, including download URLs
+          properties:
+            downloadUrl:
+              type: string
+              format: uri
+              description: >-
+                URL for downloading the exported data
+    Error:
+      type: object
+      description: >-
+        Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: >-
+            HTTP status code
+        message:
+          type: string
+          description: >-
+            Human-readable error message

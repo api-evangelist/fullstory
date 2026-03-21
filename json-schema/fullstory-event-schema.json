@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fullstory.com/schemas/fullstory/event.json",
+  "title": "FullStory Event",
+  "description": "A custom event in FullStory representing a server-side or client-side action. Events can be associated with sessions and users, and include custom properties for behavioral analysis.",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the custom event"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp for when the event occurred"
+    },
+    "session": {
+      "$ref": "#/$defs/SessionReference",
+      "description": "Session association for the event"
+    },
+    "user": {
+      "$ref": "#/$defs/UserReference",
+      "description": "User association for the event. Not accepted if session.id is provided."
+    },
+    "properties": {
+      "type": "object",
+      "description": "Custom key-value properties for the event. Supports string, real, integer, boolean, array, and object types. Type suffixes are not required in v2.",
+      "additionalProperties": true
+    },
+    "schema": {
+      "type": "object",
+      "description": "Optional explicit type declarations for custom event properties",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "SessionReference": {
+      "type": "object",
+      "description": "Reference to a session for associating the event with a recorded session",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The session identifier to associate the event with"
+        },
+        "use_most_recent": {
+          "type": "boolean",
+          "description": "If true, the most recent session within 30 minutes will be used. If no recent session is found and no id is provided, the event is created without a session."
+        }
+      }
+    },
+    "UserReference": {
+      "type": "object",
+      "description": "Reference to a user for associating the event with a specific user",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The FullStory-assigned user ID"
+        },
+        "uid": {
+          "type": "string",
+          "description": "The external user identifier"
+        }
+      }
+    }
+  }
+}

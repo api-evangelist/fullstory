@@ -1,0 +1,305 @@
+openapi: 3.1.0
+info:
+  title: FullStory Sessions API
+  description: >-
+    The FullStory Sessions API allows developers to retrieve session replay
+    URLs for specific users and access session event data. By querying with
+    a user email address or user ID, the API returns a list of session URLs
+    that can be used to view recorded sessions in the FullStory platform.
+    The API also supports AI-powered session summaries through configurable
+    summary prompt profiles.
+  version: '2.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+externalDocs:
+  description: FullStory Sessions API Documentation
+  url: https://developer.fullstory.com/server/sessions/introduction/
+servers:
+  - url: https://api.fullstory.com
+    description: FullStory Production API Server
+tags:
+  - name: Sessions
+    description: >-
+      Retrieve session replay URLs for users and access recorded session
+      data. Sessions are scoped to a single FullStory account and replay
+      URLs require authenticated FullStory access.
+  - name: Session Events
+    description: >-
+      Retrieve the full set of captured events for a specific session,
+      including page views, clicks, and custom events.
+  - name: Session Summaries
+    description: >-
+      Generate AI-powered summaries of sessions using configurable prompt
+      profiles. Summaries can be customized with pre and post prompts,
+      response schemas, and session slicing options.
+security:
+  - basicAuth: []
+paths:
+  /sessions/v2:
+    get:
+      operationId: listSessions
+      summary: List sessions for a user
+      description: >-
+        Returns a list of session replay URLs for a given user, queried by
+        email address and/or uid. If both uid and email are provided, the
+        API queries on them separately and returns a union of the records.
+        It is recommended to use either uid or email, but not both. By
+        default, the last 20 sessions are returned.
+      tags:
+        - Sessions
+      parameters:
+        - $ref: '#/components/parameters/EmailQuery'
+        - $ref: '#/components/parameters/UidQuery'
+        - $ref: '#/components/parameters/LimitQuery'
+      responses:
+        '200':
+          description: List of session URLs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionList'
+        '400':
+          description: Invalid input - at least one of email or uid is required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/sessions/{sessionId}/events:
+    get:
+      operationId: getSessionEvents
+      summary: Get session events
+      description: >-
+        Returns the full set of captured events for a specified session,
+        including page views, clicks, custom events, and other interactions
+        recorded during the session.
+      tags:
+        - Session Events
+      parameters:
+        - $ref: '#/components/parameters/SessionIdPath'
+      responses:
+        '200':
+          description: Session events retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionEvents'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/sessions/{sessionId}/summary:
+    get:
+      operationId: generateSessionSummary
+      summary: Generate AI session summary
+      description: >-
+        Returns a generative AI summarization of the specified session using
+        the supplied prompt summary profile. The config_profile_id parameter
+        specifies the prompt profile that defines both the prompting
+        instructions and session context configuration. Summary profiles
+        support custom pre and post prompts, structured response schemas,
+        and session slicing to trim event data.
+      tags:
+        - Session Summaries
+      parameters:
+        - $ref: '#/components/parameters/SessionIdPath'
+        - $ref: '#/components/parameters/ConfigProfileIdQuery'
+      responses:
+        '200':
+          description: Session summary generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionSummary'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Session or config profile not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        API key passed in the Authorization header using Basic authentication.
+        Admin or Architect level keys are required for data retrieval.
+  parameters:
+    EmailQuery:
+      name: email
+      in: query
+      required: false
+      description: >-
+        Email address of the user whose sessions to retrieve
+      schema:
+        type: string
+        format: email
+    UidQuery:
+      name: uid
+      in: query
+      required: false
+      description: >-
+        External user identifier of the user whose sessions to retrieve
+      schema:
+        type: string
+    LimitQuery:
+      name: limit
+      in: query
+      required: false
+      description: >-
+        Maximum number of sessions to return. Defaults to 20.
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+    SessionIdPath:
+      name: sessionId
+      in: path
+      required: true
+      description: >-
+        The session identifier, URL encoded
+      schema:
+        type: string
+    ConfigProfileIdQuery:
+      name: config_profile_id
+      in: query
+      required: true
+      description: >-
+        The ID of the summary prompt profile to use for generating the
+        AI session summary
+      schema:
+        type: string
+  schemas:
+    SessionList:
+      type: object
+      description: >-
+        List of session replay URLs for a user
+      properties:
+        sessions:
+          type: array
+          description: >-
+            Array of session objects with replay URLs
+          items:
+            $ref: '#/components/schemas/Session'
+    Session:
+      type: object
+      description: >-
+        A session replay reference with URL and metadata
+      properties:
+        sessionId:
+          type: string
+          description: >-
+            Unique identifier for the session
+        url:
+          type: string
+          format: uri
+          description: >-
+            URL to view the session replay in the FullStory application.
+            Only accessible by browsers logged into the appropriate
+            FullStory account.
+        created:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the session was recorded
+    SessionEvents:
+      type: object
+      description: >-
+        Full set of captured events for a session
+      properties:
+        events:
+          type: array
+          description: >-
+            Array of events captured during the session
+          items:
+            $ref: '#/components/schemas/SessionEvent'
+    SessionEvent:
+      type: object
+      description: >-
+        An individual event captured during a session
+      properties:
+        type:
+          type: string
+          description: >-
+            The type of event captured
+        timestamp:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the event occurred
+        data:
+          type: object
+          description: >-
+            Event-specific data and properties
+          additionalProperties: true
+    SessionSummary:
+      type: object
+      description: >-
+        AI-generated summary of a session
+      properties:
+        sessionId:
+          type: string
+          description: >-
+            The session that was summarized
+        summary:
+          type: string
+          description: >-
+            The generated summary text or structured response based on
+            the configured response schema
+        configProfileId:
+          type: string
+          description: >-
+            The summary prompt profile ID used
+    Error:
+      type: object
+      description: >-
+        Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: >-
+            HTTP status code
+        message:
+          type: string
+          description: >-
+            Human-readable error message

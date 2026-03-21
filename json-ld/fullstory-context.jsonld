@@ -1,0 +1,116 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fs": "https://developer.fullstory.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "User": {
+      "@id": "fs:User",
+      "@context": {
+        "id": "fs:userId",
+        "uid": "fs:externalUserId",
+        "display_name": "schema:name",
+        "email": "schema:email",
+        "properties": "fs:customProperties",
+        "app_url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Event": {
+      "@id": "fs:Event",
+      "@context": {
+        "name": "schema:name",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        },
+        "properties": "fs:customProperties",
+        "session": "fs:sessionReference",
+        "user": "fs:userReference"
+      }
+    },
+
+    "Session": {
+      "@id": "fs:Session",
+      "@context": {
+        "sessionId": "fs:sessionId",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Segment": {
+      "@id": "fs:Segment",
+      "@context": {
+        "id": "fs:segmentId",
+        "name": "schema:name",
+        "creator": "dcterms:creator",
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "WebhookEndpoint": {
+      "@id": "fs:WebhookEndpoint",
+      "@context": {
+        "id": "fs:endpointId",
+        "url": {
+          "@id": "fs:destinationUrl",
+          "@type": "@id"
+        },
+        "events": {
+          "@id": "fs:configuredEvents",
+          "@container": "@set"
+        },
+        "enabled": "fs:isEnabled",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "SessionSummary": {
+      "@id": "fs:SessionSummary",
+      "@context": {
+        "sessionId": "fs:sessionId",
+        "summary": "schema:text",
+        "configProfileId": "fs:configProfileId"
+      }
+    },
+
+    "Operation": {
+      "@id": "fs:Operation",
+      "@context": {
+        "id": "fs:operationId",
+        "type": "fs:operationType",
+        "state": "fs:operationState",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "finishedAt": {
+          "@id": "fs:finishedAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,282 @@
+asyncapi: 2.6.0
+info:
+  title: FullStory Webhook Events
+  description: >-
+    FullStory delivers real-time webhook notifications when specific events
+    occur within the platform. Supported event types include segment creation,
+    segment threshold alerts, custom event processing, and note creation.
+    Webhooks enable event-driven integrations that respond immediately to
+    behavioral signals detected by FullStory, eliminating the need for polling.
+    Payloads are signed with a shared secret for verification.
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+servers:
+  webhookReceiver:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The HTTPS endpoint configured to receive FullStory webhook events.
+      This URL is set when creating a webhook endpoint via the Webhooks API.
+    variables:
+      webhookUrl:
+        description: >-
+          The destination URL configured for the webhook endpoint
+    security:
+      - signingSecret: []
+channels:
+  /webhook:
+    description: >-
+      Channel for all FullStory webhook event deliveries. Events are sent
+      as HTTP POST requests to the configured endpoint URL with a JSON
+      payload containing the event name, version, and event-specific data.
+    publish:
+      operationId: receiveWebhookEvent
+      summary: Receive webhook event notifications from FullStory
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SegmentCreated'
+          - $ref: '#/components/messages/SegmentTrendAlert'
+          - $ref: '#/components/messages/CustomEvent'
+          - $ref: '#/components/messages/NoteCreated'
+components:
+  securitySchemes:
+    signingSecret:
+      type: httpApiKey
+      name: X-FS-Signature
+      in: header
+      description: >-
+        Webhook payloads are signed using the signing secret configured for
+        the endpoint. The signature is included in the request headers for
+        verification by the receiving application.
+  messages:
+    SegmentCreated:
+      name: segment.created
+      title: Segment Created
+      summary: >-
+        Sent when a FullStory user creates a new segment in the platform
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SegmentCreatedPayload'
+    SegmentTrendAlert:
+      name: segment.trend.alert
+      title: Segment Threshold Alert
+      summary: >-
+        Sent when a segment-based alert triggers because the active users
+        in a saved segment cross a configured threshold
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SegmentTrendAlertPayload'
+    CustomEvent:
+      name: recording.event.custom
+      title: Custom Event Processed
+      summary: >-
+        Sent when a custom event has been processed. Custom events are
+        created during recording via the FS.event Browser API function.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomEventPayload'
+    NoteCreated:
+      name: note.created
+      title: Note Created
+      summary: >-
+        Sent when a note is created in FullStory on a session recording
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/NoteCreatedPayload'
+  schemas:
+    SegmentCreatedPayload:
+      type: object
+      description: >-
+        Payload delivered when a new segment is created in FullStory
+      properties:
+        eventName:
+          type: string
+          const: segment.created
+          description: >-
+            The event type identifier
+        version:
+          type: integer
+          description: >-
+            Schema version of the event payload
+        data:
+          type: object
+          description: >-
+            Event-specific data for the segment creation
+          properties:
+            id:
+              type: string
+              description: >-
+                Unique identifier for the created segment
+            creator:
+              type: string
+              format: email
+              description: >-
+                Email address of the FullStory user who created the segment
+            name:
+              type: string
+              description: >-
+                Display name of the created segment
+            url:
+              type: string
+              format: uri
+              description: >-
+                URL to view the segment in the FullStory application
+            created:
+              type: string
+              format: date-time
+              description: >-
+                ISO 8601 timestamp when the segment was created
+    SegmentTrendAlertPayload:
+      type: object
+      description: >-
+        Payload delivered when a segment-based threshold alert triggers
+      properties:
+        eventName:
+          type: string
+          const: segment.trend.alert
+          description: >-
+            The event type identifier
+        version:
+          type: integer
+          description: >-
+            Schema version of the event payload
+        data:
+          type: object
+          description: >-
+            Event-specific data for the segment threshold alert
+          properties:
+            id:
+              type: string
+              description: >-
+                Unique identifier for the alert
+            timestamp:
+              type: string
+              format: date-time
+              description: >-
+                ISO 8601 timestamp when the alert triggered
+            value:
+              type: number
+              description: >-
+                The observed value that triggered the alert
+            notificationUrl:
+              type: string
+              format: uri
+              description: >-
+                URL to view the alert notification in FullStory
+            alertConfig:
+              type: object
+              description: >-
+                Configuration details of the alert that triggered
+              properties:
+                description:
+                  type: string
+                  description: >-
+                    Human-readable description of the alert condition
+                threshold:
+                  type: number
+                  description: >-
+                    The configured threshold value
+                direction:
+                  type: string
+                  description: >-
+                    Whether the alert triggers when value goes above or below
+                    the threshold
+                  enum:
+                    - ABOVE
+                    - BELOW
+                duration:
+                  type: string
+                  description: >-
+                    The time window for measuring active users
+                  enum:
+                    - DAILY
+                    - WEEKLY
+                    - MONTHLY
+                alertUrl:
+                  type: string
+                  format: uri
+                  description: >-
+                    URL to view the alert configuration in FullStory
+                alertCreator:
+                  type: string
+                  format: email
+                  description: >-
+                    Email address of the user who created the alert
+                segmentUrl:
+                  type: string
+                  format: uri
+                  description: >-
+                    URL to view the associated segment in FullStory
+    CustomEventPayload:
+      type: object
+      description: >-
+        Payload delivered when a custom event is processed in FullStory
+      properties:
+        eventName:
+          type: string
+          const: recording.event.custom
+          description: >-
+            The event type identifier
+        version:
+          type: integer
+          description: >-
+            Schema version of the event payload
+        data:
+          type: object
+          description: >-
+            Event-specific data for the custom event
+          properties:
+            name:
+              type: string
+              description: >-
+                The name of the custom event as defined via FS.event
+            sessionUrl:
+              type: string
+              format: uri
+              description: >-
+                URL to view the session replay in FullStory
+            properties:
+              type: object
+              description: >-
+                Custom properties attached to the event
+              additionalProperties: true
+    NoteCreatedPayload:
+      type: object
+      description: >-
+        Payload delivered when a note is created on a session recording
+      properties:
+        eventName:
+          type: string
+          const: note.created
+          description: >-
+            The event type identifier
+        version:
+          type: integer
+          description: >-
+            Schema version of the event payload
+        data:
+          type: object
+          description: >-
+            Event-specific data for the note creation
+          properties:
+            id:
+              type: string
+              description: >-
+                Unique identifier for the note
+            creator:
+              type: string
+              format: email
+              description: >-
+                Email address of the user who created the note
+            sessionUrl:
+              type: string
+              format: uri
+              description: >-
+                URL to the session replay where the note was created
+            created:
+              type: string
+              format: date-time
+              description: >-
+                ISO 8601 timestamp when the note was created

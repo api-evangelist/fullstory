@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fullstory.com/schemas/fullstory/webhook-endpoint.json",
+  "title": "FullStory Webhook Endpoint",
+  "description": "A configured webhook endpoint in FullStory that receives real-time event notifications. Endpoints define a destination URL, the event types to receive, and a signing secret for payload verification.",
+  "type": "object",
+  "required": ["id", "url", "events"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the webhook endpoint"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The destination URL that receives webhook event notifications"
+    },
+    "events": {
+      "type": "array",
+      "description": "The event types configured for this endpoint",
+      "items": {
+        "$ref": "#/$defs/EventTypeConfig"
+      }
+    },
+    "signingSecret": {
+      "type": "string",
+      "description": "Secret used to sign webhook payloads for verification by the receiving application"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the endpoint is actively receiving events"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the endpoint was created"
+    }
+  },
+  "$defs": {
+    "EventTypeConfig": {
+      "type": "object",
+      "description": "Configuration for a specific event type on a webhook endpoint",
+      "required": ["eventName"],
+      "properties": {
+        "eventName": {
+          "type": "string",
+          "description": "The name of the event type",
+          "enum": [
+            "segment.created",
+            "segment.trend.alert",
+            "recording.event.custom",
+            "note.created"
+          ]
+        },
+        "subcategory": {
+          "type": "string",
+          "description": "Required subcategory for event types that support it, such as specifying which custom event to listen for"
+        }
+      }
+    },
+    "EventType": {
+      "type": "object",
+      "description": "A webhook event type available in FullStory",
+      "properties": {
+        "eventName": {
+          "type": "string",
+          "description": "The name of the event type"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the event type"
+        },
+        "hasSubcategories": {
+          "type": "boolean",
+          "description": "Whether this event type requires a subcategory when configuring an endpoint"
+        }
+      }
+    }
+  }
+}

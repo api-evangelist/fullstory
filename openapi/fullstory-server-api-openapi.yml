@@ -1,0 +1,501 @@
+openapi: 3.1.0
+info:
+  title: FullStory Server API
+  description: >-
+    The FullStory Server API is a RESTful API that enables developers to
+    programmatically send user and event data to FullStory. It supports
+    creating and updating individual users, batch importing users, sending
+    server-side events, and batch importing events. The API uses JSON for
+    request and response bodies and authenticates via API keys. Developers
+    can use it to enrich FullStory session data with server-side context
+    that is not available in the browser or mobile app.
+  version: '2.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+externalDocs:
+  description: FullStory Server API Documentation
+  url: https://developer.fullstory.com/server/getting-started/
+servers:
+  - url: https://api.fullstory.com
+    description: FullStory Production API Server
+tags:
+  - name: Users
+    description: >-
+      Create, retrieve, update, and delete users in FullStory. Users can be
+      anonymous or identified with a uid. Custom properties can be attached
+      to enrich user profiles.
+  - name: Events
+    description: >-
+      Send custom server-side events to FullStory. Events can be associated
+      with sessions and users, and include custom properties for behavioral
+      analysis.
+  - name: Batch Import
+    description: >-
+      Import large volumes of users and events asynchronously using batch
+      import jobs that support up to 50,000 records per request.
+security:
+  - basicAuth: []
+paths:
+  /v2/users:
+    post:
+      operationId: createUser
+      summary: Create or update a user
+      description: >-
+        Creates a new user or updates an existing user if a matching uid is
+        found. Anonymous users can be created by omitting the uid field.
+        The API returns the FullStory-assigned id along with the user data.
+        Type suffixes are not required for custom properties in v2 as types
+        are inferred automatically.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User created or updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          headers:
+            X-RateLimit-Remaining:
+              description: Number of requests remaining in the current window
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: >-
+        Permanently deletes all user data related to the specified user,
+        including sessions, events, custom user properties, raw page files,
+        and corresponding session data. It is recommended to use the Get
+        User endpoint first to verify the correct user before deletion.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UidQuery'
+      responses:
+        '200':
+          description: User deleted successfully
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/users/{id}:
+    get:
+      operationId: getUser
+      summary: Retrieve a user
+      description: >-
+        Retrieves details for a single user by their FullStory-assigned user
+        ID. Returns user profile information including uid, display name,
+        email, custom properties, and the FullStory app URL for the user.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/users/batch:
+    post:
+      operationId: createBatchUserImport
+      summary: Create a batch user import job
+      description: >-
+        Imports up to 50,000 users in a single asynchronous request. Returns
+        a job object with an ID and status that can be polled for completion.
+        Users can be anonymous or identified with a uid.
+      tags:
+        - Batch Import
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchUserImportRequest'
+      responses:
+        '200':
+          description: Batch import job created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJob'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/events:
+    post:
+      operationId: createEvent
+      summary: Create a single event
+      description: >-
+        Creates one custom event with the specified details. Events can be
+        associated with a session and user. If use_most_recent is true, the
+        most recent session within 30 minutes will be used. Custom properties
+        can be attached and types are inferred automatically in v2.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '200':
+          description: Event created successfully
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/events/batch:
+    post:
+      operationId: createBatchEventsImport
+      summary: Create a batch events import job
+      description: >-
+        Imports a large number of events in a single asynchronous request.
+        Returns a job object with an ID and status that can be polled for
+        completion. Each event in the batch can include custom properties
+        and session associations.
+      tags:
+        - Batch Import
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchEventsImportRequest'
+      responses:
+        '200':
+          description: Batch events import job created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJob'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        API key passed in the Authorization header using Basic authentication.
+        Generate API keys from the FullStory app settings. Admin or Architect
+        level keys are required for data retrieval and deletion operations.
+  parameters:
+    UserIdPath:
+      name: id
+      in: path
+      required: true
+      description: >-
+        The FullStory-assigned user ID
+      schema:
+        type: string
+    UidQuery:
+      name: uid
+      in: query
+      required: true
+      description: >-
+        The external user identifier used to identify the user to delete
+      schema:
+        type: string
+  schemas:
+    CreateUserRequest:
+      type: object
+      description: >-
+        Request body for creating or updating a user in FullStory
+      properties:
+        uid:
+          type: string
+          description: >-
+            External user identifier. Omit to create an anonymous user.
+        display_name:
+          type: string
+          description: >-
+            The display name for the user
+        email:
+          type: string
+          format: email
+          description: >-
+            The email address for the user
+        properties:
+          type: object
+          description: >-
+            Custom key-value properties to attach to the user. Type suffixes
+            are not required in v2 as types are inferred automatically.
+          additionalProperties: true
+        schema:
+          type: object
+          description: >-
+            Optional explicit type declarations for custom properties to
+            override the default type inference
+          additionalProperties: true
+    User:
+      type: object
+      description: >-
+        A FullStory user object with profile information and custom properties
+      properties:
+        id:
+          type: string
+          description: >-
+            The FullStory-assigned unique identifier for the user
+        uid:
+          type: string
+          description: >-
+            The external user identifier provided during creation
+        display_name:
+          type: string
+          description: >-
+            The display name for the user
+        email:
+          type: string
+          format: email
+          description: >-
+            The email address for the user
+        properties:
+          type: object
+          description: >-
+            Custom properties attached to the user
+          additionalProperties: true
+        schema:
+          type: object
+          description: >-
+            Explicit type declarations for custom properties
+          additionalProperties: true
+        type_conflicts:
+          type: object
+          description: >-
+            Any type conflicts detected in custom properties
+          additionalProperties: true
+        app_url:
+          type: string
+          format: uri
+          description: >-
+            URL to view the user in the FullStory application
+    CreateEventRequest:
+      type: object
+      required:
+        - name
+      description: >-
+        Request body for creating a custom event in FullStory
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the custom event
+        timestamp:
+          type: string
+          format: date-time
+          description: >-
+            ISO 8601 timestamp for when the event occurred
+        session:
+          type: object
+          description: >-
+            Session association for the event
+          properties:
+            id:
+              type: string
+              description: >-
+                The session identifier to associate the event with
+            use_most_recent:
+              type: boolean
+              description: >-
+                If true, the most recent session within 30 minutes will be
+                used. If no recent session is found, the event is created
+                without a session association.
+        user:
+          type: object
+          description: >-
+            User association for the event. Not accepted if session.id is
+            provided since the session already identifies the user.
+          properties:
+            id:
+              type: string
+              description: >-
+                The FullStory-assigned user ID
+            uid:
+              type: string
+              description: >-
+                The external user identifier
+        properties:
+          type: object
+          description: >-
+            Custom key-value properties for the event. Supports string,
+            real, integer, boolean, array, and object types.
+          additionalProperties: true
+        schema:
+          type: object
+          description: >-
+            Optional explicit type declarations for custom event properties
+          additionalProperties: true
+    BatchUserImportRequest:
+      type: object
+      required:
+        - requests
+      description: >-
+        Request body for batch importing users into FullStory
+      properties:
+        requests:
+          type: array
+          description: >-
+            Array of user objects to import, up to 50,000 per request
+          maxItems: 50000
+          items:
+            $ref: '#/components/schemas/CreateUserRequest'
+    BatchEventsImportRequest:
+      type: object
+      required:
+        - requests
+      description: >-
+        Request body for batch importing events into FullStory
+      properties:
+        requests:
+          type: array
+          description: >-
+            Array of event objects to import
+          items:
+            $ref: '#/components/schemas/CreateEventRequest'
+    BatchJob:
+      type: object
+      description: >-
+        Represents an asynchronous batch import job
+      properties:
+        id:
+          type: string
+          description: >-
+            The unique identifier for the batch import job
+        status:
+          type: string
+          description: >-
+            Current status of the batch import job
+          enum:
+            - PENDING
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+        created:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the batch import job was accepted
+    Error:
+      type: object
+      description: >-
+        Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: >-
+            HTTP status code
+        message:
+          type: string
+          description: >-
+            Human-readable error message

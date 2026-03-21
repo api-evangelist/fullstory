@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fullstory.com/schemas/fullstory/segment.json",
+  "title": "FullStory Segment",
+  "description": "A segment in FullStory representing a saved group of users matching specific behavioral criteria. Segments can be used for exports, alerts, and webhook notifications.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the segment"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the segment"
+    },
+    "creator": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the FullStory user who created the segment"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC RFC 3339 timestamp for when the segment was created. Not present for built-in segments."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view the segment in the FullStory application"
+    }
+  },
+  "$defs": {
+    "SegmentExport": {
+      "type": "object",
+      "description": "Configuration for exporting segment data",
+      "required": ["segmentId", "type"],
+      "properties": {
+        "segmentId": {
+          "type": "string",
+          "description": "The ID of the segment to export"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of data to export: individuals for user data or events for behavioral event data",
+          "enum": ["individuals", "events"]
+        },
+        "format": {
+          "type": "string",
+          "description": "The output format for the export",
+          "enum": ["json", "csv"]
+        },
+        "timeRange": {
+          "$ref": "#/$defs/TimeRange",
+          "description": "Optional time range to filter the exported data"
+        },
+        "segmentTimeRange": {
+          "$ref": "#/$defs/TimeRange",
+          "description": "Optional time range for segment membership evaluation"
+        }
+      }
+    },
+    "TimeRange": {
+      "type": "object",
+      "description": "A time range defined by start and end timestamps",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of the time range in RFC 3339 format"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of the time range in RFC 3339 format"
+        }
+      }
+    }
+  }
+}

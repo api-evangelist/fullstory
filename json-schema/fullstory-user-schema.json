@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fullstory.com/schemas/fullstory/user.json",
+  "title": "FullStory User",
+  "description": "A user in FullStory representing an individual whose sessions, events, and behavioral data are tracked. Users can be anonymous or identified with an external uid.",
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The FullStory-assigned unique identifier for the user"
+    },
+    "uid": {
+      "type": "string",
+      "description": "The external user identifier provided by the integrating system. Omit to create an anonymous user."
+    },
+    "display_name": {
+      "type": "string",
+      "description": "The display name for the user shown in the FullStory interface"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address associated with the user"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Custom key-value properties attached to the user profile. In v2, type suffixes are not required as types are inferred automatically.",
+      "additionalProperties": true
+    },
+    "schema": {
+      "type": "object",
+      "description": "Optional explicit type declarations for custom properties to override default type inference",
+      "additionalProperties": true
+    },
+    "type_conflicts": {
+      "type": "object",
+      "description": "Any type conflicts detected in custom properties where inferred types do not match declared types",
+      "additionalProperties": true
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view the user profile in the FullStory application"
+    }
+  },
+  "$defs": {
+    "CreateUserRequest": {
+      "type": "object",
+      "description": "Request body for creating or updating a user via the Server API",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "External user identifier. Omit to create an anonymous user."
+        },
+        "display_name": {
+          "type": "string",
+          "description": "The display name for the user"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address for the user"
+        },
+        "properties": {
+          "type": "object",
+          "description": "Custom key-value properties to attach to the user",
+          "additionalProperties": true
+        },
+        "schema": {
+          "type": "object",
+          "description": "Optional explicit type declarations for custom properties",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

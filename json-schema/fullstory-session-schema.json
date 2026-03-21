@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fullstory.com/schemas/fullstory/session.json",
+  "title": "FullStory Session",
+  "description": "A session in FullStory representing a recorded user interaction. Sessions contain events, page views, and behavioral data that can be replayed. Session replay URLs are scoped to the FullStory account and require authenticated access.",
+  "type": "object",
+  "required": ["sessionId"],
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "Unique identifier for the session"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view the session replay in the FullStory application. Only accessible by browsers logged into the appropriate FullStory account."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the session was recorded"
+    }
+  },
+  "$defs": {
+    "SessionEvent": {
+      "type": "object",
+      "description": "An individual event captured during a session, such as a page view, click, or custom event",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of event captured"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the event occurred during the session"
+        },
+        "data": {
+          "type": "object",
+          "description": "Event-specific data and properties",
+          "additionalProperties": true
+        }
+      }
+    },
+    "SessionSummary": {
+      "type": "object",
+      "description": "AI-generated summary of a session using a configured prompt profile",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "The session that was summarized"
+        },
+        "summary": {
+          "type": "string",
+          "description": "The generated summary text or structured response based on the configured response schema"
+        },
+        "configProfileId": {
+          "type": "string",
+          "description": "The summary prompt profile ID used for generation"
+        }
+      }
+    },
+    "SummaryConfigProfile": {
+      "type": "object",
+      "description": "Configuration profile for AI session summaries defining prompting instructions and context",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the summary config profile"
+        },
+        "pre_prompt": {
+          "type": "string",
+          "description": "Instructional text included before the session data for primary instructions and persona setting"
+        },
+        "post_prompt": {
+          "type": "string",
+          "description": "Instructional text included after the session data"
+        },
+        "response_schema": {
+          "type": "object",
+          "description": "JSON Schema defining the structured output format. Recommended for programmatic use of summary data.",
+          "additionalProperties": true
+        },
+        "slice": {
+          "type": "object",
+          "description": "Configuration to trim session data sent to the AI",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "description": "Which events to include: FIRST (earliest), LAST (latest), or TIMESTAMP (specific range)",
+              "enum": ["FIRST", "LAST", "TIMESTAMP"]
+            }
+          }
+        }
+      }
+    }
+  }
+}
