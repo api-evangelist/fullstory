@@ -1,5 +1,6 @@
 aid: fullstory
-url: https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
 modified: '2026-03-20'
 apis:
   - aid: fullstory:server-api
@@ -10,7 +11,8 @@ apis:
       - Users
       - Events
       - Session Replay
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
     humanURL: https://developer.fullstory.com/server/getting-started/
     properties:
@@ -33,23 +35,23 @@ apis:
       - Data Export
       - Segments
       - Digital Experience
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
-    humanURL: https://developer.fullstory.com/server/v1/segments/create-segment-export/
+    humanURL: 
+      https://developer.fullstory.com/server/v1/segments/create-segment-export/
     properties:
-      - url: https://developer.fullstory.com/server/v1/segments/create-segment-export/
+      - url: 
+          https://developer.fullstory.com/server/v1/segments/create-segment-export/
         type: Documentation
       - url: openapi/fullstory-segments-export-api-openapi.yml
         type: OpenAPI
     description: >-
-      The FullStory Segments Export API provides an asynchronous workflow for
-      downloading captured event data from FullStory. Developers can initiate
-      export jobs to aggregate segment data, query for the status of running
-      jobs, and retrieve download URLs for completed exports. Two types of
-      segment data are available for export: individuals matching a segment
-      and events performed by those individuals. This API is useful for
-      integrating FullStory behavioral data into external analytics pipelines
-      and data warehouses.
+      The FullStory Segments Export API provides an asynchronous workflow for downloading
+      captured event data from FullStory. Developers can initiate export jobs to aggregate
+      segment data, query for the status of running jobs, and retrieve download URLs
+      for completed exports. Two types of segment data are available for export: individuals
+      matching a segment and events performed by those individuals.
   - aid: fullstory:sessions-api
     name: FullStory Sessions API
     tags:
@@ -57,7 +59,8 @@ apis:
       - Session Replay
       - Analytics
       - Digital Experience
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
     humanURL: https://developer.fullstory.com/server/getting-started/
     properties:
@@ -79,11 +82,14 @@ apis:
       - Events
       - Notifications
       - Segments
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
-    humanURL: https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
+    humanURL: 
+      https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
     properties:
-      - url: https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
+      - url: 
+          https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
         type: Documentation
       - url: openapi/fullstory-webhooks-api-openapi.yml
         type: OpenAPI
@@ -105,21 +111,19 @@ apis:
       - Data Capture
       - Session Replay
       - Custom Events
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.fullstory.com/
     properties:
       - url: https://developer.fullstory.com/
         type: Documentation
     description: >-
-      The FullStory Browser SDK is a JavaScript library that enables developers
-      to manage FullStory data capture on websites, retrieve deep links to
-      session replays, and send custom events. It provides functions for
-      identifying users, setting user properties, tracking custom events with
-      the FS.event API, and generating session replay URLs for integration with
-      other platforms. The SDK supports privacy controls, consent management,
-      and selective data capture to help developers comply with data protection
-      requirements.
+      The FullStory Browser SDK is a JavaScript library that enables developers to
+      manage FullStory data capture on websites, retrieve deep links to session replays,
+      and send custom events. It provides functions for identifying users, setting
+      user properties, tracking custom events with the FS.event API, and generating
+      session replay URLs for integration with other platforms.
 common:
   - type: JSON-LD
     url: json-ld/fullstory-context.jsonld
@@ -133,3 +137,5 @@ common:
     url: json-schema/fullstory-session-schema.json
   - type: JSONSchema
     url: json-schema/fullstory-webhook-endpoint-schema.json
+description: >-
+  Once you've created an API Key, you're ready to start sending data to Fullstory.
