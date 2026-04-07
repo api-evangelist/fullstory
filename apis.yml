@@ -1,6 +1,5 @@
 aid: fullstory
-url: 
-  https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
 modified: '2026-03-20'
 apis:
   - aid: fullstory:server-api
@@ -8,11 +7,10 @@ apis:
     tags:
       - Analytics
       - Digital Experience
-      - Users
       - Events
       - Session Replay
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Users
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
     humanURL: https://developer.fullstory.com/server/getting-started/
     properties:
@@ -33,16 +31,13 @@ apis:
     tags:
       - Analytics
       - Data Export
-      - Segments
       - Digital Experience
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Segments
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
-    humanURL: 
-      https://developer.fullstory.com/server/v1/segments/create-segment-export/
+    humanURL: https://developer.fullstory.com/server/v1/segments/create-segment-export/
     properties:
-      - url: 
-          https://developer.fullstory.com/server/v1/segments/create-segment-export/
+      - url: https://developer.fullstory.com/server/v1/segments/create-segment-export/
         type: Documentation
       - url: openapi/fullstory-segments-export-api-openapi.yml
         type: OpenAPI
@@ -55,12 +50,11 @@ apis:
   - aid: fullstory:sessions-api
     name: FullStory Sessions API
     tags:
-      - Sessions
-      - Session Replay
       - Analytics
       - Digital Experience
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Session Replay
+      - Sessions
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
     humanURL: https://developer.fullstory.com/server/getting-started/
     properties:
@@ -78,18 +72,15 @@ apis:
   - aid: fullstory:webhooks-api
     name: FullStory Webhooks API
     tags:
-      - Webhooks
       - Events
       - Notifications
       - Segments
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Webhooks
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.fullstory.com
-    humanURL: 
-      https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
+    humanURL: https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
     properties:
-      - url: 
-          https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
+      - url: https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
         type: Documentation
       - url: openapi/fullstory-webhooks-api-openapi.yml
         type: OpenAPI
@@ -106,13 +97,12 @@ apis:
   - aid: fullstory:browser-sdk
     name: FullStory Browser SDK
     tags:
-      - JavaScript
       - Browser
-      - Data Capture
-      - Session Replay
       - Custom Events
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Data Capture
+      - JavaScript
+      - Session Replay
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.fullstory.com/
     properties:

@@ -20,11 +20,6 @@ servers:
   - url: https://api.fullstory.com
     description: FullStory Production API Server
 tags:
-  - name: Sessions
-    description: >-
-      Retrieve session replay URLs for users and access recorded session
-      data. Sessions are scoped to a single FullStory account and replay
-      URLs require authenticated FullStory access.
   - name: Session Events
     description: >-
       Retrieve the full set of captured events for a specific session,
@@ -34,6 +29,11 @@ tags:
       Generate AI-powered summaries of sessions using configurable prompt
       profiles. Summaries can be customized with pre and post prompts,
       response schemas, and session slicing options.
+  - name: Sessions
+    description: >-
+      Retrieve session replay URLs for users and access recorded session
+      data. Sessions are scoped to a single FullStory account and replay
+      URLs require authenticated FullStory access.
 security:
   - basicAuth: []
 paths:

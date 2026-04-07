@@ -21,20 +21,20 @@ servers:
   - url: https://api.fullstory.com
     description: FullStory Production API Server
 tags:
-  - name: Users
+  - name: Batch Import
     description: >-
-      Create, retrieve, update, and delete users in FullStory. Users can be
-      anonymous or identified with a uid. Custom properties can be attached
-      to enrich user profiles.
+      Import large volumes of users and events asynchronously using batch
+      import jobs that support up to 50,000 records per request.
   - name: Events
     description: >-
       Send custom server-side events to FullStory. Events can be associated
       with sessions and users, and include custom properties for behavioral
       analysis.
-  - name: Batch Import
+  - name: Users
     description: >-
-      Import large volumes of users and events asynchronously using batch
-      import jobs that support up to 50,000 records per request.
+      Create, retrieve, update, and delete users in FullStory. Users can be
+      anonymous or identified with a uid. Custom properties can be attached
+      to enrich user profiles.
 security:
   - basicAuth: []
 paths:

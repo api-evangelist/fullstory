@@ -22,9 +22,6 @@ servers:
   - url: https://api.fullstory.com
     description: FullStory Production API Server
 tags:
-  - name: Segments
-    description: >-
-      Retrieve segment metadata including name, creator, and creation time.
   - name: Exports
     description: >-
       Create and manage asynchronous export jobs for segment data, including
@@ -33,6 +30,9 @@ tags:
     description: >-
       Query the status of long-running asynchronous operations such as
       segment exports, and retrieve results when complete.
+  - name: Segments
+    description: >-
+      Retrieve segment metadata including name, creator, and creation time.
 security:
   - basicAuth: []
 paths:
