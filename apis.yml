@@ -1,6 +1,26 @@
 aid: fullstory
+name: FullStory
+description: >-
+  FullStory is a digital experience intelligence platform that captures and
+  analyzes user interactions across websites and mobile apps. The FullStory
+  developer platform exposes server-side REST APIs for sending user and event
+  data, exporting behavioral segments, retrieving session replay URLs, and
+  managing webhook destinations, plus a Browser SDK for client-side data
+  capture and custom events.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2026-03-20'
+modified: '2026-04-28'
+position: Consumer
 url: https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
-modified: '2026-03-20'
+specificationVersion: '0.19'
+tags:
+  - Analytics
+  - Digital Experience
+  - Session Replay
+  - Webhooks
+  - Data Export
 apis:
   - aid: fullstory:server-api
     name: FullStory Server API
@@ -103,11 +123,12 @@ apis:
       - JavaScript
       - Session Replay
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    baseURL: https://api.example.com
-    humanURL: https://developer.fullstory.com/
+    humanURL: https://developer.fullstory.com/browser/getting-started/
     properties:
-      - url: https://developer.fullstory.com/
+      - url: https://developer.fullstory.com/browser/getting-started/
         type: Documentation
+      - url: https://www.npmjs.com/package/@fullstory/browser
+        type: Distribution
     description: >-
       The FullStory Browser SDK is a JavaScript library that enables developers to
       manage FullStory data capture on websites, retrieve deep links to session replays,
@@ -115,7 +136,23 @@ apis:
       user properties, tracking custom events with the FS.event API, and generating
       session replay URLs for integration with other platforms.
 common:
-  - type: JSON-LD
+  - type: Website
+    url: https://www.fullstory.com/
+  - type: Portal
+    url: https://developer.fullstory.com/
+  - type: Documentation
+    url: https://developer.fullstory.com/server/getting-started/
+  - type: Login
+    url: https://app.fullstory.com/login
+  - type: Support
+    url: https://help.fullstory.com/
+  - type: Blog
+    url: https://www.fullstory.com/blog/
+  - type: PrivacyPolicy
+    url: https://www.fullstory.com/legal/privacy-policy/
+  - type: TermsOfService
+    url: https://www.fullstory.com/legal/terms-and-conditions/
+  - type: JSONLD
     url: json-ld/fullstory-context.jsonld
   - type: JSONSchema
     url: json-schema/fullstory-user-schema.json
@@ -127,5 +164,6 @@ common:
     url: json-schema/fullstory-session-schema.json
   - type: JSONSchema
     url: json-schema/fullstory-webhook-endpoint-schema.json
-description: >-
-  Once you've created an API Key, you're ready to start sending data to Fullstory.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
