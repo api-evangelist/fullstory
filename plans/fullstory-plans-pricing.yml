@@ -1,0 +1,76 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Fullstory
+providerId: fullstory
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Product Analytics
+  - Session Replay
+  - Digital Experience
+description: Fullstory pricing is custom-quoted across Business / Advanced / Enterprise tiers.
+sources:
+  - https://www.fullstory.com/pricing/
+plans:
+  - id: fullstory-business
+    name: Business
+    type: enterprise
+    description: Custom pricing. Most popular plan.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Deep product analytics
+      - name: Qualitative insights
+      - name: Session replay
+      - name: Heatmaps + funnels
+  - id: fullstory-advanced
+    name: Advanced
+    type: enterprise
+    description: Custom pricing.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Discover trends
+      - name: Plan roadmaps
+      - name: Improve funnels at scale
+      - name: More integrations + retention
+  - id: fullstory-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom pricing for data science teams.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Predictive models
+      - name: GenAI + LLM support
+      - name: Custom retention
+      - name: Advanced security and compliance

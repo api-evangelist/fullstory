@@ -1,0 +1,30 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Fullstory
+providerId: fullstory
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Analytics
+description: Fullstory API rate limits per token.
+sources:
+  - https://www.fullstory.com/pricing/
+  - https://developer.fullstory.com/server/v2/getting-started/rate-limits/
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: Server API v2 (default)
+    scope: org
+    metric: requests_per_minute
+    limit: 600
+    timeFrame: minute
+  - name: Bulk events
+    scope: request
+    metric: events
+    limit: 5000
+    timeFrame: request
