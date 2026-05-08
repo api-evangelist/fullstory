@@ -1,30 +1,35 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: Fullstory
+provider: FullStory
 providerId: fullstory
-created: '2026-05-04'
-modified: '2026-05-04'
-reconciled: true
+created: '2026-05-08'
+modified: '2026-05-08'
+reconciled: false
 tags:
-  - Rate Limiting
-  - Analytics
-description: Fullstory API rate limits per token.
+- Analytics
+- Session Replay
+- Frontend
+- Behavioral
+- Monitoring
+- Rate Limiting
+- Quotas
+- Throttling
+description: Placeholder rate-limit artifact for FullStory. Replace with real limits once researched.
+notes: Initial scaffold — limits have not yet been reconciled.
 sources:
-  - https://www.fullstory.com/pricing/
-  - https://developer.fullstory.com/server/v2/getting-started/rate-limits/
-headers:
-  retryAfter: Retry-After
+- https://www.fullstory.com/
 responseCodes:
   throttled: 429
 limits:
-  - name: Server API v2 (default)
-    scope: org
-    metric: requests_per_minute
-    limit: 600
-    timeFrame: minute
-  - name: Bulk events
-    scope: request
-    metric: events
-    limit: 5000
-    timeFrame: request
+- name: Default
+  scope: account
+  metric: varies
+  limit: see provider documentation
+  notes: Pending reconciliation.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,76 +1,41 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Fullstory
+provider: FullStory
 providerId: fullstory
-created: '2026-05-04'
-modified: '2026-05-04'
-reconciled: true
+created: '2026-05-08'
+modified: '2026-05-08'
+reconciled: false
 tags:
-  - Product Analytics
-  - Session Replay
-  - Digital Experience
-description: Fullstory pricing is custom-quoted across Business / Advanced / Enterprise tiers.
+- Analytics
+- Session Replay
+- Frontend
+- Behavioral
+- Monitoring
+- Plans
+description: Placeholder plans/pricing artifact for FullStory. Replace with real published pricing once
+  the pipeline researches the provider's plans page.
+notes: Initial scaffold — plans/pricing have not yet been reconciled against the provider's documentation.
 sources:
-  - https://www.fullstory.com/pricing/
+- https://www.fullstory.com/
 plans:
-  - id: fullstory-business
-    name: Business
-    type: enterprise
-    description: Custom pricing. Most popular plan.
-    entries:
-      - label: Annual (custom)
-        name: annual
-        type: subscription
-        metric: year
-        limit: -1
-        timeFrame: year
-        geo: global
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Deep product analytics
-      - name: Qualitative insights
-      - name: Session replay
-      - name: Heatmaps + funnels
-  - id: fullstory-advanced
-    name: Advanced
-    type: enterprise
-    description: Custom pricing.
-    entries:
-      - label: Annual (custom)
-        name: annual
-        type: subscription
-        metric: year
-        limit: -1
-        timeFrame: year
-        geo: global
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Discover trends
-      - name: Plan roadmaps
-      - name: Improve funnels at scale
-      - name: More integrations + retention
-  - id: fullstory-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom pricing for data science teams.
-    entries:
-      - label: Annual (custom)
-        name: annual
-        type: subscription
-        metric: year
-        limit: -1
-        timeFrame: year
-        geo: global
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Predictive models
-      - name: GenAI + LLM support
-      - name: Custom retention
-      - name: Advanced security and compliance
+- id: fullstory-default
+  name: To Be Reconciled
+  type: enterprise
+  description: Initial scaffold; replace with provider plan tiers once pricing is reconciled.
+  entries:
+  - label: API Access
+    name: api_access
+    type: flat
+    metric: varies
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: see https://www.fullstory.com/
+    userMultiplied: false
+  elements:
+  - name: Pending Reconciliation
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
