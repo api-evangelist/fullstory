@@ -91,6 +91,16 @@ common:
     url: rate-limits/fullstory-rate-limits.yml
   - type: FinOps
     url: finops/fullstory-finops.yml
+  - type: Integrations
+    url: https://www.fullstory.com/platform/integrations/
+integrations:
+  - name: Experience the Benchmark Report
+  - name: Integrations hero image
+  - name: fs-technology-integrations-new
+  - name: Woman reading on her phone
+  - name: Integrate Your Tech Stack
+  - name: Export Fullstory data
+  - name: Trusted analytics
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
