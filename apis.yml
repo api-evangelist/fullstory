@@ -1,7 +1,7 @@
 aid: fullstory
 url: https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
 name: FullStory
-x-type: company
+kind: company
 description: >-
   FullStory is a behavioral data platform delivering session replay, product analytics, and digital experience intelligence across web and mobile.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
