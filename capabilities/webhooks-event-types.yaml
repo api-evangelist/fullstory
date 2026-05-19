@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: FullStory Webhooks API — Event Types
+  description: 'FullStory Webhooks API — Event Types. 1 operations. Lead operation: List available webhook event types. Self-contained
+    Naftiko capability covering one Fullstory business surface.'
+  tags:
+  - Fullstory
+  - Event Types
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FULLSTORY_API_KEY: FULLSTORY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: webhooks-event-types
+    baseUri: https://api.fullstory.com
+    description: FullStory Webhooks API — Event Types business capability. Self-contained, no shared references.
+    resources:
+    - name: webhooks-v1-event_types
+      path: /webhooks/v1/event_types
+      operations:
+      - name: listeventtypes
+        method: GET
+        description: List available webhook event types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.FULLSTORY_USER}}'
+      password: '{{env.FULLSTORY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: webhooks-event-types-rest
+    port: 8080
+    description: REST adapter for FullStory Webhooks API — Event Types. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/webhooks/v1/event-types
+      name: webhooks-v1-event-types
+      description: REST surface for webhooks-v1-event_types.
+      operations:
+      - method: GET
+        name: listeventtypes
+        description: List available webhook event types
+        call: webhooks-event-types.listeventtypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: webhooks-event-types-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for FullStory Webhooks API — Event Types. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-available-webhook-event-types
+      description: List available webhook event types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: webhooks-event-types.listeventtypes
+      outputParameters:
+      - type: object
+        mapping: $.

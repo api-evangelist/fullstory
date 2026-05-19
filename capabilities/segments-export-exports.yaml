@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: FullStory Segments Export API — Exports
+  description: 'FullStory Segments Export API — Exports. 1 operations. Lead operation: Create a segment export. Self-contained
+    Naftiko capability covering one Fullstory business surface.'
+  tags:
+  - Fullstory
+  - Exports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FULLSTORY_API_KEY: FULLSTORY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: segments-export-exports
+    baseUri: https://api.fullstory.com
+    description: FullStory Segments Export API — Exports business capability. Self-contained, no shared references.
+    resources:
+    - name: segments-v1-exports
+      path: /segments/v1/exports
+      operations:
+      - name: createsegmentexport
+        method: POST
+        description: Create a segment export
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.FULLSTORY_USER}}'
+      password: '{{env.FULLSTORY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: segments-export-exports-rest
+    port: 8080
+    description: REST adapter for FullStory Segments Export API — Exports. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/segments/v1/exports
+      name: segments-v1-exports
+      description: REST surface for segments-v1-exports.
+      operations:
+      - method: POST
+        name: createsegmentexport
+        description: Create a segment export
+        call: segments-export-exports.createsegmentexport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: segments-export-exports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for FullStory Segments Export API — Exports. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-segment-export
+      description: Create a segment export
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: segments-export-exports.createsegmentexport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

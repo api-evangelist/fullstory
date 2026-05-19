@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: FullStory Sessions API — Sessions
+  description: 'FullStory Sessions API — Sessions. 1 operations. Lead operation: List sessions for a user. Self-contained
+    Naftiko capability covering one Fullstory business surface.'
+  tags:
+  - Fullstory
+  - Sessions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FULLSTORY_API_KEY: FULLSTORY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sessions-sessions
+    baseUri: https://api.fullstory.com
+    description: FullStory Sessions API — Sessions business capability. Self-contained, no shared references.
+    resources:
+    - name: sessions-v2
+      path: /sessions/v2
+      operations:
+      - name: listsessions
+        method: GET
+        description: List sessions for a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.FULLSTORY_USER}}'
+      password: '{{env.FULLSTORY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: sessions-sessions-rest
+    port: 8080
+    description: REST adapter for FullStory Sessions API — Sessions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/sessions/v2
+      name: sessions-v2
+      description: REST surface for sessions-v2.
+      operations:
+      - method: GET
+        name: listsessions
+        description: List sessions for a user
+        call: sessions-sessions.listsessions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sessions-sessions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for FullStory Sessions API — Sessions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-sessions-user
+      description: List sessions for a user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sessions-sessions.listsessions
+      outputParameters:
+      - type: object
+        mapping: $.

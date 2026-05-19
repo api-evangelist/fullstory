@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: FullStory Segments Export API — Operations
+  description: 'FullStory Segments Export API — Operations. 1 operations. Lead operation: Get operation status. Self-contained
+    Naftiko capability covering one Fullstory business surface.'
+  tags:
+  - Fullstory
+  - Operations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FULLSTORY_API_KEY: FULLSTORY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: segments-export-operations
+    baseUri: https://api.fullstory.com
+    description: FullStory Segments Export API — Operations business capability. Self-contained, no shared references.
+    resources:
+    - name: operations-v1-operationId
+      path: /operations/v1/{operationId}
+      operations:
+      - name: getoperationstatus
+        method: GET
+        description: Get operation status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.FULLSTORY_USER}}'
+      password: '{{env.FULLSTORY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: segments-export-operations-rest
+    port: 8080
+    description: REST adapter for FullStory Segments Export API — Operations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/operations/v1/{operationid}
+      name: operations-v1-operationid
+      description: REST surface for operations-v1-operationId.
+      operations:
+      - method: GET
+        name: getoperationstatus
+        description: Get operation status
+        call: segments-export-operations.getoperationstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: segments-export-operations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for FullStory Segments Export API — Operations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-operation-status
+      description: Get operation status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: segments-export-operations.getoperationstatus
+      outputParameters:
+      - type: object
+        mapping: $.

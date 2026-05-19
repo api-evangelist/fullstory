@@ -1,0 +1,123 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: FullStory Server API — Batch Import
+  description: 'FullStory Server API — Batch Import. 2 operations. Lead operation: Create a batch events import job. Self-contained
+    Naftiko capability covering one Fullstory business surface.'
+  tags:
+  - Fullstory
+  - Batch Import
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FULLSTORY_API_KEY: FULLSTORY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: server-batch-import
+    baseUri: https://api.fullstory.com
+    description: FullStory Server API — Batch Import business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-events-batch
+      path: /v2/events/batch
+      operations:
+      - name: createbatcheventsimport
+        method: POST
+        description: Create a batch events import job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-users-batch
+      path: /v2/users/batch
+      operations:
+      - name: createbatchuserimport
+        method: POST
+        description: Create a batch user import job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.FULLSTORY_USER}}'
+      password: '{{env.FULLSTORY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: server-batch-import-rest
+    port: 8080
+    description: REST adapter for FullStory Server API — Batch Import. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/events/batch
+      name: v2-events-batch
+      description: REST surface for v2-events-batch.
+      operations:
+      - method: POST
+        name: createbatcheventsimport
+        description: Create a batch events import job
+        call: server-batch-import.createbatcheventsimport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/users/batch
+      name: v2-users-batch
+      description: REST surface for v2-users-batch.
+      operations:
+      - method: POST
+        name: createbatchuserimport
+        description: Create a batch user import job
+        call: server-batch-import.createbatchuserimport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: server-batch-import-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for FullStory Server API — Batch Import. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-batch-events-import-job
+      description: Create a batch events import job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: server-batch-import.createbatcheventsimport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-batch-user-import-job
+      description: Create a batch user import job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: server-batch-import.createbatchuserimport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

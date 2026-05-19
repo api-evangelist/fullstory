@@ -1,0 +1,103 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: FullStory Segments Export API — Segments
+  description: 'FullStory Segments Export API — Segments. 2 operations. Lead operation: List segments. Self-contained Naftiko
+    capability covering one Fullstory business surface.'
+  tags:
+  - Fullstory
+  - Segments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FULLSTORY_API_KEY: FULLSTORY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: segments-export-segments
+    baseUri: https://api.fullstory.com
+    description: FullStory Segments Export API — Segments business capability. Self-contained, no shared references.
+    resources:
+    - name: segments-v1
+      path: /segments/v1
+      operations:
+      - name: listsegments
+        method: GET
+        description: List segments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: segments-v1-segmentId
+      path: /segments/v1/{segmentId}
+      operations:
+      - name: getsegment
+        method: GET
+        description: Get a segment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.FULLSTORY_USER}}'
+      password: '{{env.FULLSTORY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: segments-export-segments-rest
+    port: 8080
+    description: REST adapter for FullStory Segments Export API — Segments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/segments/v1
+      name: segments-v1
+      description: REST surface for segments-v1.
+      operations:
+      - method: GET
+        name: listsegments
+        description: List segments
+        call: segments-export-segments.listsegments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/segments/v1/{segmentid}
+      name: segments-v1-segmentid
+      description: REST surface for segments-v1-segmentId.
+      operations:
+      - method: GET
+        name: getsegment
+        description: Get a segment
+        call: segments-export-segments.getsegment
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: segments-export-segments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for FullStory Segments Export API — Segments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-segments
+      description: List segments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: segments-export-segments.listsegments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-segment
+      description: Get a segment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: segments-export-segments.getsegment
+      outputParameters:
+      - type: object
+        mapping: $.
