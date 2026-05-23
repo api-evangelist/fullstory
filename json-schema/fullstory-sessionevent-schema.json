@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SessionEvent",
+  "title": "SessionEvent",
+  "type": "object",
+  "description": "An individual event captured during a session",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of event captured"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the event occurred"
+    },
+    "data": {
+      "type": "object",
+      "description": "Event-specific data and properties",
+      "additionalProperties": true
+    }
+  }
+}

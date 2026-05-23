@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EventTypeList",
+  "title": "EventTypeList",
+  "type": "object",
+  "description": "List of available webhook event types",
+  "properties": {
+    "eventTypes": {
+      "type": "array",
+      "description": "Array of available event types",
+      "items": {
+        "$ref": "#/components/schemas/EventType"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateEventRequest",
+  "title": "CreateEventRequest",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "description": "Request body for creating a custom event in FullStory",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the custom event"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp for when the event occurred"
+    },
+    "session": {
+      "type": "object",
+      "description": "Session association for the event",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The session identifier to associate the event with"
+        },
+        "use_most_recent": {
+          "type": "boolean",
+          "description": "If true, the most recent session within 30 minutes will be used. If no recent session is found, the event is created without a session association."
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "description": "User association for the event. Not accepted if session.id is provided since the session already identifies the user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The FullStory-assigned user ID"
+        },
+        "uid": {
+          "type": "string",
+          "description": "The external user identifier"
+        }
+      }
+    },
+    "properties": {
+      "type": "object",
+      "description": "Custom key-value properties for the event. Supports string, real, integer, boolean, array, and object types.",
+      "additionalProperties": true
+    },
+    "schema": {
+      "type": "object",
+      "description": "Optional explicit type declarations for custom event properties",
+      "additionalProperties": true
+    }
+  }
+}

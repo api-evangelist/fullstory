@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateExportRequest",
+  "title": "CreateExportRequest",
+  "type": "object",
+  "required": [
+    "segmentId",
+    "type"
+  ],
+  "description": "Request body for creating a segment export job",
+  "properties": {
+    "segmentId": {
+      "type": "string",
+      "description": "The ID of the segment to export"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of data to export. Use individuals for user data or events for behavioral event data.",
+      "enum": [
+        "individuals",
+        "events"
+      ]
+    },
+    "format": {
+      "type": "string",
+      "description": "The output format for the export",
+      "enum": [
+        "json",
+        "csv"
+      ]
+    },
+    "timeRange": {
+      "type": "object",
+      "description": "Optional time range to filter the exported data",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of the time range in RFC 3339 format"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of the time range in RFC 3339 format"
+        }
+      }
+    },
+    "segmentTimeRange": {
+      "type": "object",
+      "description": "Optional time range for segment membership evaluation",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of the segment evaluation time range"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of the segment evaluation time range"
+        }
+      }
+    }
+  }
+}

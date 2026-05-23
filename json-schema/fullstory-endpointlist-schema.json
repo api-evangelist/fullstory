@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EndpointList",
+  "title": "EndpointList",
+  "type": "object",
+  "description": "List of webhook endpoints",
+  "properties": {
+    "endpoints": {
+      "type": "array",
+      "description": "Array of configured webhook endpoints",
+      "items": {
+        "$ref": "#/components/schemas/Endpoint"
+      }
+    }
+  }
+}

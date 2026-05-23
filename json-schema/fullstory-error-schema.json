@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "description": "Standard error response from the FullStory API",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "description": "HTTP status code"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatchEventsImportRequest",
+  "title": "BatchEventsImportRequest",
+  "type": "object",
+  "required": [
+    "requests"
+  ],
+  "description": "Request body for batch importing events into FullStory",
+  "properties": {
+    "requests": {
+      "type": "array",
+      "description": "Array of event objects to import",
+      "items": {
+        "$ref": "#/components/schemas/CreateEventRequest"
+      }
+    }
+  }
+}

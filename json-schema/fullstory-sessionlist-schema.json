@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SessionList",
+  "title": "SessionList",
+  "type": "object",
+  "description": "List of session replay URLs for a user",
+  "properties": {
+    "sessions": {
+      "type": "array",
+      "description": "Array of session objects with replay URLs",
+      "items": {
+        "$ref": "#/components/schemas/Session"
+      }
+    }
+  }
+}

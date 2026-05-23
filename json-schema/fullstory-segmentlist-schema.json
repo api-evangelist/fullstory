@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SegmentList",
+  "title": "SegmentList",
+  "type": "object",
+  "description": "Paginated list of segments",
+  "properties": {
+    "segments": {
+      "type": "array",
+      "description": "Array of segment objects",
+      "items": {
+        "$ref": "#/components/schemas/Segment"
+      }
+    },
+    "pagination_token": {
+      "type": "string",
+      "description": "Token to retrieve the next page of results. Absent when no more pages are available."
+    }
+  }
+}

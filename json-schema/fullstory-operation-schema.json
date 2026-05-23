@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Operation",
+  "title": "Operation",
+  "type": "object",
+  "description": "Represents an asynchronous operation such as a segment export",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the operation"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of operation"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current state of the operation",
+      "enum": [
+        "PENDING",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "errorDetails": {
+      "type": "string",
+      "description": "Error details if the operation failed"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the operation was created"
+    },
+    "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the operation finished. Null while running."
+    },
+    "estimatePctComplete": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Estimated percentage of completion for the operation"
+    },
+    "results": {
+      "type": "object",
+      "description": "Results of the operation when completed, including download URLs",
+      "properties": {
+        "downloadUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for downloading the exported data"
+        }
+      }
+    }
+  }
+}

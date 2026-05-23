@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SessionEvents",
+  "title": "SessionEvents",
+  "type": "object",
+  "description": "Full set of captured events for a session",
+  "properties": {
+    "events": {
+      "type": "array",
+      "description": "Array of events captured during the session",
+      "items": {
+        "$ref": "#/components/schemas/SessionEvent"
+      }
+    }
+  }
+}

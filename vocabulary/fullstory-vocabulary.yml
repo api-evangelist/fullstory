@@ -1,0 +1,14 @@
+name: FullStory Domain Vocabulary
+provider: FullStory
+providerId: fullstory
+description: Tag-derived vocabulary for the FullStory API surface; sourced from openapi/ tags.
+terms:
+- term: Batch Import
+  description: Import large volumes of users and events asynchronously using batch import jobs that support up to 50,000 records
+    per request.
+- term: Events
+  description: Send custom server-side events to FullStory. Events can be associated with sessions and users, and include
+    custom properties for behavioral analysis.
+- term: Users
+  description: Create, retrieve, update, and delete users in FullStory. Users can be anonymous or identified with a uid. Custom
+    properties can be attached to enrich user profiles.

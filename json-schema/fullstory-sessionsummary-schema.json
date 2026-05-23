@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SessionSummary",
+  "title": "SessionSummary",
+  "type": "object",
+  "description": "AI-generated summary of a session",
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "The session that was summarized"
+    },
+    "summary": {
+      "type": "string",
+      "description": "The generated summary text or structured response based on the configured response schema"
+    },
+    "configProfileId": {
+      "type": "string",
+      "description": "The summary prompt profile ID used"
+    }
+  }
+}

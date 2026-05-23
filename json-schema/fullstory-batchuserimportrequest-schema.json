@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatchUserImportRequest",
+  "title": "BatchUserImportRequest",
+  "type": "object",
+  "required": [
+    "requests"
+  ],
+  "description": "Request body for batch importing users into FullStory",
+  "properties": {
+    "requests": {
+      "type": "array",
+      "description": "Array of user objects to import, up to 50,000 per request",
+      "maxItems": 50000,
+      "items": {
+        "$ref": "#/components/schemas/CreateUserRequest"
+      }
+    }
+  }
+}

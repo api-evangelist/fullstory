@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EventType",
+  "title": "EventType",
+  "type": "object",
+  "description": "A webhook event type available in FullStory",
+  "properties": {
+    "eventName": {
+      "type": "string",
+      "description": "The name of the event type"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the event type"
+    },
+    "hasSubcategories": {
+      "type": "boolean",
+      "description": "Whether this event type requires a subcategory when configuring an endpoint"
+    }
+  }
+}

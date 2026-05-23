@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Endpoint",
+  "title": "Endpoint",
+  "type": "object",
+  "description": "A configured webhook endpoint in FullStory",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the webhook endpoint"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The destination URL receiving webhook events"
+    },
+    "events": {
+      "type": "array",
+      "description": "The event types configured for this endpoint",
+      "items": {
+        "$ref": "#/components/schemas/EventTypeConfig"
+      }
+    },
+    "signingSecret": {
+      "type": "string",
+      "description": "Secret used to sign webhook payloads for verification"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the endpoint is actively receiving events"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the endpoint was created"
+    }
+  }
+}

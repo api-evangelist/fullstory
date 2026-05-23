@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateEndpointRequest",
+  "title": "CreateEndpointRequest",
+  "type": "object",
+  "required": [
+    "url",
+    "events"
+  ],
+  "description": "Request body for creating a new webhook endpoint",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL that will receive webhook event notifications"
+    },
+    "events": {
+      "type": "array",
+      "description": "The types of events this endpoint should receive",
+      "items": {
+        "$ref": "#/components/schemas/EventTypeConfig"
+      }
+    }
+  }
+}

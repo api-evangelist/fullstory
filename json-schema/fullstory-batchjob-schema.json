@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatchJob",
+  "title": "BatchJob",
+  "type": "object",
+  "description": "Represents an asynchronous batch import job",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the batch import job"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the batch import job",
+      "enum": [
+        "PENDING",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the batch import job was accepted"
+    }
+  }
+}

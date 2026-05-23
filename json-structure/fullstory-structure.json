@@ -1,0 +1,114 @@
+{
+  "provider": "FullStory",
+  "providerId": "fullstory",
+  "kind": "json-structure",
+  "description": "Structural overview of the FullStory API surface; extracted from openapi/.",
+  "schemaCount": 7,
+  "operationCount": 6,
+  "schemas": [
+    {
+      "name": "CreateUserRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "CreateEventRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "BatchUserImportRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "requests"
+      ]
+    },
+    {
+      "name": "BatchEventsImportRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "requests"
+      ]
+    },
+    {
+      "name": "BatchJob",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/v2/users",
+      "operationId": "createUser",
+      "summary": "Create or update a user",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v2/users",
+      "operationId": "deleteUser",
+      "summary": "Delete a user",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/users/{id}",
+      "operationId": "getUser",
+      "summary": "Retrieve a user",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/users/batch",
+      "operationId": "createBatchUserImport",
+      "summary": "Create a batch user import job",
+      "tags": [
+        "Batch Import"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/events",
+      "operationId": "createEvent",
+      "summary": "Create a single event",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/events/batch",
+      "operationId": "createBatchEventsImport",
+      "summary": "Create a batch events import job",
+      "tags": [
+        "Batch Import"
+      ]
+    }
+  ]
+}

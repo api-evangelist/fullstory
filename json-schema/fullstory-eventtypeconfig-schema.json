@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EventTypeConfig",
+  "title": "EventTypeConfig",
+  "type": "object",
+  "required": [
+    "eventName"
+  ],
+  "description": "Configuration for a specific event type on a webhook endpoint",
+  "properties": {
+    "eventName": {
+      "type": "string",
+      "description": "The name of the event type",
+      "enum": [
+        "segment.created",
+        "segment.trend.alert",
+        "recording.event.custom",
+        "note.created"
+      ]
+    },
+    "subcategory": {
+      "type": "string",
+      "description": "Required subcategory for event types that require one, such as specifying which custom event to listen for"
+    }
+  }
+}
