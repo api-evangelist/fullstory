@@ -2,7 +2,8 @@ aid: fullstory
 url: https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
 name: FullStory
 kind: company
-description: FullStory is a behavioral data platform delivering session replay, product analytics, and digital experience
+description: >-
+  FullStory is a behavioral data platform delivering session replay, product analytics, and digital experience
   intelligence across web and mobile.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -17,28 +18,23 @@ specificationVersion: '0.19'
 apis:
   - aid: fullstory:fullstory-server-api
     name: FullStory Server API
-    description: FullStory Server API v2 ingests user identification, traits, custom events, and supports batch operations.
+    description: >-
+      FullStory Server API v2 ingests user identification, traits, custom events, and supports batch operations.
       Authentication uses an API key prefixed with the data center ID (e.g. na1.<token>).
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://developer.fullstory.com/server/v2/getting-started/
     baseURL: https://api.fullstory.com
     tags:
-    - Behavioral Analytics
-    - Session Replay
-    - REST
+      - Behavioral Analytics
+      - Session Replay
+      - REST
     properties:
-    - type: Documentation
-      url: https://developer.fullstory.com/server/v2/getting-started/
-    - type: Developers
-      url: https://developer.fullstory.com/
-    - type: OpenAPI
-      url: openapi/fullstory-server-api-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/server-batch-import.yaml
-    - type: NaftikoCapability
-      url: capabilities/server-events.yaml
-    - type: NaftikoCapability
-      url: capabilities/server-users.yaml
+      - type: Documentation
+        url: https://developer.fullstory.com/server/v2/getting-started/
+      - type: Developers
+        url: https://developer.fullstory.com/
+      - type: OpenAPI
+        url: openapi/fullstory-server-api-openapi.yml
   - aid: fullstory:fullstory-sessions-api
     name: FullStory Sessions API
     description: FullStory Sessions API for retrieving session metadata, replay URLs, and session-level details.
@@ -46,19 +42,13 @@ apis:
     humanURL: https://developer.fullstory.com/
     baseURL: https://api.fullstory.com
     tags:
-    - Session Replay
-    - REST
+      - Session Replay
+      - REST
     properties:
-    - type: Documentation
-      url: https://developer.fullstory.com/
-    - type: OpenAPI
-      url: openapi/fullstory-sessions-api-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/sessions-session-events.yaml
-    - type: NaftikoCapability
-      url: capabilities/sessions-session-summaries.yaml
-    - type: NaftikoCapability
-      url: capabilities/sessions-sessions.yaml
+      - type: Documentation
+        url: https://developer.fullstory.com/
+      - type: OpenAPI
+        url: openapi/fullstory-sessions-api-openapi.yml
   - aid: fullstory:fullstory-segments-export-api
     name: FullStory Segments Export API
     description: FullStory Segments Export API for exporting segment data and audience definitions for downstream analytics.
@@ -66,20 +56,14 @@ apis:
     humanURL: https://developer.fullstory.com/
     baseURL: https://api.fullstory.com
     tags:
-    - Analytics
-    - Export
-    - REST
+      - Analytics
+      - Export
+      - REST
     properties:
-    - type: Documentation
-      url: https://developer.fullstory.com/
-    - type: OpenAPI
-      url: openapi/fullstory-segments-export-api-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/segments-export-exports.yaml
-    - type: NaftikoCapability
-      url: capabilities/segments-export-operations.yaml
-    - type: NaftikoCapability
-      url: capabilities/segments-export-segments.yaml
+      - type: Documentation
+        url: https://developer.fullstory.com/
+      - type: OpenAPI
+        url: openapi/fullstory-segments-export-api-openapi.yml
   - aid: fullstory:fullstory-webhooks-api
     name: FullStory Webhooks API
     description: FullStory Webhooks API for subscribing to events from the FullStory platform and receiving push notifications.
@@ -87,18 +71,14 @@ apis:
     humanURL: https://developer.fullstory.com/
     baseURL: https://api.fullstory.com
     tags:
-    - Webhooks
-    - Events
-    - REST
+      - Webhooks
+      - Events
+      - REST
     properties:
-    - type: Documentation
-      url: https://developer.fullstory.com/
-    - type: OpenAPI
-      url: openapi/fullstory-webhooks-api-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/webhooks-endpoints.yaml
-    - type: NaftikoCapability
-      url: capabilities/webhooks-event-types.yaml
+      - type: Documentation
+        url: https://developer.fullstory.com/
+      - type: OpenAPI
+        url: openapi/fullstory-webhooks-api-openapi.yml
 common:
   - type: GitHubOrganization
     url: https://github.com/fullstorydev
