@@ -2,108 +2,112 @@ aid: fullstory
 url: https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml
 name: FullStory
 kind: company
-description: >-
-  FullStory is a behavioral data platform delivering session replay, product analytics, and digital experience
-  intelligence across web and mobile.
+description: FullStory is a behavioral data platform delivering session replay, product
+  analytics, and digital experience intelligence across web and mobile.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Session Replay
-  - Product Analytics
-  - Digital Experience
-  - Behavioral Analytics
-  - Frontend Monitoring
+- Session Replay
+- Product Analytics
+- Digital Experience
+- Behavioral Analytics
+- Frontend Monitoring
 created: '2026-05-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: fullstory:fullstory-server-api
-    name: FullStory Server API
-    description: >-
-      FullStory Server API v2 ingests user identification, traits, custom events, and supports batch operations.
-      Authentication uses an API key prefixed with the data center ID (e.g. na1.<token>).
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.fullstory.com/server/v2/getting-started/
-    baseURL: https://api.fullstory.com
-    tags:
-      - Behavioral Analytics
-      - Session Replay
-      - REST
-    properties:
-      - type: Documentation
-        url: https://developer.fullstory.com/server/v2/getting-started/
-      - type: Developers
-        url: https://developer.fullstory.com/
-      - type: OpenAPI
-        url: openapi/fullstory-server-api-openapi.yml
-  - aid: fullstory:fullstory-sessions-api
-    name: FullStory Sessions API
-    description: FullStory Sessions API for retrieving session metadata, replay URLs, and session-level details.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.fullstory.com/
-    baseURL: https://api.fullstory.com
-    tags:
-      - Session Replay
-      - REST
-    properties:
-      - type: Documentation
-        url: https://developer.fullstory.com/
-      - type: OpenAPI
-        url: openapi/fullstory-sessions-api-openapi.yml
-  - aid: fullstory:fullstory-segments-export-api
-    name: FullStory Segments Export API
-    description: FullStory Segments Export API for exporting segment data and audience definitions for downstream analytics.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.fullstory.com/
-    baseURL: https://api.fullstory.com
-    tags:
-      - Analytics
-      - Export
-      - REST
-    properties:
-      - type: Documentation
-        url: https://developer.fullstory.com/
-      - type: OpenAPI
-        url: openapi/fullstory-segments-export-api-openapi.yml
-  - aid: fullstory:fullstory-webhooks-api
-    name: FullStory Webhooks API
-    description: FullStory Webhooks API for subscribing to events from the FullStory platform and receiving push notifications.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.fullstory.com/
-    baseURL: https://api.fullstory.com
-    tags:
-      - Webhooks
-      - Events
-      - REST
-    properties:
-      - type: Documentation
-        url: https://developer.fullstory.com/
-      - type: OpenAPI
-        url: openapi/fullstory-webhooks-api-openapi.yml
-common:
-  - type: GitHubOrganization
-    url: https://github.com/fullstorydev
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/fullstory
-  - type: Website
-    url: https://www.fullstory.com/
+- aid: fullstory:fullstory-server-api
+  name: FullStory Server API
+  description: FullStory Server API v2 ingests user identification, traits, custom
+    events, and supports batch operations. Authentication uses an API key prefixed
+    with the data center ID (e.g. na1.<token>).
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Behavioral Analytics
+  - Session Replay
+  - REST
+  properties:
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: OpenAPI
+    url: openapi/fullstory-server-api-openapi.yml
+  - url: graphql/fullstory-graphql.md
+    type: GraphQL
+- aid: fullstory:fullstory-sessions-api
+  name: FullStory Sessions API
+  description: FullStory Sessions API for retrieving session metadata, replay URLs,
+    and session-level details.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.fullstory.com/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Session Replay
+  - REST
+  properties:
   - type: Documentation
     url: https://developer.fullstory.com/
-  - type: Plans
-    url: plans/fullstory-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/fullstory-rate-limits.yml
-  - type: FinOps
-    url: finops/fullstory-finops.yml
-  - type: Integrations
-    url: https://www.fullstory.com/platform/integrations/
+  - type: OpenAPI
+    url: openapi/fullstory-sessions-api-openapi.yml
+- aid: fullstory:fullstory-segments-export-api
+  name: FullStory Segments Export API
+  description: FullStory Segments Export API for exporting segment data and audience
+    definitions for downstream analytics.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.fullstory.com/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Analytics
+  - Export
+  - REST
+  properties:
+  - type: Documentation
+    url: https://developer.fullstory.com/
+  - type: OpenAPI
+    url: openapi/fullstory-segments-export-api-openapi.yml
+- aid: fullstory:fullstory-webhooks-api
+  name: FullStory Webhooks API
+  description: FullStory Webhooks API for subscribing to events from the FullStory
+    platform and receiving push notifications.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.fullstory.com/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Webhooks
+  - Events
+  - REST
+  properties:
+  - type: Documentation
+    url: https://developer.fullstory.com/
+  - type: OpenAPI
+    url: openapi/fullstory-webhooks-api-openapi.yml
+common:
+- type: GitHubOrganization
+  url: https://github.com/fullstorydev
+- type: LinkedIn
+  url: https://www.linkedin.com/company/fullstory
+- type: Website
+  url: https://www.fullstory.com/
+- type: Documentation
+  url: https://developer.fullstory.com/
+- type: Plans
+  url: plans/fullstory-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/fullstory-rate-limits.yml
+- type: FinOps
+  url: finops/fullstory-finops.yml
+- type: Integrations
+  url: https://www.fullstory.com/platform/integrations/
 integrations:
-  - name: Experience the Benchmark Report
-  - name: Integrations hero image
-  - name: fs-technology-integrations-new
-  - name: Woman reading on her phone
-  - name: Integrate Your Tech Stack
-  - name: Export Fullstory data
-  - name: Trusted analytics
+- name: Experience the Benchmark Report
+- name: Integrations hero image
+- name: fs-technology-integrations-new
+- name: Woman reading on her phone
+- name: Integrate Your Tech Stack
+- name: Export Fullstory data
+- name: Trusted analytics
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

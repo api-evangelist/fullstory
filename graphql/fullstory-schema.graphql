@@ -1,0 +1,767 @@
+"""
+FullStory GraphQL Schema
+Conceptual schema derived from the FullStory Data Export API, Server-Side API v2,
+Sessions API, Segments Export API, and Webhooks API.
+Reference: https://developer.fullstory.com/
+"""
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─────────────────────────────────────────────
+# Authentication / API Access
+# ─────────────────────────────────────────────
+
+"""An API key used to authenticate requests against the FullStory API."""
+type APIKey {
+  id: ID!
+  name: String!
+  prefix: String!
+  datacenter: DataCenter!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  scopes: [String!]!
+}
+
+"""A short-lived bearer token issued for API access."""
+type Token {
+  value: String!
+  expiresAt: DateTime!
+  scopes: [String!]!
+}
+
+"""FullStory data-center region for routing API calls."""
+enum DataCenter {
+  NA1
+  EU1
+}
+
+# ─────────────────────────────────────────────
+# Device / Environment
+# ─────────────────────────────────────────────
+
+"""Browser name and version detected during a session."""
+type Browser {
+  name: String!
+  version: String!
+  major: String
+}
+
+"""Operating system detected during a session."""
+type OperatingSystem {
+  name: String!
+  version: String!
+}
+
+"""Device information associated with a recorded session."""
+type DeviceInfo {
+  type: String
+  vendor: String
+  model: String
+  os: OperatingSystem!
+  browser: Browser!
+  screenWidth: Int
+  screenHeight: Int
+  devicePixelRatio: Float
+}
+
+"""The user-agent string captured at the start of a session."""
+type UserAgent {
+  raw: String!
+  device: DeviceInfo!
+}
+
+# ─────────────────────────────────────────────
+# Page / URL
+# ─────────────────────────────────────────────
+
+"""A parsed representation of a page URL visited during a session."""
+type PageURL {
+  href: URL!
+  protocol: String
+  host: String
+  pathname: String
+  search: String
+  hash: String
+}
+
+"""A page visit within a session."""
+type PageVisit {
+  id: ID!
+  url: PageURL!
+  title: String
+  referrer: URL
+  enteredAt: DateTime!
+  exitedAt: DateTime
+  durationMs: Int
+}
+
+# ─────────────────────────────────────────────
+# Events
+# ─────────────────────────────────────────────
+
+"""Enumeration of first-class event types tracked by FullStory."""
+enum EventType {
+  CLICK
+  SCROLL
+  INPUT
+  NAVIGATE
+  MOUSE_MOVE
+  RESIZE
+  VISIBILITY_CHANGE
+  CUSTOM
+  CONSOLE_ERROR
+  NETWORK_ERROR
+  CRASH
+  PAGE_LOAD
+}
+
+"""Base interface shared by all FullStory events."""
+interface Event {
+  id: ID!
+  type: EventType!
+  timestamp: DateTime!
+  sessionId: ID!
+  pageUrl: PageURL
+  properties: JSON
+}
+
+"""A user click captured during a session replay."""
+type ClickEvent implements Event {
+  id: ID!
+  type: EventType!
+  timestamp: DateTime!
+  sessionId: ID!
+  pageUrl: PageURL
+  properties: JSON
+  element: Element
+  x: Int!
+  y: Int!
+  targetText: String
+}
+
+"""A scroll interaction captured during a session."""
+type ScrollEvent implements Event {
+  id: ID!
+  type: EventType!
+  timestamp: DateTime!
+  sessionId: ID!
+  pageUrl: PageURL
+  properties: JSON
+  scrollTop: Int!
+  scrollLeft: Int!
+  scrollHeight: Int
+  clientHeight: Int
+}
+
+"""A form-field input event captured during a session."""
+type InputEvent implements Event {
+  id: ID!
+  type: EventType!
+  timestamp: DateTime!
+  sessionId: ID!
+  pageUrl: PageURL
+  properties: JSON
+  element: Element
+  masked: Boolean!
+}
+
+"""A page navigation event captured during a session."""
+type NavigateEvent implements Event {
+  id: ID!
+  type: EventType!
+  timestamp: DateTime!
+  sessionId: ID!
+  pageUrl: PageURL
+  properties: JSON
+  fromUrl: PageURL
+  toUrl: PageURL!
+  navigationType: String
+}
+
+"""A developer-defined custom event sent via the FullStory Server API."""
+type CustomEvent implements Event {
+  id: ID!
+  type: EventType!
+  timestamp: DateTime!
+  sessionId: ID!
+  pageUrl: PageURL
+  properties: JSON
+  name: String!
+  source: String
+}
+
+# ─────────────────────────────────────────────
+# Errors
+# ─────────────────────────────────────────────
+
+"""Base interface for all error events captured by FullStory."""
+interface Error {
+  id: ID!
+  message: String!
+  timestamp: DateTime!
+  sessionId: ID!
+}
+
+"""A JavaScript console.error entry captured during a session."""
+type ConsoleError implements Error {
+  id: ID!
+  message: String!
+  timestamp: DateTime!
+  sessionId: ID!
+  stack: String
+  arguments: [String!]
+}
+
+"""A failed network request captured during a session."""
+type NetworkError implements Error {
+  id: ID!
+  message: String!
+  timestamp: DateTime!
+  sessionId: ID!
+  url: URL!
+  method: String
+  statusCode: Int
+  durationMs: Int
+}
+
+"""An application crash event captured during a mobile or browser session."""
+type CrashEvent implements Error {
+  id: ID!
+  message: String!
+  timestamp: DateTime!
+  sessionId: ID!
+  exceptionType: String
+  exceptionValue: String
+  stack: [StackFrame!]
+  fatal: Boolean!
+}
+
+"""A single frame in a crash stack trace."""
+type StackFrame {
+  filename: String
+  lineno: Int
+  colno: Int
+  function: String
+  inApp: Boolean
+}
+
+# ─────────────────────────────────────────────
+# User Identity
+# ─────────────────────────────────────────────
+
+"""A unique identifier assigned to a FullStory user."""
+type UserIdentity {
+  uid: String!
+  anonymous: Boolean!
+  email: String
+  displayName: String
+}
+
+"""A custom key-value property attached to a user."""
+type UserAttributes {
+  key: String!
+  value: JSON
+  type: String
+}
+
+"""Custom properties schema registered for users in the FullStory org."""
+type CustomProperties {
+  name: String!
+  dataType: String!
+  description: String
+}
+
+"""A FullStory user (end-user of the customer's product)."""
+type User {
+  id: ID!
+  identity: UserIdentity!
+  attributes: [UserAttributes!]
+  sessions(limit: Int, offset: Int): [Session!]
+  segments: [Segment!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Sessions
+# ─────────────────────────────────────────────
+
+"""Opaque identifier for a single FullStory recording session."""
+type SessionID {
+  value: String!
+  orgId: String!
+}
+
+"""Processing or replay availability status of a session."""
+enum RecordingStatus {
+  PROCESSING
+  AVAILABLE
+  EXPIRED
+  EXCLUDED
+  ERROR
+}
+
+"""Top-level session object representing one recorded user visit."""
+type Session {
+  id: SessionID!
+  user: User
+  userAgent: UserAgent
+  device: DeviceInfo
+  startedAt: DateTime!
+  endedAt: DateTime
+  durationMs: Int
+  pageCount: Int
+  eventCount: Int
+  errorCount: Int
+  pages: [PageVisit!]
+  events(types: [EventType!], limit: Int, offset: Int): [Event!]
+  errors: [Error!]
+  replay: SessionReplay
+  recording: Recording
+  customProperties: JSON
+  tags: [String!]
+}
+
+"""Replay metadata and link for a specific session."""
+type SessionReplay {
+  sessionId: SessionID!
+  replayUrl: URL!
+  status: RecordingStatus!
+  availableUntil: DateTime
+  highlightsUrl: URL
+}
+
+# ─────────────────────────────────────────────
+# Recordings
+# ─────────────────────────────────────────────
+
+"""Raw recording artifact associated with a session."""
+type Recording {
+  id: ID!
+  sessionId: SessionID!
+  status: RecordingStatus!
+  sizeBytes: Int
+  startedAt: DateTime!
+  endedAt: DateTime
+  segments: [RecordingSegment!]
+}
+
+"""A time-bounded chunk of recording data within a session."""
+type RecordingSegment {
+  index: Int!
+  startMs: Int!
+  endMs: Int!
+  data: RecordingData
+}
+
+"""Binary or structured payload for a recording segment."""
+type RecordingData {
+  format: String!
+  url: URL
+  sizeBytes: Int
+}
+
+# ─────────────────────────────────────────────
+# DOM / Element
+# ─────────────────────────────────────────────
+
+"""A CSS class associated with a DOM element."""
+type ElementClass {
+  name: String!
+}
+
+"""A CSS selector targeting a specific element in the recorded DOM."""
+type ElementSelector {
+  css: String!
+  xpath: String
+}
+
+"""A CSS selector component."""
+type CSSSector {
+  tag: String
+  id: String
+  classes: [ElementClass!]
+  attributes: [String!]
+}
+
+"""A DOM element referenced during click, input, or heatmap analysis."""
+type Element {
+  selector: ElementSelector!
+  sectors: [CSSSector!]
+  tag: String!
+  id: String
+  classes: [ElementClass!]
+  text: String
+  ariaLabel: String
+  role: String
+}
+
+# ─────────────────────────────────────────────
+# Segments
+# ─────────────────────────────────────────────
+
+"""Logical operator applied to a condition group."""
+enum LogicalOperator {
+  AND
+  OR
+}
+
+"""A comparison operator used in segment filter conditions."""
+enum ComparisonOperator {
+  EQUALS
+  NOT_EQUALS
+  CONTAINS
+  NOT_CONTAINS
+  STARTS_WITH
+  ENDS_WITH
+  GREATER_THAN
+  LESS_THAN
+  IS_NULL
+  IS_NOT_NULL
+}
+
+"""A single filter condition within a segment rule."""
+type Condition {
+  field: String!
+  operator: ComparisonOperator!
+  value: JSON
+}
+
+"""A group of conditions combined with a logical operator."""
+type ConditionGroup {
+  operator: LogicalOperator!
+  conditions: [Condition!]!
+  groups: [ConditionGroup!]
+}
+
+"""A field type available for user-based segment filtering."""
+type UserField {
+  name: String!
+  dataType: String!
+  description: String
+}
+
+"""A field type available for event-based segment filtering."""
+type EventField {
+  name: String!
+  eventType: EventType!
+  dataType: String!
+}
+
+"""A field type available for page-based segment filtering."""
+type PageField {
+  name: String!
+  dataType: String!
+}
+
+"""The definition tree for a FullStory segment."""
+type SegmentDefinition {
+  operator: LogicalOperator!
+  rules: [SegmentRule!]!
+}
+
+"""A top-level rule within a segment definition."""
+type SegmentRule {
+  id: ID!
+  conditionGroup: ConditionGroup!
+  weight: Float
+}
+
+"""A FullStory audience segment grouping users by shared behaviour."""
+type Segment {
+  id: ID!
+  name: String!
+  description: String
+  definition: SegmentDefinition!
+  userCount: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  users(limit: Int, offset: Int): [User!]
+}
+
+# ─────────────────────────────────────────────
+# Funnels
+# ─────────────────────────────────────────────
+
+"""A single step within a conversion funnel."""
+type FunnelStep {
+  order: Int!
+  name: String!
+  eventType: EventType!
+  conditions: ConditionGroup
+  dropoffCount: Int
+  conversionCount: Int
+  conversionRate: Float
+}
+
+"""A conversion funnel tracking multi-step user journeys."""
+type Funnel {
+  id: ID!
+  name: String!
+  description: String
+  steps: [FunnelStep!]!
+  totalEntrants: Int
+  totalConverted: Int
+  conversionRate: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A quantified metric derived from funnel or segment analysis."""
+type ConversionMetric {
+  id: ID!
+  name: String!
+  value: Float!
+  unit: String
+  period: String
+  funnelId: ID
+  segmentId: ID
+}
+
+# ─────────────────────────────────────────────
+# Heatmaps & Click Maps
+# ─────────────────────────────────────────────
+
+"""A single heat zone on a heatmap representing concentrated activity."""
+type HeatZone {
+  x: Int!
+  y: Int!
+  radius: Int!
+  intensity: Float!
+}
+
+"""A heatmap aggregating user interaction density on a page."""
+type HeatMap {
+  id: ID!
+  pageUrl: PageURL!
+  type: String!
+  zones: [HeatZone!]!
+  sampleSize: Int!
+  generatedAt: DateTime!
+}
+
+"""Aggregated click data mapped to DOM elements on a page."""
+type ClickMap {
+  id: ID!
+  pageUrl: PageURL!
+  elements: [ClickMapElement!]!
+  sampleSize: Int!
+  generatedAt: DateTime!
+}
+
+"""An element entry in a click map with aggregated click counts."""
+type ClickMapElement {
+  element: Element!
+  clickCount: Int!
+  clickRate: Float!
+}
+
+"""A scroll-depth aggregation showing how far users scroll down a page."""
+type ScrollMap {
+  id: ID!
+  pageUrl: PageURL!
+  buckets: [ScrollBucket!]!
+  sampleSize: Int!
+  generatedAt: DateTime!
+}
+
+"""A percentage-of-page bucket in a scroll depth map."""
+type ScrollBucket {
+  depthPercent: Int!
+  userCount: Int!
+  userRate: Float!
+}
+
+# ─────────────────────────────────────────────
+# Insights & Reports
+# ─────────────────────────────────────────────
+
+"""An auto-generated or user-saved insight from FullStory analytics."""
+type Insight {
+  id: ID!
+  title: String!
+  description: String
+  type: String!
+  relatedSessionIds: [ID!]
+  createdAt: DateTime!
+}
+
+"""A metric report aggregating FullStory data over a time period."""
+type MetricReport {
+  id: ID!
+  name: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  metrics: JSON!
+  segmentId: ID
+  createdAt: DateTime!
+}
+
+"""A panel within a FullStory dashboard."""
+type DashboardPanel {
+  id: ID!
+  title: String!
+  type: String!
+  config: JSON
+  position: JSON
+}
+
+"""A FullStory dashboard grouping multiple panels."""
+type Dashboard {
+  id: ID!
+  name: String!
+  description: String
+  panels: [DashboardPanel!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  isDefault: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Webhooks
+# ─────────────────────────────────────────────
+
+"""A webhook event delivered by FullStory to a subscriber endpoint."""
+type WebhookEvent {
+  id: ID!
+  type: String!
+  orgId: String!
+  occurredAt: DateTime!
+  payload: JSON!
+  sessionId: ID
+  userId: ID
+}
+
+"""An omni-channel integration endpoint registered with FullStory."""
+type OmniChannel {
+  id: ID!
+  name: String!
+  type: String!
+  targetUrl: URL
+  enabled: Boolean!
+  events: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Queries
+# ─────────────────────────────────────────────
+
+type Query {
+  """Retrieve a single session by its ID."""
+  session(id: ID!): Session
+
+  """List sessions with optional filters."""
+  sessions(
+    userId: ID
+    startAfter: DateTime
+    endBefore: DateTime
+    limit: Int
+    offset: Int
+  ): [Session!]!
+
+  """Retrieve a session replay by session ID."""
+  sessionReplay(sessionId: ID!): SessionReplay
+
+  """Retrieve a single user by UID."""
+  user(uid: String!): User
+
+  """List users with optional filters."""
+  users(
+    segmentId: ID
+    limit: Int
+    offset: Int
+  ): [User!]!
+
+  """Retrieve a segment by ID."""
+  segment(id: ID!): Segment
+
+  """List all segments in the organisation."""
+  segments(limit: Int, offset: Int): [Segment!]!
+
+  """Retrieve a funnel by ID."""
+  funnel(id: ID!): Funnel
+
+  """List all funnels."""
+  funnels(limit: Int, offset: Int): [Funnel!]!
+
+  """Retrieve a heatmap for a given page URL."""
+  heatmap(pageUrl: URL!, type: String): HeatMap
+
+  """Retrieve a click map for a given page URL."""
+  clickmap(pageUrl: URL!): ClickMap
+
+  """Retrieve a scroll map for a given page URL."""
+  scrollmap(pageUrl: URL!): ScrollMap
+
+  """List dashboards."""
+  dashboards: [Dashboard!]!
+
+  """Retrieve a dashboard by ID."""
+  dashboard(id: ID!): Dashboard
+
+  """Retrieve an insight by ID."""
+  insight(id: ID!): Insight
+
+  """List auto-generated insights."""
+  insights(limit: Int, offset: Int): [Insight!]!
+
+  """List API keys for the organisation."""
+  apiKeys: [APIKey!]!
+
+  """List registered OmniChannel integrations."""
+  omniChannels: [OmniChannel!]!
+
+  """List webhook events within a time range."""
+  webhookEvents(
+    startAfter: DateTime
+    endBefore: DateTime
+    limit: Int
+    offset: Int
+  ): [WebhookEvent!]!
+}
+
+# ─────────────────────────────────────────────
+# Mutations
+# ─────────────────────────────────────────────
+
+type Mutation {
+  """Identify a user (upsert identity and attributes)."""
+  identifyUser(uid: String!, attributes: JSON): User!
+
+  """Send a custom event for a session."""
+  trackEvent(sessionId: ID!, name: String!, properties: JSON): CustomEvent!
+
+  """Create a new segment."""
+  createSegment(name: String!, description: String, definition: JSON!): Segment!
+
+  """Update an existing segment."""
+  updateSegment(id: ID!, name: String, description: String, definition: JSON): Segment!
+
+  """Delete a segment."""
+  deleteSegment(id: ID!): Boolean!
+
+  """Create a funnel."""
+  createFunnel(name: String!, description: String, steps: JSON!): Funnel!
+
+  """Delete a funnel."""
+  deleteFunnel(id: ID!): Boolean!
+
+  """Create a dashboard."""
+  createDashboard(name: String!, description: String): Dashboard!
+
+  """Delete a dashboard."""
+  deleteDashboard(id: ID!): Boolean!
+
+  """Register an OmniChannel integration."""
+  createOmniChannel(name: String!, type: String!, targetUrl: URL, events: [String!]!): OmniChannel!
+
+  """Enable or disable an OmniChannel integration."""
+  toggleOmniChannel(id: ID!, enabled: Boolean!): OmniChannel!
+
+  """Delete an OmniChannel integration."""
+  deleteOmniChannel(id: ID!): Boolean!
+}
