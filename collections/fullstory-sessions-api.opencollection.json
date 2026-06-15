@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Sessions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sessions for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/sessions/v2",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the user whose sessions to retrieve"
+              },
+              {
+                "name": "uid",
+                "value": "",
+                "type": "query",
+                "description": "External user identifier of the user whose sessions to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of sessions to return. Defaults to 20."
+              }
+            ]
+          },
+          "docs": "Returns a list of session replay URLs for a given user, queried by email address and/or uid. If both uid and email are provided, the API queries on them separately and returns a union of the records. It is recommended to use either uid or email, but not both. By default, the last 20 sessions are returned."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Session Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get session events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/v2/sessions/:sessionId/events",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The session identifier, URL encoded"
+              }
+            ]
+          },
+          "docs": "Returns the full set of captured events for a specified session, including page views, clicks, custom events, and other interactions recorded during the session."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Session Summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate AI session summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/v2/sessions/:sessionId/summary",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The session identifier, URL encoded"
+              },
+              {
+                "name": "config_profile_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the summary prompt profile to use for generating the AI session summary"
+              }
+            ]
+          },
+          "docs": "Returns a generative AI summarization of the specified session using the supplied prompt summary profile. The config_profile_id parameter specifies the prompt profile that defines both the prompting instructions and session context configuration. Summary profiles support custom pre and post prompts, structured response schemas, and session slicing to trim event data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

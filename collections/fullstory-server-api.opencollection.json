@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Server API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user or updates an existing user if a matching uid is found. Anonymous users can be created by omitting the uid field. The API returns the FullStory-assigned id along with the user data. Type suffixes are not required for custom properties in v2 as types are inferred automatically."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fullstory.com/v2/users",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "query",
+                "description": "The external user identifier used to identify the user to delete"
+              }
+            ]
+          },
+          "docs": "Permanently deletes all user data related to the specified user, including sessions, events, custom user properties, raw page files, and corresponding session data. It is recommended to use the Get User endpoint first to verify the correct user before deletion."
+        },
+        {
+          "info": {
+            "name": "Retrieve a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/v2/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The FullStory-assigned user ID"
+              }
+            ]
+          },
+          "docs": "Retrieves details for a single user by their FullStory-assigned user ID. Returns user profile information including uid, display name, email, custom properties, and the FullStory app URL for the user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Batch Import",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a batch user import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/users/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports up to 50,000 users in a single asynchronous request. Returns a job object with an ID and status that can be polled for completion. Users can be anonymous or identified with a uid."
+        },
+        {
+          "info": {
+            "name": "Create a batch events import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/events/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports a large number of events in a single asynchronous request. Returns a job object with an ID and status that can be polled for completion. Each event in the batch can include custom properties and session associations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a single event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one custom event with the specified details. Events can be associated with a session and user. If use_most_recent is true, the most recent session within 30 minutes will be used. Custom properties can be attached and types are inferred automatically in v2."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

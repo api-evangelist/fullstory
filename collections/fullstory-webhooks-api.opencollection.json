@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/webhooks/v1/endpoints"
+          },
+          "docs": "Pages through all configured webhook endpoints with pagination support. Returns endpoint details including ID, URL, configured event types, and enabled status."
+        },
+        {
+          "info": {
+            "name": "Create a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/webhooks/v1/endpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook endpoint with the given properties, including the destination URL and the event types it should receive. Some event types require a subcategory property. Returns the created endpoint details including its ID and signing secret."
+        },
+        {
+          "info": {
+            "name": "Get a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/webhooks/v1/endpoints/:endpointId",
+            "params": [
+              {
+                "name": "endpointId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook endpoint"
+              }
+            ]
+          },
+          "docs": "Retrieves endpoint details corresponding to the provided endpoint ID, including the destination URL, configured event types, signing secret, and enabled status."
+        },
+        {
+          "info": {
+            "name": "Update a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fullstory.com/webhooks/v1/endpoints/:endpointId",
+            "params": [
+              {
+                "name": "endpointId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook endpoint"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook endpoint. Can be used to change the destination URL, configured events, signing secret, and the enabled status of the endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fullstory.com/webhooks/v1/endpoints/:endpointId",
+            "params": [
+              {
+                "name": "endpointId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook endpoint"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the webhook endpoint specified by the endpoint ID. The endpoint will no longer receive any event notifications after deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Event Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available webhook event types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/webhooks/v1/event_types"
+          },
+          "docs": "Returns the list of all available event types that can be configured for webhook endpoints. Some event types may not be returned if your FullStory plan does not support them. Event types that have subcategories require a subcategory to be specified when creating an endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

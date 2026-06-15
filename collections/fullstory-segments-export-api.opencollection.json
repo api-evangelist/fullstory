@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/segments/v1",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of segments to return per page. Default is 20, maximum is 100."
+              },
+              {
+                "name": "pagination_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results. Do not change other list parameters between consecutive paginated requests."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of segments for the organization. You can optionally limit the number of segments returned, with a default of 20 and a maximum of 100 per page. Use the pagination token to retrieve additional pages of results."
+        },
+        {
+          "info": {
+            "name": "Get a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/segments/v1/:segmentId",
+            "params": [
+              {
+                "name": "segmentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the segment"
+              }
+            ]
+          },
+          "docs": "Returns segment information for the provided segment ID, including the segment name, creator email, and creation timestamp."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a segment export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/segments/v1/exports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules an asynchronous export based on the provided segment. The progress and results of the export can be fetched from the operations API. Two export types are available: individuals (information about users matching the segment) and events (events performed by matching users)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get operation status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/operations/v1/:operationId",
+            "params": [
+              {
+                "name": "operationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the operation"
+              }
+            ]
+          },
+          "docs": "Returns the status of a particular operation given the operation ID. When an operation is running, the response includes state, estimated completion percentage, and timestamps. When complete, results include download URLs for exported data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
