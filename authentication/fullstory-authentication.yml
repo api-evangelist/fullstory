@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/fullstory-segments-export-api-openapi.yml, openapi/fullstory-server-api-openapi.yml,
+  openapi/fullstory-sessions-api-openapi.yml, openapi/fullstory-webhooks-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: API key passed in the Authorization header using Basic authentication. Admin
+    or Architect level keys are required.
+  sources:
+  - openapi/fullstory-segments-export-api-openapi.yml
+  - openapi/fullstory-server-api-openapi.yml
+  - openapi/fullstory-sessions-api-openapi.yml
+  - openapi/fullstory-webhooks-api-openapi.yml

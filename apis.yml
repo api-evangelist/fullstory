@@ -84,6 +84,14 @@ apis:
   - type: OpenAPI
     url: openapi/fullstory-webhooks-api-openapi.yml
 common:
+- type: TrustCenter
+  url: security/fullstory-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/fullstory-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/fullstory-domain-security.yml
+- type: Authentication
+  url: authentication/fullstory-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/fullstorydev
 - type: LinkedIn
@@ -100,6 +108,8 @@ common:
   url: finops/fullstory-finops.yml
 - type: Integrations
   url: https://www.fullstory.com/platform/integrations/
+- type: Blog
+  url: https://www.fullstory.com/blog/
 integrations:
 - name: Experience the Benchmark Report
 - name: Integrations hero image
