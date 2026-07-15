@@ -84,6 +84,8 @@ apis:
   - type: OpenAPI
     url: openapi/fullstory-webhooks-api-openapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/fullstory-agentic-access.yml
 - type: TrustCenter
   url: security/fullstory-trust-center.yml
 - type: VulnerabilityDisclosure
