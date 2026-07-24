@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: FullStory Segments Export Batch Import Events API
+  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+servers:
+- url: https://api.fullstory.com
+  description: FullStory Production API Server
+security:
+- basicAuth: []
+tags:
+- name: Events
+  description: Send custom server-side events to FullStory. Events can be associated with sessions and users, and include custom properties for behavioral analysis.
+paths:
+  /v2/events:
+    post:
+      operationId: createEvent
+      summary: Create a single event
+      description: Creates one custom event with the specified details. Events can be associated with a session and user. If use_most_recent is true, the most recent session within 30 minutes will be used. Custom properties can be attached and types are inferred automatically in v2.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '200':
+          description: Event created successfully
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    CreateEventRequest:
+      type: object
+      required:
+      - name
+      description: Request body for creating a custom event in FullStory
+      properties:
+        name:
+          type: string
+          description: The name of the custom event
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp for when the event occurred
+        session:
+          type: object
+          description: Session association for the event
+          properties:
+            id:
+              type: string
+              description: The session identifier to associate the event with
+            use_most_recent:
+              type: boolean
+              description: If true, the most recent session within 30 minutes will be used. If no recent session is found, the event is created without a session association.
+        user:
+          type: object
+          description: User association for the event. Not accepted if session.id is provided since the session already identifies the user.
+          properties:
+            id:
+              type: string
+              description: The FullStory-assigned user ID
+            uid:
+              type: string
+              description: The external user identifier
+        properties:
+          type: object
+          description: Custom key-value properties for the event. Supports string, real, integer, boolean, array, and object types.
+          additionalProperties: true
+        schema:
+          type: object
+          description: Optional explicit type declarations for custom event properties
+          additionalProperties: true
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: API key passed in the Authorization header using Basic authentication. Admin or Architect level keys are required.
+externalDocs:
+  description: FullStory Segments Export API Documentation
+  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/

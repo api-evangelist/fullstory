@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: FullStory Segments Export Batch Import Event Types API
+  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+servers:
+- url: https://api.fullstory.com
+  description: FullStory Production API Server
+security:
+- basicAuth: []
+tags:
+- name: Event Types
+  description: List available webhook event types that can be configured for endpoints. Some event types require subcategories and may be limited by plan.
+paths:
+  /webhooks/v1/event_types:
+    get:
+      operationId: listEventTypes
+      summary: List available webhook event types
+      description: Returns the list of all available event types that can be configured for webhook endpoints. Some event types may not be returned if your FullStory plan does not support them. Event types that have subcategories require a subcategory to be specified when creating an endpoint.
+      tags:
+      - Event Types
+      responses:
+        '200':
+          description: List of event types retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventTypeList'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    EventTypeList:
+      type: object
+      description: List of available webhook event types
+      properties:
+        eventTypes:
+          type: array
+          description: Array of available event types
+          items:
+            $ref: '#/components/schemas/EventType'
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    EventType:
+      type: object
+      description: A webhook event type available in FullStory
+      properties:
+        eventName:
+          type: string
+          description: The name of the event type
+        description:
+          type: string
+          description: Human-readable description of the event type
+        hasSubcategories:
+          type: boolean
+          description: Whether this event type requires a subcategory when configuring an endpoint
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: API key passed in the Authorization header using Basic authentication. Admin or Architect level keys are required.
+externalDocs:
+  description: FullStory Segments Export API Documentation
+  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/

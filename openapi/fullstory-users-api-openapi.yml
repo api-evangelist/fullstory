@@ -1,0 +1,218 @@
+openapi: 3.1.0
+info:
+  title: FullStory Segments Export Batch Import Users API
+  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+servers:
+- url: https://api.fullstory.com
+  description: FullStory Production API Server
+security:
+- basicAuth: []
+tags:
+- name: Users
+  description: Create, retrieve, update, and delete users in FullStory. Users can be anonymous or identified with a uid. Custom properties can be attached to enrich user profiles.
+paths:
+  /v2/users:
+    post:
+      operationId: createUser
+      summary: Create or update a user
+      description: Creates a new user or updates an existing user if a matching uid is found. Anonymous users can be created by omitting the uid field. The API returns the FullStory-assigned id along with the user data. Type suffixes are not required for custom properties in v2 as types are inferred automatically.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User created or updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          headers:
+            X-RateLimit-Remaining:
+              description: Number of requests remaining in the current window
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: Permanently deletes all user data related to the specified user, including sessions, events, custom user properties, raw page files, and corresponding session data. It is recommended to use the Get User endpoint first to verify the correct user before deletion.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/UidQuery'
+      responses:
+        '200':
+          description: User deleted successfully
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/users/{id}:
+    get:
+      operationId: getUser
+      summary: Retrieve a user
+      description: Retrieves details for a single user by their FullStory-assigned user ID. Returns user profile information including uid, display name, email, custom properties, and the FullStory app URL for the user.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    User:
+      type: object
+      description: A FullStory user object with profile information and custom properties
+      properties:
+        id:
+          type: string
+          description: The FullStory-assigned unique identifier for the user
+        uid:
+          type: string
+          description: The external user identifier provided during creation
+        display_name:
+          type: string
+          description: The display name for the user
+        email:
+          type: string
+          format: email
+          description: The email address for the user
+        properties:
+          type: object
+          description: Custom properties attached to the user
+          additionalProperties: true
+        schema:
+          type: object
+          description: Explicit type declarations for custom properties
+          additionalProperties: true
+        type_conflicts:
+          type: object
+          description: Any type conflicts detected in custom properties
+          additionalProperties: true
+        app_url:
+          type: string
+          format: uri
+          description: URL to view the user in the FullStory application
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    CreateUserRequest:
+      type: object
+      description: Request body for creating or updating a user in FullStory
+      properties:
+        uid:
+          type: string
+          description: External user identifier. Omit to create an anonymous user.
+        display_name:
+          type: string
+          description: The display name for the user
+        email:
+          type: string
+          format: email
+          description: The email address for the user
+        properties:
+          type: object
+          description: Custom key-value properties to attach to the user. Type suffixes are not required in v2 as types are inferred automatically.
+          additionalProperties: true
+        schema:
+          type: object
+          description: Optional explicit type declarations for custom properties to override the default type inference
+          additionalProperties: true
+  parameters:
+    UserIdPath:
+      name: id
+      in: path
+      required: true
+      description: The FullStory-assigned user ID
+      schema:
+        type: string
+    UidQuery:
+      name: uid
+      in: query
+      required: true
+      description: The external user identifier used to identify the user to delete
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: API key passed in the Authorization header using Basic authentication. Admin or Architect level keys are required.
+externalDocs:
+  description: FullStory Segments Export API Documentation
+  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/

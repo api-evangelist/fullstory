@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: FullStory Segments Export Batch Import Session Summaries API
+  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+servers:
+- url: https://api.fullstory.com
+  description: FullStory Production API Server
+security:
+- basicAuth: []
+tags:
+- name: Session Summaries
+  description: Generate AI-powered summaries of sessions using configurable prompt profiles. Summaries can be customized with pre and post prompts, response schemas, and session slicing options.
+paths:
+  /v2/sessions/{sessionId}/summary:
+    get:
+      operationId: generateSessionSummary
+      summary: Generate AI session summary
+      description: Returns a generative AI summarization of the specified session using the supplied prompt summary profile. The config_profile_id parameter specifies the prompt profile that defines both the prompting instructions and session context configuration. Summary profiles support custom pre and post prompts, structured response schemas, and session slicing to trim event data.
+      tags:
+      - Session Summaries
+      parameters:
+      - $ref: '#/components/parameters/SessionIdPath'
+      - $ref: '#/components/parameters/ConfigProfileIdQuery'
+      responses:
+        '200':
+          description: Session summary generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionSummary'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Session or config profile not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    SessionSummary:
+      type: object
+      description: AI-generated summary of a session
+      properties:
+        sessionId:
+          type: string
+          description: The session that was summarized
+        summary:
+          type: string
+          description: The generated summary text or structured response based on the configured response schema
+        configProfileId:
+          type: string
+          description: The summary prompt profile ID used
+  parameters:
+    SessionIdPath:
+      name: sessionId
+      in: path
+      required: true
+      description: The session identifier, URL encoded
+      schema:
+        type: string
+    ConfigProfileIdQuery:
+      name: config_profile_id
+      in: query
+      required: true
+      description: The ID of the summary prompt profile to use for generating the AI session summary
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: API key passed in the Authorization header using Basic authentication. Admin or Architect level keys are required.
+externalDocs:
+  description: FullStory Segments Export API Documentation
+  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/
