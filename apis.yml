@@ -4,7 +4,20 @@ name: FullStory
 kind: company
 description: FullStory is a behavioral data platform delivering session replay, product
   analytics, and digital experience intelligence across web and mobile.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fullstory.png
 tags:
 - Session Replay
 - Product Analytics
@@ -15,31 +28,10 @@ created: '2026-05-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: fullstory:fullstory-server-api
-  name: FullStory Server API
-  description: FullStory Server API v2 ingests user identification, traits, custom
-    events, and supports batch operations. Authentication uses an API key prefixed
-    with the data center ID (e.g. na1.<token>).
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.fullstory.com/server/v2/getting-started/
-  baseURL: https://api.fullstory.com
-  tags:
-  - Behavioral Analytics
-  - Session Replay
-  - REST
-  properties:
-  - type: Documentation
-    url: https://developer.fullstory.com/server/v2/getting-started/
-  - type: Developers
-    url: https://developer.fullstory.com/
-  - type: OpenAPI
-    url: openapi/fullstory-server-api-openapi.yml
-  - url: graphql/fullstory-graphql.md
-    type: GraphQL
 - aid: fullstory:fullstory-sessions-api
   name: FullStory Sessions API
-  description: FullStory Sessions API for retrieving session metadata, replay URLs,
-    and session-level details.
+  description: >-
+    FullStory Sessions API for retrieving session metadata, replay URLs, and session-level details.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer.fullstory.com/
   baseURL: https://api.fullstory.com
@@ -51,38 +43,203 @@ apis:
     url: https://developer.fullstory.com/
   - type: OpenAPI
     url: openapi/fullstory-sessions-api-openapi.yml
-- aid: fullstory:fullstory-segments-export-api
-  name: FullStory Segments Export API
-  description: FullStory Segments Export API for exporting segment data and audience
-    definitions for downstream analytics.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.fullstory.com/
+- aid: fullstory:fullstory-batch-import-api
+  name: FullStory Batch Import API
+  description: >-
+    Import large volumes of users and events asynchronously using batch import jobs that support up to
+    50,000 records per request.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
   tags:
-  - Analytics
-  - Export
-  - REST
+  - Batch Import
   properties:
+  - type: OpenAPI
+    url: openapi/fullstory-batch-import-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
-  - type: OpenAPI
-    url: openapi/fullstory-segments-export-api-openapi.yml
-- aid: fullstory:fullstory-webhooks-api
-  name: FullStory Webhooks API
-  description: FullStory Webhooks API for subscribing to events from the FullStory
-    platform and receiving push notifications.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.fullstory.com/
+- aid: fullstory:fullstory-endpoints-api
+  name: FullStory Endpoints API
+  description: >-
+    Create, retrieve, update, and delete webhook endpoints that receive real-time notifications from FullStory.
+    Each endpoint has a destination URL, configured event types, signing secret, and enabled status.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
   tags:
-  - Webhooks
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-event-types-api
+  name: FullStory Event Types API
+  description: >-
+    List available webhook event types that can be configured for endpoints. Some event types require
+    subcategories and may be limited by plan.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Event Types
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-event-types-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-events-api
+  name: FullStory Events API
+  description: >-
+    Send custom server-side events to FullStory. Events can be associated with sessions and users, and
+    include custom properties for behavioral analysis.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
   - Events
-  - REST
   properties:
+  - type: OpenAPI
+    url: openapi/fullstory-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-exports-api
+  name: FullStory Exports API
+  description: >-
+    Create and manage asynchronous export jobs for segment data, including both individual and event exports.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Exports
+  properties:
   - type: OpenAPI
-    url: openapi/fullstory-webhooks-api-openapi.yml
+    url: openapi/fullstory-exports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-operations-api
+  name: FullStory Operations API
+  description: >-
+    Query the status of long-running asynchronous operations such as segment exports, and retrieve results
+    when complete.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-operations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-segments-api
+  name: FullStory Segments API
+  description: Retrieve segment metadata including name, creator, and creation time.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Segments
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-segments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-session-events-api
+  name: FullStory Session Events API
+  description: >-
+    Retrieve the full set of captured events for a specific session, including page views, clicks, and
+    custom events.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Session Events
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-session-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-session-summaries-api
+  name: FullStory Session Summaries API
+  description: >-
+    Generate AI-powered summaries of sessions using configurable prompt profiles. Summaries can be customized
+    with pre and post prompts, response schemas, and session slicing options.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Session Summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-session-summaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
+- aid: fullstory:fullstory-users-api
+  name: FullStory Users API
+  description: >-
+    Create, retrieve, update, and delete users in FullStory. Users can be anonymous or identified with
+    a uid. Custom properties can be attached to enrich user profiles.
+  humanURL: https://developer.fullstory.com/server/v2/getting-started/
+  baseURL: https://api.fullstory.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/fullstory-users-api-openapi.yml
+  - type: Documentation
+    url: https://developer.fullstory.com/server/v2/getting-started/
+  - type: Developers
+    url: https://developer.fullstory.com/
+  - type: GraphQL
+    url: graphql/fullstory-graphql.md
+  - type: Documentation
+    url: https://developer.fullstory.com/
 common:
 - type: AgenticAccess
   url: agentic-access/fullstory-agentic-access.yml
