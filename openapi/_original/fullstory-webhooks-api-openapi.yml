@@ -1,0 +1,433 @@
+openapi: 3.1.0
+info:
+  title: FullStory Webhooks API
+  description: >-
+    The FullStory Webhooks API enables developers to create, update, retrieve,
+    and manage webhook endpoints that receive real-time notifications from
+    FullStory. Supported event types include segment creation, segment
+    threshold alerts, and custom event notifications. Webhooks allow
+    event-driven integrations that respond immediately to behavioral signals
+    detected by FullStory, eliminating the need for polling and enabling
+    automated workflows based on user activity patterns.
+  version: '1.0'
+  contact:
+    name: FullStory Support
+    url: https://help.fullstory.com/
+  termsOfService: https://www.fullstory.com/legal/terms-and-conditions/
+externalDocs:
+  description: FullStory Webhooks API Documentation
+  url: https://developer.fullstory.com/destinations/v1/webhooks/getting-started/
+servers:
+  - url: https://api.fullstory.com
+    description: FullStory Production API Server
+tags:
+  - name: Endpoints
+    description: >-
+      Create, retrieve, update, and delete webhook endpoints that receive
+      real-time notifications from FullStory. Each endpoint has a destination
+      URL, configured event types, signing secret, and enabled status.
+  - name: Event Types
+    description: >-
+      List available webhook event types that can be configured for endpoints.
+      Some event types require subcategories and may be limited by plan.
+security:
+  - basicAuth: []
+paths:
+  /webhooks/v1/endpoints:
+    post:
+      operationId: createEndpoint
+      summary: Create a webhook endpoint
+      description: >-
+        Creates a new webhook endpoint with the given properties, including
+        the destination URL and the event types it should receive. Some event
+        types require a subcategory property. Returns the created endpoint
+        details including its ID and signing secret.
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEndpointRequest'
+      responses:
+        '200':
+          description: Webhook endpoint created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listEndpoints
+      summary: List webhook endpoints
+      description: >-
+        Pages through all configured webhook endpoints with pagination
+        support. Returns endpoint details including ID, URL, configured
+        event types, and enabled status.
+      tags:
+        - Endpoints
+      responses:
+        '200':
+          description: List of webhook endpoints retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointList'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/v1/endpoints/{endpointId}:
+    get:
+      operationId: getEndpoint
+      summary: Get a webhook endpoint
+      description: >-
+        Retrieves endpoint details corresponding to the provided endpoint
+        ID, including the destination URL, configured event types, signing
+        secret, and enabled status.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/EndpointIdPath'
+      responses:
+        '200':
+          description: Webhook endpoint retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateEndpoint
+      summary: Update a webhook endpoint
+      description: >-
+        Updates an existing webhook endpoint. Can be used to change the
+        destination URL, configured events, signing secret, and the
+        enabled status of the endpoint.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/EndpointIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEndpointRequest'
+      responses:
+        '200':
+          description: Webhook endpoint updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteEndpoint
+      summary: Delete a webhook endpoint
+      description: >-
+        Permanently deletes the webhook endpoint specified by the endpoint
+        ID. The endpoint will no longer receive any event notifications
+        after deletion.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/EndpointIdPath'
+      responses:
+        '200':
+          description: Webhook endpoint deleted successfully
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/v1/event_types:
+    get:
+      operationId: listEventTypes
+      summary: List available webhook event types
+      description: >-
+        Returns the list of all available event types that can be configured
+        for webhook endpoints. Some event types may not be returned if your
+        FullStory plan does not support them. Event types that have
+        subcategories require a subcategory to be specified when creating
+        an endpoint.
+      tags:
+        - Event Types
+      responses:
+        '200':
+          description: List of event types retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventTypeList'
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        API key passed in the Authorization header using Basic authentication.
+        Admin or Architect level keys are required.
+  parameters:
+    EndpointIdPath:
+      name: endpointId
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the webhook endpoint
+      schema:
+        type: string
+  schemas:
+    CreateEndpointRequest:
+      type: object
+      required:
+        - url
+        - events
+      description: >-
+        Request body for creating a new webhook endpoint
+      properties:
+        url:
+          type: string
+          format: uri
+          description: >-
+            The URL that will receive webhook event notifications
+        events:
+          type: array
+          description: >-
+            The types of events this endpoint should receive
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
+    UpdateEndpointRequest:
+      type: object
+      description: >-
+        Request body for updating an existing webhook endpoint
+      properties:
+        url:
+          type: string
+          format: uri
+          description: >-
+            The new destination URL for webhook events
+        events:
+          type: array
+          description: >-
+            Updated list of event types for this endpoint
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
+        signingSecret:
+          type: string
+          description: >-
+            Updated signing secret for verifying webhook payloads
+        enabled:
+          type: boolean
+          description: >-
+            Whether the endpoint is enabled and receiving events
+    EventTypeConfig:
+      type: object
+      required:
+        - eventName
+      description: >-
+        Configuration for a specific event type on a webhook endpoint
+      properties:
+        eventName:
+          type: string
+          description: >-
+            The name of the event type
+          enum:
+            - segment.created
+            - segment.trend.alert
+            - recording.event.custom
+            - note.created
+        subcategory:
+          type: string
+          description: >-
+            Required subcategory for event types that require one, such
+            as specifying which custom event to listen for
+    Endpoint:
+      type: object
+      description: >-
+        A configured webhook endpoint in FullStory
+      properties:
+        id:
+          type: string
+          description: >-
+            Unique identifier for the webhook endpoint
+        url:
+          type: string
+          format: uri
+          description: >-
+            The destination URL receiving webhook events
+        events:
+          type: array
+          description: >-
+            The event types configured for this endpoint
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
+        signingSecret:
+          type: string
+          description: >-
+            Secret used to sign webhook payloads for verification
+        enabled:
+          type: boolean
+          description: >-
+            Whether the endpoint is actively receiving events
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the endpoint was created
+    EndpointList:
+      type: object
+      description: >-
+        List of webhook endpoints
+      properties:
+        endpoints:
+          type: array
+          description: >-
+            Array of configured webhook endpoints
+          items:
+            $ref: '#/components/schemas/Endpoint'
+    EventType:
+      type: object
+      description: >-
+        A webhook event type available in FullStory
+      properties:
+        eventName:
+          type: string
+          description: >-
+            The name of the event type
+        description:
+          type: string
+          description: >-
+            Human-readable description of the event type
+        hasSubcategories:
+          type: boolean
+          description: >-
+            Whether this event type requires a subcategory when configuring
+            an endpoint
+    EventTypeList:
+      type: object
+      description: >-
+        List of available webhook event types
+      properties:
+        eventTypes:
+          type: array
+          description: >-
+            Array of available event types
+          items:
+            $ref: '#/components/schemas/EventType'
+    Error:
+      type: object
+      description: >-
+        Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: >-
+            HTTP status code
+        message:
+          type: string
+          description: >-
+            Human-readable error message

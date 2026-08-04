@@ -1,0 +1,34 @@
+{
+  "provider": "fullstory",
+  "sources": [
+    "fullstory-batch-import-api-openapi.yml",
+    "fullstory-endpoints-api-openapi.yml",
+    "fullstory-event-types-api-openapi.yml",
+    "fullstory-events-api-openapi.yml",
+    "fullstory-exports-api-openapi.yml",
+    "fullstory-operations-api-openapi.yml",
+    "fullstory-segments-api-openapi.yml",
+    "fullstory-session-events-api-openapi.yml",
+    "fullstory-session-summaries-api-openapi.yml",
+    "fullstory-sessions-api-openapi.yml",
+    "fullstory-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "fullstory-batch-import-api-openapi.yml",
+    "fullstory-endpoints-api-openapi.yml",
+    "fullstory-event-types-api-openapi.yml",
+    "fullstory-events-api-openapi.yml",
+    "fullstory-exports-api-openapi.yml",
+    "fullstory-operations-api-openapi.yml",
+    "fullstory-segments-api-openapi.yml",
+    "fullstory-session-events-api-openapi.yml",
+    "fullstory-session-summaries-api-openapi.yml",
+    "fullstory-sessions-api-openapi.yml",
+    "fullstory-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
