@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch Import",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a batch user import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/users/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports up to 50,000 users in a single asynchronous request. Returns a job object with an ID and status that can be polled for completion. Users can be anonymous or identified with a uid."
+        },
+        {
+          "info": {
+            "name": "Create a batch events import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/events/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports a large number of events in a single asynchronous request. Returns a job object with an ID and status that can be polled for completion. Each event in the batch can include custom properties and session associations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

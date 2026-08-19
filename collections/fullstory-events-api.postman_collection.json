@@ -1,88 +1,69 @@
 {
   "item": [
     {
-      "id": "f4ea3f19-474a-4c91-8201-4d5abcb046ce",
-      "name": "Sessions",
+      "id": "dc91f5ee-e931-415f-a46f-548d2c931588",
+      "name": "Events",
       "description": {
-        "content": "Retrieve session replay URLs for users and access recorded session data. Sessions are scoped to a single FullStory account and replay URLs require authenticated FullStory access.",
+        "content": "Send custom server-side events to FullStory. Events can be associated with sessions and users, and include custom properties for behavioral analysis.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "b7511e70-43da-4fee-bd66-33bf55b5bdd1",
-          "name": "List sessions for a user",
+          "id": "b15cbe7a-6c14-4a81-ad3b-dfc3d9b3d9f2",
+          "name": "Create a single event",
           "request": {
-            "name": "List sessions for a user",
+            "name": "Create a single event",
             "description": {
-              "content": "Returns a list of session replay URLs for a given user, queried by email address and/or uid. If both uid and email are provided, the API queries on them separately and returns a union of the records. It is recommended to use either uid or email, but not both. By default, the last 20 sessions are returned.",
+              "content": "Creates one custom event with the specified details. Events can be associated with a session and user. If use_most_recent is true, the most recent session within 30 minutes will be used. Custom properties can be attached and types are inferred automatically in v2.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "sessions",
-                "v2"
+                "v2",
+                "events"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<email>",
-                  "description": "Email address of the user whose sessions to retrieve"
-                },
-                {
-                  "disabled": false,
-                  "key": "uid",
-                  "value": "<string>",
-                  "description": "External user identifier of the user whose sessions to retrieve"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "20",
-                  "description": "Maximum number of sessions to return. Defaults to 20."
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"session\": {\n    \"id\": \"<string>\",\n    \"use_most_recent\": \"<boolean>\"\n  },\n  \"user\": {\n    \"id\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"properties\": {\n    \"key_0\": 5243,\n    \"key_1\": false\n  },\n  \"schema\": {\n    \"key_0\": 7108,\n    \"key_1\": 6930,\n    \"key_2\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": [
             {
-              "id": "cb885e3a-ca1f-4841-acbf-4331eeaff5c6",
-              "name": "List of session URLs retrieved successfully",
+              "id": "3e8ec998-483c-4d0c-921f-7cc100d93543",
+              "name": "Event created successfully",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "v2",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -93,53 +74,44 @@
                     },
                     "key": "Authorization",
                     "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"session\": {\n    \"id\": \"<string>\",\n    \"use_most_recent\": \"<boolean>\"\n  },\n  \"user\": {\n    \"id\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"properties\": {\n    \"key_0\": true,\n    \"key_1\": 8433,\n    \"key_2\": false\n  },\n  \"schema\": {\n    \"key_0\": 3000.6391404546\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "OK",
               "code": 200,
               "header": [
                 {
                   "key": "Content-Type",
-                  "value": "application/json"
+                  "value": "text/plain"
                 }
               ],
-              "body": "{\n  \"sessions\": [\n    {\n      \"sessionId\": \"string\",\n      \"url\": \"https://OWmMIrfpwvshK.lryzeVyoSslT8ZTtGjwN7ndDLL.0IcgHzE25dbUT62\",\n      \"created\": \"1996-08-05T14:20:35.113Z\"\n    },\n    {\n      \"sessionId\": \"string\",\n      \"url\": \"https://oNErjLSzvObvRCRGJaFpCI.hkz\",\n      \"created\": \"1986-04-19T16:39:27.322Z\"\n    }\n  ]\n}",
+              "body": "",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "_postman_previewlanguage": "text"
             },
             {
-              "id": "cd7f63af-a006-41c4-96db-d2252061bc21",
-              "name": "Invalid input - at least one of email or uid is required",
+              "id": "feee0f99-3d48-49ed-801e-b5b10fe8ef42",
+              "name": "Invalid input provided",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "v2",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -156,8 +128,16 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"session\": {\n    \"id\": \"<string>\",\n    \"use_most_recent\": \"<boolean>\"\n  },\n  \"user\": {\n    \"id\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"properties\": {\n    \"key_0\": true,\n    \"key_1\": 8433,\n    \"key_2\": false\n  },\n  \"schema\": {\n    \"key_0\": 3000.6391404546\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "Bad Request",
               "code": 400,
@@ -167,36 +147,23 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"code\": 3245,\n  \"message\": \"string\"\n}",
+              "body": "{\n  \"code\": 5201,\n  \"message\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a880febc-d0b2-413c-a46e-4e5f36da3887",
+              "id": "d4ec4fd0-3dae-4a36-af75-c53252281082",
               "name": "Unauthorized - invalid or missing API key",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "v2",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -213,8 +180,16 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"session\": {\n    \"id\": \"<string>\",\n    \"use_most_recent\": \"<boolean>\"\n  },\n  \"user\": {\n    \"id\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"properties\": {\n    \"key_0\": true,\n    \"key_1\": 8433,\n    \"key_2\": false\n  },\n  \"schema\": {\n    \"key_0\": 3000.6391404546\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "Unauthorized",
               "code": 401,
@@ -224,36 +199,23 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"code\": 3245,\n  \"message\": \"string\"\n}",
+              "body": "{\n  \"code\": 5201,\n  \"message\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7e0b028e-c2f2-461b-aac0-c849ec7e77d8",
+              "id": "15a52378-13f1-4be9-ad56-00bff20bf4b7",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "v2",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -270,8 +232,16 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"session\": {\n    \"id\": \"<string>\",\n    \"use_most_recent\": \"<boolean>\"\n  },\n  \"user\": {\n    \"id\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"properties\": {\n    \"key_0\": true,\n    \"key_1\": 8433,\n    \"key_2\": false\n  },\n  \"schema\": {\n    \"key_0\": 3000.6391404546\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
@@ -281,7 +251,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"code\": 3245,\n  \"message\": \"string\"\n}",
+              "body": "{\n  \"code\": 5201,\n  \"message\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -317,8 +287,8 @@
     ]
   },
   "info": {
-    "_postman_id": "5e2bddc3-ee30-461f-96b8-d04f877c2fbf",
-    "name": "FullStory Segments Export Batch Import Sessions API",
+    "_postman_id": "d1e5c86c-11ab-496e-928d-f6f845f85d58",
+    "name": "FullStory Segments Export Batch Import Events API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.\n\nContact Support:\n Name: FullStory Support",

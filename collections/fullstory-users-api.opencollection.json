@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import Users API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user or updates an existing user if a matching uid is found. Anonymous users can be created by omitting the uid field. The API returns the FullStory-assigned id along with the user data. Type suffixes are not required for custom properties in v2 as types are inferred automatically."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fullstory.com/v2/users",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "query",
+                "description": "The external user identifier used to identify the user to delete"
+              }
+            ]
+          },
+          "docs": "Permanently deletes all user data related to the specified user, including sessions, events, custom user properties, raw page files, and corresponding session data. It is recommended to use the Get User endpoint first to verify the correct user before deletion."
+        },
+        {
+          "info": {
+            "name": "Retrieve a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/v2/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The FullStory-assigned user ID"
+              }
+            ]
+          },
+          "docs": "Retrieves details for a single user by their FullStory-assigned user ID. Returns user profile information including uid, display name, email, custom properties, and the FullStory app URL for the user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import Session Summaries API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Session Summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate AI session summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/v2/sessions/:sessionId/summary",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The session identifier, URL encoded"
+              },
+              {
+                "name": "config_profile_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the summary prompt profile to use for generating the AI session summary"
+              }
+            ]
+          },
+          "docs": "Returns a generative AI summarization of the specified session using the supplied prompt summary profile. The config_profile_id parameter specifies the prompt profile that defines both the prompting instructions and session context configuration. Summary profiles support custom pre and post prompts, structured response schemas, and session slicing to trim event data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

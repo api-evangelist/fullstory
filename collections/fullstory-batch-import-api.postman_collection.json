@@ -1,0 +1,569 @@
+{
+  "item": [
+    {
+      "id": "32fdb69a-8ce5-4351-8a5d-1e77646c2748",
+      "name": "Batch Import",
+      "description": {
+        "content": "Import large volumes of users and events asynchronously using batch import jobs that support up to 50,000 records per request.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd3246cd-0fc4-4aca-83ce-0a77fcf3c87f",
+          "name": "Create a batch user import job",
+          "request": {
+            "name": "Create a batch user import job",
+            "description": {
+              "content": "Imports up to 50,000 users in a single asynchronous request. Returns a job object with an ID and status that can be polled for completion. Users can be anonymous or identified with a uid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "users",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requests\": [\n    {\n      \"uid\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"uid\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"properties\": {\n        \"key_0\": 9007.801963481248\n      },\n      \"schema\": {\n        \"key_0\": 7657.110500367601\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "04855438-549f-4240-a81a-3269ce75a88b",
+              "name": "Batch import job created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "users",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"buQb2k-zCiho2@j.jd\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"8THp8uy@kmPuIJIDAezJnFKJGDLnhukeTWSYe.efh\",\n      \"properties\": {\n        \"key_0\": 7131.407326765361\n      },\n      \"schema\": {\n        \"key_0\": 248.1218585393019\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"PROCESSING\",\n  \"created\": \"1959-03-26T18:54:15.726Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae4fb969-9129-4b11-a233-535b5890eb60",
+              "name": "Invalid input provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "users",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"buQb2k-zCiho2@j.jd\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"8THp8uy@kmPuIJIDAezJnFKJGDLnhukeTWSYe.efh\",\n      \"properties\": {\n        \"key_0\": 7131.407326765361\n      },\n      \"schema\": {\n        \"key_0\": 248.1218585393019\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8911,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04231f09-1c51-46b2-994d-cca5877f0e5b",
+              "name": "Unauthorized - invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "users",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"buQb2k-zCiho2@j.jd\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"8THp8uy@kmPuIJIDAezJnFKJGDLnhukeTWSYe.efh\",\n      \"properties\": {\n        \"key_0\": 7131.407326765361\n      },\n      \"schema\": {\n        \"key_0\": 248.1218585393019\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8911,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11371ce1-9761-43ea-985c-1923d4f78646",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "users",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"buQb2k-zCiho2@j.jd\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"uid\": \"string\",\n      \"display_name\": \"string\",\n      \"email\": \"8THp8uy@kmPuIJIDAezJnFKJGDLnhukeTWSYe.efh\",\n      \"properties\": {\n        \"key_0\": 7131.407326765361\n      },\n      \"schema\": {\n        \"key_0\": 248.1218585393019\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8911,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a162b31f-b5c8-4a6b-b6e6-601f7fd4bf34",
+          "name": "Create a batch events import job",
+          "request": {
+            "name": "Create a batch events import job",
+            "description": {
+              "content": "Imports a large number of events in a single asynchronous request. Returns a job object with an ID and status that can be polled for completion. Each event in the batch can include custom properties and session associations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "events",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requests\": [\n    {\n      \"name\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"session\": {\n        \"id\": \"<string>\",\n        \"use_most_recent\": \"<boolean>\"\n      },\n      \"user\": {\n        \"id\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"properties\": {\n        \"key_0\": false,\n        \"key_1\": 4637,\n        \"key_2\": true\n      },\n      \"schema\": {\n        \"key_0\": false,\n        \"key_1\": 4764.044967890188\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"session\": {\n        \"id\": \"<string>\",\n        \"use_most_recent\": \"<boolean>\"\n      },\n      \"user\": {\n        \"id\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      },\n      \"schema\": {\n        \"key_0\": 9620,\n        \"key_1\": true,\n        \"key_2\": true\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30173333-c340-4586-9e4f-c60ddfc25aad",
+              "name": "Batch events import job created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1964-01-02T08:09:51.337Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": true\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 6729.017744067623,\n        \"key_1\": true\n      },\n      \"schema\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1970-04-08T05:01:22.558Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": false\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 1999.4841793828866\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"PROCESSING\",\n  \"created\": \"1959-03-26T18:54:15.726Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d890ed28-7535-4db0-899b-fabad1fb95fd",
+              "name": "Invalid input provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1964-01-02T08:09:51.337Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": true\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 6729.017744067623,\n        \"key_1\": true\n      },\n      \"schema\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1970-04-08T05:01:22.558Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": false\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 1999.4841793828866\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8911,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30844223-ba66-44d6-a0a5-a7015a87955a",
+              "name": "Unauthorized - invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1964-01-02T08:09:51.337Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": true\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 6729.017744067623,\n        \"key_1\": true\n      },\n      \"schema\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1970-04-08T05:01:22.558Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": false\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 1999.4841793828866\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8911,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c23d0ca-1376-48cf-a95e-8257af485de0",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1964-01-02T08:09:51.337Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": true\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 6729.017744067623,\n        \"key_1\": true\n      },\n      \"schema\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"timestamp\": \"1970-04-08T05:01:22.558Z\",\n      \"session\": {\n        \"id\": \"string\",\n        \"use_most_recent\": false\n      },\n      \"user\": {\n        \"id\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"properties\": {\n        \"key_0\": 1999.4841793828866\n      },\n      \"schema\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8911,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fullstory.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6ec4f76f-1f1d-4301-905d-2196d11d181c",
+    "name": "FullStory Segments Export Batch Import API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.\n\nContact Support:\n Name: FullStory Support",
+      "type": "text/plain"
+    }
+  }
+}

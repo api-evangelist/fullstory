@@ -1,51 +1,41 @@
 {
   "item": [
     {
-      "id": "f4ea3f19-474a-4c91-8201-4d5abcb046ce",
-      "name": "Sessions",
+      "id": "6219c4a1-d099-4346-bf49-cce276206a0f",
+      "name": "Operations",
       "description": {
-        "content": "Retrieve session replay URLs for users and access recorded session data. Sessions are scoped to a single FullStory account and replay URLs require authenticated FullStory access.",
+        "content": "Query the status of long-running asynchronous operations such as segment exports, and retrieve results when complete.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "b7511e70-43da-4fee-bd66-33bf55b5bdd1",
-          "name": "List sessions for a user",
+          "id": "54f50065-ac8d-4c57-b9b3-e84650b4a3ad",
+          "name": "Get operation status",
           "request": {
-            "name": "List sessions for a user",
+            "name": "Get operation status",
             "description": {
-              "content": "Returns a list of session replay URLs for a given user, queried by email address and/or uid. If both uid and email are provided, the API queries on them separately and returns a union of the records. It is recommended to use either uid or email, but not both. By default, the last 20 sessions are returned.",
+              "content": "Returns the status of a particular operation given the operation ID. When an operation is running, the response includes state, estimated completion percentage, and timestamps. When complete, results include download URLs for exported data.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "sessions",
-                "v2"
+                "operations",
+                "v1",
+                ":operationId"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
+              "query": [],
+              "variable": [
                 {
                   "disabled": false,
-                  "key": "email",
-                  "value": "<email>",
-                  "description": "Email address of the user whose sessions to retrieve"
-                },
-                {
-                  "disabled": false,
-                  "key": "uid",
+                  "type": "any",
                   "value": "<string>",
-                  "description": "External user identifier of the user whose sessions to retrieve"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "20",
-                  "description": "Maximum number of sessions to return. Defaults to 20."
+                  "key": "operationId",
+                  "description": "(Required) The unique identifier for the operation"
                 }
-              ],
-              "variable": []
+              ]
             },
             "header": [
               {
@@ -58,32 +48,28 @@
           },
           "response": [
             {
-              "id": "cb885e3a-ca1f-4841-acbf-4331eeaff5c6",
-              "name": "List of session URLs retrieved successfully",
+              "id": "74c32fd8-409c-4107-8ee2-87a268b75ff7",
+              "name": "Operation status retrieved successfully",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "operations",
+                    "v1",
+                    ":operationId"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
+                  "query": [],
+                  "variable": [
                     {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) The unique identifier for the operation"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
                 "header": [
                   {
@@ -110,94 +96,33 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"sessions\": [\n    {\n      \"sessionId\": \"string\",\n      \"url\": \"https://OWmMIrfpwvshK.lryzeVyoSslT8ZTtGjwN7ndDLL.0IcgHzE25dbUT62\",\n      \"created\": \"1996-08-05T14:20:35.113Z\"\n    },\n    {\n      \"sessionId\": \"string\",\n      \"url\": \"https://oNErjLSzvObvRCRGJaFpCI.hkz\",\n      \"created\": \"1986-04-19T16:39:27.322Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"state\": \"RUNNING\",\n  \"errorDetails\": \"string\",\n  \"createdAt\": \"1959-05-09T12:30:41.578Z\",\n  \"finishedAt\": \"1989-06-09T21:20:05.250Z\",\n  \"estimatePctComplete\": 15.647042695551239,\n  \"results\": {\n    \"downloadUrl\": \"http://qdiCHpGEQrKAloTLkDFIdRCTp.gkuRNEBFcAXFSv3bKyv2CIgNo2CgLD\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cd7f63af-a006-41c4-96db-d2252061bc21",
-              "name": "Invalid input - at least one of email or uid is required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    "v2"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"code\": 3245,\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a880febc-d0b2-413c-a46e-4e5f36da3887",
+              "id": "cb7e6705-88a4-434d-9462-9600fc7dc17f",
               "name": "Unauthorized - invalid or missing API key",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "operations",
+                    "v1",
+                    ":operationId"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
+                  "query": [],
+                  "variable": [
                     {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) The unique identifier for the operation"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
                 "header": [
                   {
@@ -224,37 +149,86 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"code\": 3245,\n  \"message\": \"string\"\n}",
+              "body": "{\n  \"code\": 7543,\n  \"message\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7e0b028e-c2f2-461b-aac0-c849ec7e77d8",
-              "name": "Rate limit exceeded",
+              "id": "e7688c1f-419d-496b-930b-bd78abaef458",
+              "name": "Operation not found",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "sessions",
-                    "v2"
+                    "operations",
+                    "v1",
+                    ":operationId"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
+                  "query": [],
+                  "variable": [
                     {
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "key": "uid",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) The unique identifier for the operation"
                     }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7543,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12023bf4-1981-4674-b5ac-e679716618f7",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "v1",
+                    ":operationId"
                   ],
-                  "variable": []
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) The unique identifier for the operation"
+                    }
+                  ]
                 },
                 "header": [
                   {
@@ -281,7 +255,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"code\": 3245,\n  \"message\": \"string\"\n}",
+              "body": "{\n  \"code\": 7543,\n  \"message\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -317,8 +291,8 @@
     ]
   },
   "info": {
-    "_postman_id": "5e2bddc3-ee30-461f-96b8-d04f877c2fbf",
-    "name": "FullStory Segments Export Batch Import Sessions API",
+    "_postman_id": "cf9b5afe-b958-41cb-a615-e55a5635a21a",
+    "name": "FullStory Segments Export Batch Import Operations API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.\n\nContact Support:\n Name: FullStory Support",

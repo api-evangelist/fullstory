@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import Events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a single event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fullstory.com/v2/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one custom event with the specified details. Events can be associated with a session and user. If use_most_recent is true, the most recent session within 30 minutes will be used. Custom properties can be attached and types are inferred automatically in v2."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import Operations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get operation status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/operations/v1/:operationId",
+            "params": [
+              {
+                "name": "operationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the operation"
+              }
+            ]
+          },
+          "docs": "Returns the status of a particular operation given the operation ID. When an operation is running, the response includes state, estimated completion percentage, and timestamps. When complete, results include download URLs for exported data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import Session Events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Session Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get session events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/v2/sessions/:sessionId/events",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "The session identifier, URL encoded"
+              }
+            ]
+          },
+          "docs": "Returns the full set of captured events for a specified session, including page views, clicks, custom events, and other interactions recorded during the session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

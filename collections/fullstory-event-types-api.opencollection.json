@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FullStory Segments Export Batch Import Event Types API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available webhook event types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fullstory.com/webhooks/v1/event_types"
+          },
+          "docs": "Returns the list of all available event types that can be configured for webhook endpoints. Some event types may not be returned if your FullStory plan does not support them. Event types that have subcategories require a subcategory to be specified when creating an endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
