@@ -70,7 +70,8 @@ apis:
     Each endpoint has a destination URL, configured event types, signing secret, and enabled status.
   humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
-  tags:
+  tags: []
+  tags_raw:
   - Endpoints
   properties:
   - type: OpenAPI
@@ -111,6 +112,8 @@ apis:
   humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -130,6 +133,8 @@ apis:
   humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
   tags:
+  - Export
+  tags_raw:
   - Exports
   properties:
   - type: OpenAPI
@@ -149,7 +154,8 @@ apis:
     when complete.
   humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
@@ -228,6 +234,8 @@ apis:
   humanURL: https://developer.fullstory.com/server/v2/getting-started/
   baseURL: https://api.fullstory.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
