@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: FullStory Segments Export Batch Import Session Summaries API
-  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  description: The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory.
   version: '1.0'
   contact:
     name: FullStory Support
@@ -53,16 +53,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     SessionSummary:
       type: object
       description: AI-generated summary of a session
@@ -76,6 +66,16 @@ components:
         configProfileId:
           type: string
           description: The summary prompt profile ID used
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
   parameters:
     SessionIdPath:
       name: sessionId

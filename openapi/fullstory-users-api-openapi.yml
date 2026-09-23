@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: FullStory Segments Export Batch Import Users API
-  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
-  version: '1.0'
+  title: FullStory Server Users API
+  description: The FullStory Server API is a RESTful API that enables developers to programmatically send user and event data to FullStory. It supports creating and updating individual users, batch importing users, sending server-side events, and batch importing events. The API uses JSON for request and response bodies and authenticates via API keys. Developers can use it to enrich FullStory session data with server-side context that is not available in the browser or mobile app.
+  version: '2.0'
   contact:
     name: FullStory Support
     url: https://help.fullstory.com/
@@ -194,13 +194,6 @@ components:
           description: Optional explicit type declarations for custom properties to override the default type inference
           additionalProperties: true
   parameters:
-    UserIdPath:
-      name: id
-      in: path
-      required: true
-      description: The FullStory-assigned user ID
-      schema:
-        type: string
     UidQuery:
       name: uid
       in: query
@@ -208,11 +201,18 @@ components:
       description: The external user identifier used to identify the user to delete
       schema:
         type: string
+    UserIdPath:
+      name: id
+      in: path
+      required: true
+      description: The FullStory-assigned user ID
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
-      description: API key passed in the Authorization header using Basic authentication. Admin or Architect level keys are required.
+      description: API key passed in the Authorization header using Basic authentication. Generate API keys from the FullStory app settings. Admin or Architect level keys are required for data retrieval and deletion operations.
 externalDocs:
-  description: FullStory Segments Export API Documentation
-  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/
+  description: FullStory Server API Documentation
+  url: https://developer.fullstory.com/server/getting-started/

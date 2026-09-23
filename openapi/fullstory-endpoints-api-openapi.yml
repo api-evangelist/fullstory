@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: FullStory Segments Export Batch Import Endpoints API
-  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  title: FullStory Webhooks Endpoints API
+  description: The FullStory Webhooks API enables developers to create, update, retrieve, and manage webhook endpoints that receive real-time notifications from FullStory. Supported event types include segment creation, segment threshold alerts, and custom event notifications. Webhooks allow event-driven integrations that respond immediately to behavioral signals detected by FullStory, eliminating the need for polling and enabling automated workflows based on user activity patterns.
   version: '1.0'
   contact:
     name: FullStory Support
@@ -200,23 +200,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    EndpointIdPath:
+      name: endpointId
+      in: path
+      required: true
+      description: The unique identifier of the webhook endpoint
+      schema:
+        type: string
   schemas:
-    CreateEndpointRequest:
+    EventTypeConfig:
       type: object
       required:
-      - url
-      - events
-      description: Request body for creating a new webhook endpoint
+      - eventName
+      description: Configuration for a specific event type on a webhook endpoint
       properties:
-        url:
+        eventName:
           type: string
-          format: uri
-          description: The URL that will receive webhook event notifications
-        events:
-          type: array
-          description: The types of events this endpoint should receive
-          items:
-            $ref: '#/components/schemas/EventTypeConfig'
+          description: The name of the event type
+          enum:
+          - segment.created
+          - segment.trend.alert
+          - recording.event.custom
+          - note.created
+        subcategory:
+          type: string
+          description: Required subcategory for event types that require one, such as specifying which custom event to listen for
     UpdateEndpointRequest:
       type: object
       description: Request body for updating an existing webhook endpoint
@@ -236,6 +245,41 @@ components:
         enabled:
           type: boolean
           description: Whether the endpoint is enabled and receiving events
+    CreateEndpointRequest:
+      type: object
+      required:
+      - url
+      - events
+      description: Request body for creating a new webhook endpoint
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL that will receive webhook event notifications
+        events:
+          type: array
+          description: The types of events this endpoint should receive
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
+    EndpointList:
+      type: object
+      description: List of webhook endpoints
+      properties:
+        endpoints:
+          type: array
+          description: Array of configured webhook endpoints
+          items:
+            $ref: '#/components/schemas/Endpoint'
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
     Endpoint:
       type: object
       description: A configured webhook endpoint in FullStory
@@ -262,55 +306,11 @@ components:
           type: string
           format: date-time
           description: Timestamp when the endpoint was created
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
-    EventTypeConfig:
-      type: object
-      required:
-      - eventName
-      description: Configuration for a specific event type on a webhook endpoint
-      properties:
-        eventName:
-          type: string
-          description: The name of the event type
-          enum:
-          - segment.created
-          - segment.trend.alert
-          - recording.event.custom
-          - note.created
-        subcategory:
-          type: string
-          description: Required subcategory for event types that require one, such as specifying which custom event to listen for
-    EndpointList:
-      type: object
-      description: List of webhook endpoints
-      properties:
-        endpoints:
-          type: array
-          description: Array of configured webhook endpoints
-          items:
-            $ref: '#/components/schemas/Endpoint'
-  parameters:
-    EndpointIdPath:
-      name: endpointId
-      in: path
-      required: true
-      description: The unique identifier of the webhook endpoint
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
       description: API key passed in the Authorization header using Basic authentication. Admin or Architect level keys are required.
 externalDocs:
-  description: FullStory Segments Export API Documentation
-  url: https://developer.fullstory.com/server/v1/segments/create-segment-export/
+  description: FullStory Webhooks API Documentation
+  url: https://developer.fullstory.com/destinations/v1/webhooks/getting-started/

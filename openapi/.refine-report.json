@@ -1,34 +1,48 @@
 {
   "provider": "fullstory",
   "sources": [
-    "fullstory-batch-import-api-openapi.yml",
-    "fullstory-endpoints-api-openapi.yml",
-    "fullstory-event-types-api-openapi.yml",
-    "fullstory-events-api-openapi.yml",
-    "fullstory-exports-api-openapi.yml",
-    "fullstory-operations-api-openapi.yml",
-    "fullstory-segments-api-openapi.yml",
+    "_original/fullstory-segments-export-api-openapi.yml",
+    "_original/fullstory-server-api-openapi.yml",
+    "_original/fullstory-webhooks-api-openapi.yml",
     "fullstory-session-events-api-openapi.yml",
     "fullstory-session-summaries-api-openapi.yml",
-    "fullstory-sessions-api-openapi.yml",
-    "fullstory-users-api-openapi.yml"
+    "fullstory-sessions-api-openapi.yml"
   ],
   "outputs": [
-    "fullstory-batch-import-api-openapi.yml",
-    "fullstory-endpoints-api-openapi.yml",
-    "fullstory-event-types-api-openapi.yml",
-    "fullstory-events-api-openapi.yml",
     "fullstory-exports-api-openapi.yml",
     "fullstory-operations-api-openapi.yml",
     "fullstory-segments-api-openapi.yml",
+    "fullstory-batch-import-api-openapi.yml",
+    "fullstory-events-api-openapi.yml",
+    "fullstory-users-api-openapi.yml",
+    "fullstory-endpoints-api-openapi.yml",
+    "fullstory-event-types-api-openapi.yml",
     "fullstory-session-events-api-openapi.yml",
     "fullstory-session-summaries-api-openapi.yml",
-    "fullstory-sessions-api-openapi.yml",
-    "fullstory-users-api-openapi.yml"
+    "fullstory-sessions-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "fullstory-session-events-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v2/sessions/{sessionId}/events get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "fullstory-session-summaries-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v2/sessions/{sessionId}/summary get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "fullstory-sessions-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /sessions/v2 get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "fullstory-segments-export-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "fullstory-server-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "fullstory-webhooks-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "fullstory-batch-import-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-event-types-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-exports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-segments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fullstory-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

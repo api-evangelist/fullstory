@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: FullStory Segments Export Batch Import Exports API
-  description: 'The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory. Developers can initiate export jobs to aggregate segment data, query for the status of running jobs, and retrieve download URLs for completed exports. Two types of segment data are available for export: individuals matching a segment and events performed by those individuals. This API is useful for integrating FullStory behavioral data into external analytics pipelines and data warehouses.'
+  title: FullStory Segments Export Exports API
+  description: The FullStory Segments Export API provides an asynchronous workflow for downloading captured event data from FullStory.
   version: '1.0'
   contact:
     name: FullStory Support
@@ -56,6 +56,52 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CreateExportRequest:
+      type: object
+      required:
+      - segmentId
+      - type
+      description: Request body for creating a segment export job
+      properties:
+        segmentId:
+          type: string
+          description: The ID of the segment to export
+        type:
+          type: string
+          description: The type of data to export. Use individuals for user data or events for behavioral event data.
+          enum:
+          - individuals
+          - events
+        format:
+          type: string
+          description: The output format for the export
+          enum:
+          - json
+          - csv
+        timeRange:
+          type: object
+          description: Optional time range to filter the exported data
+          properties:
+            start:
+              type: string
+              format: date-time
+              description: Start of the time range in RFC 3339 format
+            end:
+              type: string
+              format: date-time
+              description: End of the time range in RFC 3339 format
+        segmentTimeRange:
+          type: object
+          description: Optional time range for segment membership evaluation
+          properties:
+            start:
+              type: string
+              format: date-time
+              description: Start of the segment evaluation time range
+            end:
+              type: string
+              format: date-time
+              description: End of the segment evaluation time range
     Error:
       type: object
       description: Standard error response from the FullStory API
@@ -109,52 +155,6 @@ components:
               type: string
               format: uri
               description: URL for downloading the exported data
-    CreateExportRequest:
-      type: object
-      required:
-      - segmentId
-      - type
-      description: Request body for creating a segment export job
-      properties:
-        segmentId:
-          type: string
-          description: The ID of the segment to export
-        type:
-          type: string
-          description: The type of data to export. Use individuals for user data or events for behavioral event data.
-          enum:
-          - individuals
-          - events
-        format:
-          type: string
-          description: The output format for the export
-          enum:
-          - json
-          - csv
-        timeRange:
-          type: object
-          description: Optional time range to filter the exported data
-          properties:
-            start:
-              type: string
-              format: date-time
-              description: Start of the time range in RFC 3339 format
-            end:
-              type: string
-              format: date-time
-              description: End of the time range in RFC 3339 format
-        segmentTimeRange:
-          type: object
-          description: Optional time range for segment membership evaluation
-          properties:
-            start:
-              type: string
-              format: date-time
-              description: Start of the segment evaluation time range
-            end:
-              type: string
-              format: date-time
-              description: End of the segment evaluation time range
   securitySchemes:
     basicAuth:
       type: http
