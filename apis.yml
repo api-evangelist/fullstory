@@ -72,8 +72,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-endpoints-api
@@ -93,8 +91,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-event-types-api
@@ -113,8 +109,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-events-api
@@ -135,8 +129,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-exports-api
@@ -156,8 +148,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-operations-api
@@ -177,8 +167,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-segments-api
@@ -195,8 +183,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-session-events-api
@@ -215,8 +201,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-session-summaries-api
@@ -235,8 +219,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 - aid: fullstory:fullstory-users-api
@@ -257,8 +239,6 @@ apis:
     url: https://developer.fullstory.com/server/v2/getting-started/
   - type: Developers
     url: https://developer.fullstory.com/
-  - type: GraphQL
-    url: graphql/fullstory-graphql.md
   - type: Documentation
     url: https://developer.fullstory.com/
 common:
