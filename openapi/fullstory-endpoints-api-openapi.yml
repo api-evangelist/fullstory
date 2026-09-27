@@ -209,6 +209,16 @@ components:
       schema:
         type: string
   schemas:
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
     EventTypeConfig:
       type: object
       required:
@@ -245,22 +255,6 @@ components:
         enabled:
           type: boolean
           description: Whether the endpoint is enabled and receiving events
-    CreateEndpointRequest:
-      type: object
-      required:
-      - url
-      - events
-      description: Request body for creating a new webhook endpoint
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The URL that will receive webhook event notifications
-        events:
-          type: array
-          description: The types of events this endpoint should receive
-          items:
-            $ref: '#/components/schemas/EventTypeConfig'
     EndpointList:
       type: object
       description: List of webhook endpoints
@@ -270,16 +264,6 @@ components:
           description: Array of configured webhook endpoints
           items:
             $ref: '#/components/schemas/Endpoint'
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     Endpoint:
       type: object
       description: A configured webhook endpoint in FullStory
@@ -306,6 +290,22 @@ components:
           type: string
           format: date-time
           description: Timestamp when the endpoint was created
+    CreateEndpointRequest:
+      type: object
+      required:
+      - url
+      - events
+      description: Request body for creating a new webhook endpoint
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL that will receive webhook event notifications
+        events:
+          type: array
+          description: The types of events this endpoint should receive
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
   securitySchemes:
     basicAuth:
       type: http

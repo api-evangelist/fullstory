@@ -94,25 +94,49 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    BatchJob:
+    Error:
       type: object
-      description: Represents an asynchronous batch import job
+      description: Standard error response from the FullStory API
       properties:
-        id:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
           type: string
-          description: The unique identifier for the batch import job
-        status:
+          description: Human-readable error message
+    BatchEventsImportRequest:
+      type: object
+      required:
+      - requests
+      description: Request body for batch importing events into FullStory
+      properties:
+        requests:
+          type: array
+          description: Array of event objects to import
+          items:
+            $ref: '#/components/schemas/CreateEventRequest'
+    CreateUserRequest:
+      type: object
+      description: Request body for creating or updating a user in FullStory
+      properties:
+        uid:
           type: string
-          description: Current status of the batch import job
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-        created:
+          description: External user identifier. Omit to create an anonymous user.
+        display_name:
           type: string
-          format: date-time
-          description: Timestamp when the batch import job was accepted
+          description: The display name for the user
+        email:
+          type: string
+          format: email
+          description: The email address for the user
+        properties:
+          type: object
+          description: Custom key-value properties to attach to the user. Type suffixes are not required in v2 as types are inferred automatically.
+          additionalProperties: true
+        schema:
+          type: object
+          description: Optional explicit type declarations for custom properties to override the default type inference
+          additionalProperties: true
     BatchUserImportRequest:
       type: object
       required:
@@ -166,49 +190,25 @@ components:
           type: object
           description: Optional explicit type declarations for custom event properties
           additionalProperties: true
-    BatchEventsImportRequest:
+    BatchJob:
       type: object
-      required:
-      - requests
-      description: Request body for batch importing events into FullStory
+      description: Represents an asynchronous batch import job
       properties:
-        requests:
-          type: array
-          description: Array of event objects to import
-          items:
-            $ref: '#/components/schemas/CreateEventRequest'
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
+        id:
           type: string
-          description: Human-readable error message
-    CreateUserRequest:
-      type: object
-      description: Request body for creating or updating a user in FullStory
-      properties:
-        uid:
+          description: The unique identifier for the batch import job
+        status:
           type: string
-          description: External user identifier. Omit to create an anonymous user.
-        display_name:
+          description: Current status of the batch import job
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        created:
           type: string
-          description: The display name for the user
-        email:
-          type: string
-          format: email
-          description: The email address for the user
-        properties:
-          type: object
-          description: Custom key-value properties to attach to the user. Type suffixes are not required in v2 as types are inferred automatically.
-          additionalProperties: true
-        schema:
-          type: object
-          description: Optional explicit type declarations for custom properties to override the default type inference
-          additionalProperties: true
+          format: date-time
+          description: Timestamp when the batch import job was accepted
   securitySchemes:
     basicAuth:
       type: http

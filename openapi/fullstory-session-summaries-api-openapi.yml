@@ -53,6 +53,16 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
     SessionSummary:
       type: object
       description: AI-generated summary of a session
@@ -66,29 +76,19 @@ components:
         configProfileId:
           type: string
           description: The summary prompt profile ID used
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
   parameters:
-    SessionIdPath:
-      name: sessionId
-      in: path
-      required: true
-      description: The session identifier, URL encoded
-      schema:
-        type: string
     ConfigProfileIdQuery:
       name: config_profile_id
       in: query
       required: true
       description: The ID of the summary prompt profile to use for generating the AI session summary
+      schema:
+        type: string
+    SessionIdPath:
+      name: sessionId
+      in: path
+      required: true
+      description: The session identifier, URL encoded
       schema:
         type: string
   securitySchemes:

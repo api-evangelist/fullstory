@@ -52,16 +52,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     Operation:
       type: object
       description: Represents an asynchronous operation such as a segment export
@@ -105,6 +95,16 @@ components:
               type: string
               format: uri
               description: URL for downloading the exported data
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
   parameters:
     OperationIdPath:
       name: operationId

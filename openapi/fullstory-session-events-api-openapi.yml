@@ -52,6 +52,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    SessionEvents:
+      type: object
+      description: Full set of captured events for a session
+      properties:
+        events:
+          type: array
+          description: Array of events captured during the session
+          items:
+            $ref: '#/components/schemas/SessionEvent'
     Error:
       type: object
       description: Standard error response from the FullStory API
@@ -77,15 +86,6 @@ components:
           type: object
           description: Event-specific data and properties
           additionalProperties: true
-    SessionEvents:
-      type: object
-      description: Full set of captured events for a session
-      properties:
-        events:
-          type: array
-          description: Array of events captured during the session
-          items:
-            $ref: '#/components/schemas/SessionEvent'
   parameters:
     SessionIdPath:
       name: sessionId

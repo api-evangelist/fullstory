@@ -53,32 +53,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    LimitQuery:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of sessions to return. Defaults to 20.
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-    UidQuery:
-      name: uid
-      in: query
-      required: false
-      description: External user identifier of the user whose sessions to retrieve
-      schema:
-        type: string
-    EmailQuery:
-      name: email
-      in: query
-      required: false
-      description: Email address of the user whose sessions to retrieve
-      schema:
-        type: string
-        format: email
   schemas:
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
     SessionList:
       type: object
       description: List of session replay URLs for a user
@@ -103,16 +88,31 @@ components:
           type: string
           format: date-time
           description: Timestamp when the session was recorded
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
+  parameters:
+    EmailQuery:
+      name: email
+      in: query
+      required: false
+      description: Email address of the user whose sessions to retrieve
+      schema:
+        type: string
+        format: email
+    UidQuery:
+      name: uid
+      in: query
+      required: false
+      description: External user identifier of the user whose sessions to retrieve
+      schema:
+        type: string
+    LimitQuery:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of sessions to return. Defaults to 20.
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
   securitySchemes:
     basicAuth:
       type: http

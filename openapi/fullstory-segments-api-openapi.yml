@@ -80,32 +80,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    PaginationToken:
-      name: pagination_token
-      in: query
-      required: false
-      description: Token for retrieving the next page of results. Do not change other list parameters between consecutive paginated requests.
-      schema:
-        type: string
-    SegmentIdPath:
-      name: segmentId
-      in: path
-      required: true
-      description: The unique identifier for the segment
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of segments to return per page. Default is 20, maximum is 100.
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
   schemas:
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    SegmentList:
+      type: object
+      description: Paginated list of segments
+      properties:
+        segments:
+          type: array
+          description: Array of segment objects
+          items:
+            $ref: '#/components/schemas/Segment'
+        pagination_token:
+          type: string
+          description: Token to retrieve the next page of results. Absent when no more pages are available.
     Segment:
       type: object
       description: A FullStory segment representing a saved group of users matching specific behavioral criteria
@@ -124,28 +121,31 @@ components:
           type: string
           format: date-time
           description: UTC RFC 3339 timestamp for when the segment was created. Not present for built-in segments.
-    SegmentList:
-      type: object
-      description: Paginated list of segments
-      properties:
-        segments:
-          type: array
-          description: Array of segment objects
-          items:
-            $ref: '#/components/schemas/Segment'
-        pagination_token:
-          type: string
-          description: Token to retrieve the next page of results. Absent when no more pages are available.
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
+  parameters:
+    SegmentIdPath:
+      name: segmentId
+      in: path
+      required: true
+      description: The unique identifier for the segment
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of segments to return per page. Default is 20, maximum is 100.
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+    PaginationToken:
+      name: pagination_token
+      in: query
+      required: false
+      description: Token for retrieving the next page of results. Do not change other list parameters between consecutive paginated requests.
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

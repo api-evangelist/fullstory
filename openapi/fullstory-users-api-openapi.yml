@@ -128,6 +128,16 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
     User:
       type: object
       description: A FullStory user object with profile information and custom properties
@@ -161,16 +171,6 @@ components:
           type: string
           format: uri
           description: URL to view the user in the FullStory application
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     CreateUserRequest:
       type: object
       description: Request body for creating or updating a user in FullStory
