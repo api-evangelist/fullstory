@@ -81,16 +81,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     SegmentList:
       type: object
       description: Paginated list of segments
@@ -103,6 +93,16 @@ components:
         pagination_token:
           type: string
           description: Token to retrieve the next page of results. Absent when no more pages are available.
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
     Segment:
       type: object
       description: A FullStory segment representing a saved group of users matching specific behavioral criteria
@@ -122,13 +122,6 @@ components:
           format: date-time
           description: UTC RFC 3339 timestamp for when the segment was created. Not present for built-in segments.
   parameters:
-    SegmentIdPath:
-      name: segmentId
-      in: path
-      required: true
-      description: The unique identifier for the segment
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -139,6 +132,13 @@ components:
         default: 20
         minimum: 1
         maximum: 100
+    SegmentIdPath:
+      name: segmentId
+      in: path
+      required: true
+      description: The unique identifier for the segment
+      schema:
+        type: string
     PaginationToken:
       name: pagination_token
       in: query

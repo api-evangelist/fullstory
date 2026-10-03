@@ -52,30 +52,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  schemas:
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
-    SessionSummary:
-      type: object
-      description: AI-generated summary of a session
-      properties:
-        sessionId:
-          type: string
-          description: The session that was summarized
-        summary:
-          type: string
-          description: The generated summary text or structured response based on the configured response schema
-        configProfileId:
-          type: string
-          description: The summary prompt profile ID used
   parameters:
     ConfigProfileIdQuery:
       name: config_profile_id
@@ -91,6 +67,30 @@ components:
       description: The session identifier, URL encoded
       schema:
         type: string
+  schemas:
+    SessionSummary:
+      type: object
+      description: AI-generated summary of a session
+      properties:
+        sessionId:
+          type: string
+          description: The session that was summarized
+        summary:
+          type: string
+          description: The generated summary text or structured response based on the configured response schema
+        configProfileId:
+          type: string
+          description: The summary prompt profile ID used
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     basicAuth:
       type: http

@@ -127,7 +127,44 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    UidQuery:
+      name: uid
+      in: query
+      required: true
+      description: The external user identifier used to identify the user to delete
+      schema:
+        type: string
+    UserIdPath:
+      name: id
+      in: path
+      required: true
+      description: The FullStory-assigned user ID
+      schema:
+        type: string
   schemas:
+    CreateUserRequest:
+      type: object
+      description: Request body for creating or updating a user in FullStory
+      properties:
+        uid:
+          type: string
+          description: External user identifier. Omit to create an anonymous user.
+        display_name:
+          type: string
+          description: The display name for the user
+        email:
+          type: string
+          format: email
+          description: The email address for the user
+        properties:
+          type: object
+          description: Custom key-value properties to attach to the user. Type suffixes are not required in v2 as types are inferred automatically.
+          additionalProperties: true
+        schema:
+          type: object
+          description: Optional explicit type declarations for custom properties to override the default type inference
+          additionalProperties: true
     Error:
       type: object
       description: Standard error response from the FullStory API
@@ -171,43 +208,6 @@ components:
           type: string
           format: uri
           description: URL to view the user in the FullStory application
-    CreateUserRequest:
-      type: object
-      description: Request body for creating or updating a user in FullStory
-      properties:
-        uid:
-          type: string
-          description: External user identifier. Omit to create an anonymous user.
-        display_name:
-          type: string
-          description: The display name for the user
-        email:
-          type: string
-          format: email
-          description: The email address for the user
-        properties:
-          type: object
-          description: Custom key-value properties to attach to the user. Type suffixes are not required in v2 as types are inferred automatically.
-          additionalProperties: true
-        schema:
-          type: object
-          description: Optional explicit type declarations for custom properties to override the default type inference
-          additionalProperties: true
-  parameters:
-    UidQuery:
-      name: uid
-      in: query
-      required: true
-      description: The external user identifier used to identify the user to delete
-      schema:
-        type: string
-    UserIdPath:
-      name: id
-      in: path
-      required: true
-      description: The FullStory-assigned user ID
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http

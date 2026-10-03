@@ -44,16 +44,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     EventType:
       type: object
       description: A webhook event type available in FullStory
@@ -76,6 +66,16 @@ components:
           description: Array of available event types
           items:
             $ref: '#/components/schemas/EventType'
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     basicAuth:
       type: http
