@@ -44,19 +44,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    EventType:
-      type: object
-      description: A webhook event type available in FullStory
-      properties:
-        eventName:
-          type: string
-          description: The name of the event type
-        description:
-          type: string
-          description: Human-readable description of the event type
-        hasSubcategories:
-          type: boolean
-          description: Whether this event type requires a subcategory when configuring an endpoint
     EventTypeList:
       type: object
       description: List of available webhook event types
@@ -76,6 +63,19 @@ components:
         message:
           type: string
           description: Human-readable error message
+    EventType:
+      type: object
+      description: A webhook event type available in FullStory
+      properties:
+        eventName:
+          type: string
+          description: The name of the event type
+        description:
+          type: string
+          description: Human-readable description of the event type
+        hasSubcategories:
+          type: boolean
+          description: Whether this event type requires a subcategory when configuring an endpoint
   securitySchemes:
     basicAuth:
       type: http

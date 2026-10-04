@@ -200,7 +200,70 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    EndpointIdPath:
+      name: endpointId
+      in: path
+      required: true
+      description: The unique identifier of the webhook endpoint
+      schema:
+        type: string
   schemas:
+    EventTypeConfig:
+      type: object
+      required:
+      - eventName
+      description: Configuration for a specific event type on a webhook endpoint
+      properties:
+        eventName:
+          type: string
+          description: The name of the event type
+          enum:
+          - segment.created
+          - segment.trend.alert
+          - recording.event.custom
+          - note.created
+        subcategory:
+          type: string
+          description: Required subcategory for event types that require one, such as specifying which custom event to listen for
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    EndpointList:
+      type: object
+      description: List of webhook endpoints
+      properties:
+        endpoints:
+          type: array
+          description: Array of configured webhook endpoints
+          items:
+            $ref: '#/components/schemas/Endpoint'
+    UpdateEndpointRequest:
+      type: object
+      description: Request body for updating an existing webhook endpoint
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The new destination URL for webhook events
+        events:
+          type: array
+          description: Updated list of event types for this endpoint
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
+        signingSecret:
+          type: string
+          description: Updated signing secret for verifying webhook payloads
+        enabled:
+          type: boolean
+          description: Whether the endpoint is enabled and receiving events
     CreateEndpointRequest:
       type: object
       required:
@@ -243,69 +306,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the endpoint was created
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
-    EndpointList:
-      type: object
-      description: List of webhook endpoints
-      properties:
-        endpoints:
-          type: array
-          description: Array of configured webhook endpoints
-          items:
-            $ref: '#/components/schemas/Endpoint'
-    UpdateEndpointRequest:
-      type: object
-      description: Request body for updating an existing webhook endpoint
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The new destination URL for webhook events
-        events:
-          type: array
-          description: Updated list of event types for this endpoint
-          items:
-            $ref: '#/components/schemas/EventTypeConfig'
-        signingSecret:
-          type: string
-          description: Updated signing secret for verifying webhook payloads
-        enabled:
-          type: boolean
-          description: Whether the endpoint is enabled and receiving events
-    EventTypeConfig:
-      type: object
-      required:
-      - eventName
-      description: Configuration for a specific event type on a webhook endpoint
-      properties:
-        eventName:
-          type: string
-          description: The name of the event type
-          enum:
-          - segment.created
-          - segment.trend.alert
-          - recording.event.custom
-          - note.created
-        subcategory:
-          type: string
-          description: Required subcategory for event types that require one, such as specifying which custom event to listen for
-  parameters:
-    EndpointIdPath:
-      name: endpointId
-      in: path
-      required: true
-      description: The unique identifier of the webhook endpoint
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http

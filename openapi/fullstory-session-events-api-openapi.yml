@@ -52,25 +52,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    SessionEvents:
-      type: object
-      description: Full set of captured events for a session
-      properties:
-        events:
-          type: array
-          description: Array of events captured during the session
-          items:
-            $ref: '#/components/schemas/SessionEvent'
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     SessionEvent:
       type: object
       description: An individual event captured during a session
@@ -86,6 +67,25 @@ components:
           type: object
           description: Event-specific data and properties
           additionalProperties: true
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    SessionEvents:
+      type: object
+      description: Full set of captured events for a session
+      properties:
+        events:
+          type: array
+          description: Array of events captured during the session
+          items:
+            $ref: '#/components/schemas/SessionEvent'
   parameters:
     SessionIdPath:
       name: sessionId

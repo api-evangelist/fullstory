@@ -122,6 +122,13 @@ components:
           format: date-time
           description: UTC RFC 3339 timestamp for when the segment was created. Not present for built-in segments.
   parameters:
+    PaginationToken:
+      name: pagination_token
+      in: query
+      required: false
+      description: Token for retrieving the next page of results. Do not change other list parameters between consecutive paginated requests.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -137,13 +144,6 @@ components:
       in: path
       required: true
       description: The unique identifier for the segment
-      schema:
-        type: string
-    PaginationToken:
-      name: pagination_token
-      in: query
-      required: false
-      description: Token for retrieving the next page of results. Do not change other list parameters between consecutive paginated requests.
       schema:
         type: string
   securitySchemes:

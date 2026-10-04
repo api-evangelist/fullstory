@@ -127,21 +127,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    UidQuery:
-      name: uid
-      in: query
-      required: true
-      description: The external user identifier used to identify the user to delete
-      schema:
-        type: string
-    UserIdPath:
-      name: id
-      in: path
-      required: true
-      description: The FullStory-assigned user ID
-      schema:
-        type: string
   schemas:
     CreateUserRequest:
       type: object
@@ -165,16 +150,6 @@ components:
           type: object
           description: Optional explicit type declarations for custom properties to override the default type inference
           additionalProperties: true
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     User:
       type: object
       description: A FullStory user object with profile information and custom properties
@@ -208,6 +183,31 @@ components:
           type: string
           format: uri
           description: URL to view the user in the FullStory application
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+  parameters:
+    UidQuery:
+      name: uid
+      in: query
+      required: true
+      description: The external user identifier used to identify the user to delete
+      schema:
+        type: string
+    UserIdPath:
+      name: id
+      in: path
+      required: true
+      description: The FullStory-assigned user ID
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http
