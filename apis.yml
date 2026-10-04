@@ -31,6 +31,9 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fullstory.png
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Session Replay
 - Product Analytics
@@ -242,6 +245,9 @@ apis:
   - type: Documentation
     url: https://developer.fullstory.com/
 common:
+- type: CapabilityMap
+  url: capabilities/fullstory-capability-edges.yml
+  name: FullStory Business Capability Map
 - type: AgenticAccess
   url: agentic-access/fullstory-agentic-access.yml
 - type: TrustCenter
