@@ -1,0 +1,45 @@
+slug: fullstory
+provider: FullStory
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Endpoints
+  spec_file: fullstory-endpoints-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: POST /webhooks/v1/endpoints 'Create a webhook endpoint'; 'manage webhook endpoints that receive
+    real-time notifications from FullStory'
+  reason: Full CRUD lifecycle over outbound webhook subscription endpoints and their event-type configuration
+    — exactly Webhook & Event Subscription Management.
+- tag: Batch Import
+  spec_file: fullstory-batch-import-api-openapi.yml
+  capability_id: BC-4280.10
+  capability_id_l1: BC-4280
+  capability_name: Product Telemetry Instrumentation
+  confidence: 0.7
+  evidence: 'POST /v2/users/batch ''Create a batch user import job''; POST /v2/events/batch ''Create a
+    batch events import job''; description: ''enrich FullStory session data with server-side context'''
+  reason: Although 'Batch Import' sounds like plumbing, the operations ingest product usage users and
+    events from server runtimes into a behavioral analytics platform, which is product telemetry instrumentation.
+- tag: Events
+  spec_file: fullstory-events-api-openapi.yml
+  capability_id: BC-4280.10
+  capability_id_l1: BC-4280
+  capability_name: Product Telemetry Instrumentation
+  confidence: 0.7
+  evidence: POST /v2/events 'Create a single event'; 'sending server-side events ... to enrich FullStory
+    session data'
+  reason: Server-side emission of product usage events into a behavioral analytics platform against a
+    defined event schema — product telemetry instrumentation.
