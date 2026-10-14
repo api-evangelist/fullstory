@@ -39,3 +39,15 @@
   relationship: connector-coverage
   status: not-a-workflow
   arazzo: null
+- slug: fullstory-atlassian-marketplace
+  label: Atlassian Marketplace
+  partner: atlassian
+  partner_name: Atlassian Marketplace
+  type: marketplace
+  marketplace: atlassian
+  channel: partner-built
+  evidence: https://marketplace.atlassian.com/vendors/1212920/fullstory-inc
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
