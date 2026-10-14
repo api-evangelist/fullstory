@@ -1,13 +1,29 @@
 generated: '2026-10-14'
 edges:
+- partner_name: Atlassian Marketplace
+  partner: atlassian
+  partner_match: aggregator
+  type: marketplace
+  marketplace: atlassian
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.atlassian.com/vendors/1212920/fullstory-inc
+  listing_count: 2
+  apps:
+  - Fullstory EU for Jira
+  - Fullstory for Jira
+  publisher_name: Fullstory, Inc.
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 - partner_name: Twilio Segment
   partner: segment
   partner_match: aggregator
-  marketplace: coverage
+  marketplace: segment-partner-destinations
   channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
+  direction: third-party
+  type: marketplace
+  relationship: platform-app
   evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-fullstory
   coverage_role:
   - destination
@@ -72,28 +88,30 @@ edges:
       - update only
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
-- partner_name: Atlassian Marketplace
-  partner: atlassian
-  partner_match: aggregator
+- partner_name: New Relic (own)
+  partner: new-relic
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
-  marketplace: atlassian
-  channel: partner-built
   relationship: platform-app
   direction: third-party
-  evidence: https://marketplace.atlassian.com/vendors/1212920/fullstory-inc
-  listing_count: 2
+  channel: partner-built
+  marketplace: own
+  evidence: https://newrelic.com/instant-observability/full-story
+  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
   apps:
-  - Fullstory EU for Jira
-  - Fullstory for Jira
-  publisher_name: Fullstory, Inc.
-  detected_by: sweep-devtools.py
+  - Full Story
+  listing_count: 1
   detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Community
 method: searched
 checked:
 - https://fivetran.com/docs/activations/destinations/available-destinations/fullstory
 - https://hightouch.com/docs/destinations/fullstory
 - https://marketplace.atlassian.com/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-fullstory
+- new-relic/integrations/new-relic-integration-edges.yml
 source:
 - https://fivetran.com/docs/activations/destinations/available-destinations/fullstory
 - https://hightouch.com/docs/destinations/fullstory
