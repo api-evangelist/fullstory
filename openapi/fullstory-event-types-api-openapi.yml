@@ -44,15 +44,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    EventTypeList:
-      type: object
-      description: List of available webhook event types
-      properties:
-        eventTypes:
-          type: array
-          description: Array of available event types
-          items:
-            $ref: '#/components/schemas/EventType'
     Error:
       type: object
       description: Standard error response from the FullStory API
@@ -63,6 +54,15 @@ components:
         message:
           type: string
           description: Human-readable error message
+    EventTypeList:
+      type: object
+      description: List of available webhook event types
+      properties:
+        eventTypes:
+          type: array
+          description: Array of available event types
+          items:
+            $ref: '#/components/schemas/EventType'
     EventType:
       type: object
       description: A webhook event type available in FullStory

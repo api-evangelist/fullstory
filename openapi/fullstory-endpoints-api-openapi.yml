@@ -209,6 +209,25 @@ components:
       schema:
         type: string
   schemas:
+    UpdateEndpointRequest:
+      type: object
+      description: Request body for updating an existing webhook endpoint
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The new destination URL for webhook events
+        events:
+          type: array
+          description: Updated list of event types for this endpoint
+          items:
+            $ref: '#/components/schemas/EventTypeConfig'
+        signingSecret:
+          type: string
+          description: Updated signing secret for verifying webhook payloads
+        enabled:
+          type: boolean
+          description: Whether the endpoint is enabled and receiving events
     EventTypeConfig:
       type: object
       required:
@@ -236,34 +255,6 @@ components:
         message:
           type: string
           description: Human-readable error message
-    EndpointList:
-      type: object
-      description: List of webhook endpoints
-      properties:
-        endpoints:
-          type: array
-          description: Array of configured webhook endpoints
-          items:
-            $ref: '#/components/schemas/Endpoint'
-    UpdateEndpointRequest:
-      type: object
-      description: Request body for updating an existing webhook endpoint
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The new destination URL for webhook events
-        events:
-          type: array
-          description: Updated list of event types for this endpoint
-          items:
-            $ref: '#/components/schemas/EventTypeConfig'
-        signingSecret:
-          type: string
-          description: Updated signing secret for verifying webhook payloads
-        enabled:
-          type: boolean
-          description: Whether the endpoint is enabled and receiving events
     CreateEndpointRequest:
       type: object
       required:
@@ -306,6 +297,15 @@ components:
           type: string
           format: date-time
           description: Timestamp when the endpoint was created
+    EndpointList:
+      type: object
+      description: List of webhook endpoints
+      properties:
+        endpoints:
+          type: array
+          description: Array of configured webhook endpoints
+          items:
+            $ref: '#/components/schemas/Endpoint'
   securitySchemes:
     basicAuth:
       type: http

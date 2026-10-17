@@ -94,6 +94,18 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    BatchUserImportRequest:
+      type: object
+      required:
+      - requests
+      description: Request body for batch importing users into FullStory
+      properties:
+        requests:
+          type: array
+          description: Array of user objects to import, up to 50,000 per request
+          maxItems: 50000
+          items:
+            $ref: '#/components/schemas/CreateUserRequest'
     CreateUserRequest:
       type: object
       description: Request body for creating or updating a user in FullStory
@@ -116,6 +128,27 @@ components:
           type: object
           description: Optional explicit type declarations for custom properties to override the default type inference
           additionalProperties: true
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
+    BatchEventsImportRequest:
+      type: object
+      required:
+      - requests
+      description: Request body for batch importing events into FullStory
+      properties:
+        requests:
+          type: array
+          description: Array of event objects to import
+          items:
+            $ref: '#/components/schemas/CreateEventRequest'
     CreateEventRequest:
       type: object
       required:
@@ -157,39 +190,6 @@ components:
           type: object
           description: Optional explicit type declarations for custom event properties
           additionalProperties: true
-    BatchEventsImportRequest:
-      type: object
-      required:
-      - requests
-      description: Request body for batch importing events into FullStory
-      properties:
-        requests:
-          type: array
-          description: Array of event objects to import
-          items:
-            $ref: '#/components/schemas/CreateEventRequest'
-    BatchUserImportRequest:
-      type: object
-      required:
-      - requests
-      description: Request body for batch importing users into FullStory
-      properties:
-        requests:
-          type: array
-          description: Array of user objects to import, up to 50,000 per request
-          maxItems: 50000
-          items:
-            $ref: '#/components/schemas/CreateUserRequest'
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
     BatchJob:
       type: object
       description: Represents an asynchronous batch import job

@@ -80,47 +80,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  schemas:
-    SegmentList:
-      type: object
-      description: Paginated list of segments
-      properties:
-        segments:
-          type: array
-          description: Array of segment objects
-          items:
-            $ref: '#/components/schemas/Segment'
-        pagination_token:
-          type: string
-          description: Token to retrieve the next page of results. Absent when no more pages are available.
-    Error:
-      type: object
-      description: Standard error response from the FullStory API
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable error message
-    Segment:
-      type: object
-      description: A FullStory segment representing a saved group of users matching specific behavioral criteria
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the segment
-        name:
-          type: string
-          description: Display name of the segment
-        creator:
-          type: string
-          format: email
-          description: Email address of the FullStory user who created the segment
-        created:
-          type: string
-          format: date-time
-          description: UTC RFC 3339 timestamp for when the segment was created. Not present for built-in segments.
   parameters:
     PaginationToken:
       name: pagination_token
@@ -146,6 +105,47 @@ components:
       description: The unique identifier for the segment
       schema:
         type: string
+  schemas:
+    Segment:
+      type: object
+      description: A FullStory segment representing a saved group of users matching specific behavioral criteria
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the segment
+        name:
+          type: string
+          description: Display name of the segment
+        creator:
+          type: string
+          format: email
+          description: Email address of the FullStory user who created the segment
+        created:
+          type: string
+          format: date-time
+          description: UTC RFC 3339 timestamp for when the segment was created. Not present for built-in segments.
+    SegmentList:
+      type: object
+      description: Paginated list of segments
+      properties:
+        segments:
+          type: array
+          description: Array of segment objects
+          items:
+            $ref: '#/components/schemas/Segment'
+        pagination_token:
+          type: string
+          description: Token to retrieve the next page of results. Absent when no more pages are available.
+    Error:
+      type: object
+      description: Standard error response from the FullStory API
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     basicAuth:
       type: http
