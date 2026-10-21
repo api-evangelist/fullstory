@@ -224,6 +224,99 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: Agent Skills package
+  evidence: https://github.com/fullstorydev/fs-skills
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: fullstorydev
+    current: true
+    repos:
+    - repo: fullstorydev/fs-skills
+      archived: false
+      lapsed: false
+      pushed: '2026-04-15'
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: fullstorydev
+    matched_by: org-profile-domain:fullstory.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: claude-plugins.dev
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://claude-plugins.dev/skills/@fullstorydev/fs-skills
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - fullstorydev/fs-skills
+    repo_verified: true
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: fullstorydev
+    matched_by: org-profile-domain:fullstory.com
+    sample_skills:
+    - fullstory-analytics-events
+    - fullstory-anonymize-users
+    - fullstory-async-methods
+    - fullstory-banking
+    - fullstory-capture-control
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: CocoaPods trunk
+  partner: null
+  partner_match: register
+  type: register
+  channel: package-registry
+  relationship: distribution-channel
+  direction: provider-built
+  evidence: https://cocoapods.org/pods/FullStory
+  category: iOS SDK (CocoaPods)
+  contract_reference:
+    register: CocoaPods trunk (cdn.cocoapods.org Specs; github.com/CocoaPods/Specs)
+    spec_file: null
+    role: cocoapods-publisher
+    registered_name: Fullstory
+    matched_domain: fullstory.com
+    matched_by: domain
+    pods:
+    - pod: FullStory
+      version: 1.75.2
+      homepage: https://fullstory.com/
+      deprecated: false
+    signal_note: latest podspec homepage (domain) + authors (name); pods, versions and counts are context
+    detected_by: sweep-mobile-sdk-index.py
+    detected: '2026-10-21'
+  detected_by: sweep-mobile-sdk-index.py
+  first_seen: '2026-10-21'
 - partner_name: dbt (dbt-package-hub)
   partner: dbt
   partner_match: mirror
@@ -292,73 +385,25 @@ edges:
   detected: '2026-10-20'
   detected_by: mirror-platform-listings.py
   category: Agent Productivity
-- partner_name: Agent Skills (own GitHub org)
-  partner: null
-  partner_match: register
-  type: register
-  direction: provider-built
-  category: Agent Skills package
-  evidence: https://github.com/fullstorydev/fs-skills
-  channel: provider-built
-  relationship: compatible
-  shape: agent-skills
-  evidence_kind: own-repo
-  degree: skill-repo
-  report_only: true
-  agent_skills:
-    org: fullstorydev
-    current: true
-    repos:
-    - repo: fullstorydev/fs-skills
-      archived: false
-      lapsed: false
-      pushed: '2026-04-15'
-  contract_reference:
-    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
-    spec_file: null
-    standard: Agent Skills (agentskills.io)
-    role: agent-skills-repo
-    matched_org: fullstorydev
-    matched_by: org-profile-domain:fullstory.com
-    detected_by: sweep-agent-skills.py
-    detected: '2026-10-20'
-  detected_by: sweep-agent-skills.py
-  first_seen: '2026-10-20'
-- partner_name: claude-plugins.dev
-  partner: null
-  partner_match: register
-  type: register
-  direction: partner-built
-  category: Agent Skills register
-  evidence: https://claude-plugins.dev/skills/@fullstorydev/fs-skills
-  channel: standard-directory
-  relationship: compatible
-  shape: agent-skills
-  evidence_kind: register-listing
-  degree: listed
-  report_only: true
-  agent_skills_register:
-    repos:
-    - fullstorydev/fs-skills
-    repo_verified: true
-    signal_note: the provider's own-org repos the register lists; skill / install counts never read
-  contract_reference:
-    register: claude-plugins.dev (public sitemap / list)
-    spec_file: null
-    standard: Agent Skills (agentskills.io)
-    role: agent-skills-listing
-    matched_org: fullstorydev
-    matched_by: org-profile-domain:fullstory.com
-    sample_skills:
-    - fullstory-analytics-events
-    - fullstory-anonymize-users
-    - fullstory-async-methods
-    - fullstory-banking
-    - fullstory-capture-control
-    detected_by: sweep-agent-skills.py
-    detected: '2026-10-20'
-  detected_by: sweep-agent-skills.py
-  first_seen: '2026-10-20'
+- partner_name: Google Play Developer (Google Play SDK Index)
+  partner: google-play
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: Google Play SDK Index
+  evidence: https://play.google.com/sdks/details/com-fullstory-instrumentation-full
+  mirror_of: google-play/integrations/google-play-integration-edges.yml
+  apps:
+  - FullStory for Mobile Apps
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: mobile SDK (analytics)
+  publisher_verified:
+  - Registered in Google Play SDK Console
 method: searched
 checked:
 - dbt/integrations/dbt-integration-edges.yml
@@ -383,6 +428,11 @@ checked:
 - https://officialskills.sh/sitemap.xml
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
+- https://cdn.cocoapods.org/all_pods.txt
+- https://cert.appdefensealliance.org/certifications
+- https://play.google.com/sdks
+- https://search.maven.org/solrsearch/select
+- google-play/integrations/google-play-integration-edges.yml
 source:
 - https://fivetran.com/docs/activations/destinations/available-destinations/fullstory
 - https://hightouch.com/docs/destinations/fullstory

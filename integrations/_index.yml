@@ -187,6 +187,78 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: fullstory-agent-skills-own-github-org
+  label: Agent Skills (own GitHub org)
+  partner_name: Agent Skills (own GitHub org)
+  category: Agent Skills package
+  type: register
+  channel: provider-built
+  evidence: https://github.com/fullstorydev/fs-skills
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: fullstorydev
+    matched_by: org-profile-domain:fullstory.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: fullstory-claude-plugins-dev
+  label: claude-plugins.dev
+  partner_name: claude-plugins.dev
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://claude-plugins.dev/skills/@fullstorydev/fs-skills
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: fullstorydev
+    matched_by: org-profile-domain:fullstory.com
+    sample_skills:
+    - fullstory-analytics-events
+    - fullstory-anonymize-users
+    - fullstory-async-methods
+    - fullstory-banking
+    - fullstory-capture-control
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: fullstory-cocoapods-trunk
+  label: CocoaPods trunk
+  partner_name: CocoaPods trunk
+  category: iOS SDK (CocoaPods)
+  type: register
+  channel: package-registry
+  evidence: https://cocoapods.org/pods/FullStory
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: CocoaPods trunk (cdn.cocoapods.org Specs; github.com/CocoaPods/Specs)
+    spec_file: null
+    role: cocoapods-publisher
+    registered_name: Fullstory
+    matched_domain: fullstory.com
+    matched_by: domain
+    pods:
+    - pod: FullStory
+      version: 1.75.2
+      homepage: https://fullstory.com/
+      deprecated: false
+    signal_note: latest podspec homepage (domain) + authors (name); pods, versions and counts are context
+    detected_by: sweep-mobile-sdk-index.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
 - slug: fullstory-dbt-dbt-package-hub
   label: dbt (dbt-package-hub)
   partner: dbt
@@ -239,49 +311,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: fullstory-agent-skills-own-github-org
-  label: Agent Skills (own GitHub org)
-  partner_name: Agent Skills (own GitHub org)
-  category: Agent Skills package
-  type: register
-  channel: provider-built
-  evidence: https://github.com/fullstorydev/fs-skills
+- slug: fullstory-google-play-developer-google-play-sdk-index
+  label: Google Play Developer (Google Play SDK Index)
+  partner: google-play
+  partner_name: Google Play Developer (Google Play SDK Index)
+  category: mobile SDK (analytics)
+  type: marketplace
+  marketplace: Google Play SDK Index
+  channel: partner-built
+  evidence: https://play.google.com/sdks/details/com-fullstory-instrumentation-full
   source: edge
-  relationship: compatible
-  contract_reference:
-    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
-    spec_file: null
-    standard: Agent Skills (agentskills.io)
-    role: agent-skills-repo
-    matched_org: fullstorydev
-    matched_by: org-profile-domain:fullstory.com
-    detected_by: sweep-agent-skills.py
-    detected: '2026-10-20'
-  status: not-a-workflow
-  arazzo: null
-- slug: fullstory-claude-plugins-dev
-  label: claude-plugins.dev
-  partner_name: claude-plugins.dev
-  category: Agent Skills register
-  type: register
-  channel: standard-directory
-  evidence: https://claude-plugins.dev/skills/@fullstorydev/fs-skills
-  source: edge
-  relationship: compatible
-  contract_reference:
-    register: claude-plugins.dev (public sitemap / list)
-    spec_file: null
-    standard: Agent Skills (agentskills.io)
-    role: agent-skills-listing
-    matched_org: fullstorydev
-    matched_by: org-profile-domain:fullstory.com
-    sample_skills:
-    - fullstory-analytics-events
-    - fullstory-anonymize-users
-    - fullstory-async-methods
-    - fullstory-banking
-    - fullstory-capture-control
-    detected_by: sweep-agent-skills.py
-    detected: '2026-10-20'
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
