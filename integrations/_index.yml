@@ -259,6 +259,46 @@
     detected: '2026-10-21'
   status: not-a-workflow
   arazzo: null
+- slug: fullstory-pub-dev
+  label: pub.dev
+  partner: pub-dev
+  partner_name: pub.dev
+  category: official SDK (Dart/Flutter)
+  type: register
+  channel: package-registry
+  evidence: https://pub.dev/packages/fullstory_flutter
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: pub.dev (public registry JSON)
+    spec_file: null
+    language: Dart/Flutter
+    packages:
+    - name: fullstory_flutter
+      version: 1.76.0
+      released: '2026-10-22'
+      released_field: published
+      lapsed: false
+      page: https://pub.dev/packages/fullstory_flutter
+      repo_leg: not required (verified publisher)
+      publisher_leg: verified-publisher:fullstory.com
+      matched_by: domain
+    - name: fullstory_guides_and_surveys_flutter
+      version: 0.1.6
+      released: '2026-09-29'
+      released_field: published
+      lapsed: false
+      page: https://pub.dev/packages/fullstory_guides_and_surveys_flutter
+      repo_leg: not required (verified publisher)
+      publisher_leg: verified-publisher:fullstory.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
 - slug: fullstory-dbt-dbt-package-hub
   label: dbt (dbt-package-hub)
   partner: dbt
@@ -324,43 +364,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: fullstory-pub-dev
-  label: pub.dev
-  partner: pub-dev
-  partner_name: pub.dev
-  category: official SDK (Dart/Flutter)
-  type: register
-  channel: package-registry
-  evidence: https://pub.dev/packages/fullstory_flutter
+- slug: fullstory-intercom-own
+  label: Intercom (own)
+  partner: intercom
+  partner_name: Intercom (own)
+  category: Analytics
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.intercom.com/app-store/?app_package_code=fullstory
   source: edge
-  relationship: distribution-channel
-  contract_reference:
-    register: pub.dev (public registry JSON)
-    spec_file: null
-    language: Dart/Flutter
-    packages:
-    - name: fullstory_flutter
-      version: 1.76.0
-      released: '2026-10-22'
-      released_field: published
-      lapsed: false
-      page: https://pub.dev/packages/fullstory_flutter
-      repo_leg: not required (verified publisher)
-      publisher_leg: verified-publisher:fullstory.com
-      matched_by: domain
-    - name: fullstory_guides_and_surveys_flutter
-      version: 0.1.6
-      released: '2026-09-29'
-      released_field: published
-      lapsed: false
-      page: https://pub.dev/packages/fullstory_guides_and_surveys_flutter
-      repo_leg: not required (verified publisher)
-      publisher_leg: verified-publisher:fullstory.com
-      matched_by: domain
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-php-dart-elixir-package-registries.py
-    detected: '2026-10-22'
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
