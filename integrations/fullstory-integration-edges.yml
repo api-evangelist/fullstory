@@ -460,6 +460,24 @@ edges:
   detected: '2026-10-23'
   detected_by: mirror-platform-listings.py
   category: Analytics
+- partner_name: Adobe Experience Cloud (own)
+  partner: adobe-experience-cloud
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://exchange.adobe.com/apps/ec/600178
+  mirror_of: adobe-experience-cloud/integrations/adobe-experience-cloud-integration-edges.yml
+  apps:
+  - 'Fullstory Anywhere: Activation'
+  - Fullstory AEP Web Extension
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Adobe Exchange Experience Cloud listing (Experience Platform)
 method: searched
 checked:
 - dbt/integrations/dbt-integration-edges.yml
@@ -493,6 +511,7 @@ checked:
 - https://packagist.org/packages
 - https://pub.dev/api
 - intercom/integrations/intercom-integration-edges.yml
+- adobe-experience-cloud/integrations/adobe-experience-cloud-integration-edges.yml
 source:
 - https://fivetran.com/docs/activations/destinations/available-destinations/fullstory
 - https://hightouch.com/docs/destinations/fullstory
