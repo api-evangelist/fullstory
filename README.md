@@ -1,4 +1,4 @@
-# FullStory (fullstory)
+# FullStory
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,115 +66,213 @@
 
 FullStory is a behavioral data platform delivering session replay, product analytics, and digital experience intelligence across web and mobile.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/fullstory/refs/heads/main/apis.yml)
+**Areas:** Session Replay · Product Analytics · Digital Experience · Behavioral Analytics · Frontend Monitoring
 
-## Tags
+## FullStory on APIs.io
 
-- Session Replay
-- Product Analytics
-- Digital Experience
-- Behavioral Analytics
-- Frontend Monitoring
+Everything profiled for FullStory is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/fullstory/](https://apis.io/providers/fullstory/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (11)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-19
+- [FullStory Sessions API](https://apis.io/apis/fullstory/fullstory-sessions-api/) — FullStory Sessions API for retrieving session metadata, replay URLs, and session-level details.
+- [FullStory Batch Import API](https://apis.io/apis/fullstory/fullstory-batch-import-api/) — Import large volumes of users and events asynchronously using batch import jobs that support up to 50,000 records per request.
+- [FullStory Endpoints API](https://apis.io/apis/fullstory/fullstory-endpoints-api/) — Create, retrieve, update, and delete webhook endpoints that receive real-time notifications from FullStory. Each endpoint has a destination URL, configured…
+- [FullStory Event Types API](https://apis.io/apis/fullstory/fullstory-event-types-api/) — List available webhook event types that can be configured for endpoints. Some event types require subcategories and may be limited by plan.
+- [FullStory Events API](https://apis.io/apis/fullstory/fullstory-events-api/) — Send custom server-side events to FullStory. Events can be associated with sessions and users, and include custom properties for behavioral analysis.
+- [FullStory Exports API](https://apis.io/apis/fullstory/fullstory-exports-api/) — Create and manage asynchronous export jobs for segment data, including both individual and event exports.
+- [FullStory Operations API](https://apis.io/apis/fullstory/fullstory-operations-api/) — Query the status of long-running asynchronous operations such as segment exports, and retrieve results when complete.
+- [FullStory Segments API](https://apis.io/apis/fullstory/fullstory-segments-api/) — Retrieve segment metadata including name, creator, and creation time.
+- [FullStory Session Events API](https://apis.io/apis/fullstory/fullstory-session-events-api/) — Retrieve the full set of captured events for a specific session, including page views, clicks, and custom events.
+- [FullStory Session Summaries API](https://apis.io/apis/fullstory/fullstory-session-summaries-api/) — Generate AI-powered summaries of sessions using configurable prompt profiles. Summaries can be customized with pre and post prompts, response schemas, and…
+- [FullStory Users API](https://apis.io/apis/fullstory/fullstory-users-api/) — Create, retrieve, update, and delete users in FullStory. Users can be anonymous or identified with a uid. Custom properties can be attached to enrich user…
 
-## APIs
+### Published properties
 
-### FullStory Server API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-FullStory Server API v2 ingests user identification, traits, custom events, and supports batch operations. Authentication uses an API key prefixed with the data center ID (e.g. na1.<token>).
+#### AsyncAPI (1)
 
-- **Human URL:** [https://developer.fullstory.com/server/v2/getting-started/](https://developer.fullstory.com/server/v2/getting-started/)
-- **Base URL:** `https://api.fullstory.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [FullStory Webhook Events](https://apis.io/asyncapis/fullstory/fullstory-webhooks-asyncapi/)
 
-- Behavioral Analytics
-- Session Replay
-- REST
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://developer.fullstory.com/server/v2/getting-started/)
-- [Developers](https://developer.fullstory.com/)
-- [OpenAPI](openapi/fullstory-server-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fullstory-server-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fullstory-server-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [/webhook](https://apis.io/channels/fullstory/webhook/)
 
-### FullStory Sessions API
+#### GraphQL (1)
 
-FullStory Sessions API for retrieving session metadata, replay URLs, and session-level details.
+GraphQL schemas.
 
-- **Human URL:** [https://developer.fullstory.com/](https://developer.fullstory.com/)
-- **Base URL:** `https://api.fullstory.com`
+- [Moved to /providers/fullstory/](https://apis.io/graphqls/fullstory/fullstory-graphql/)
 
-#### Tags
+#### Agentic access (1)
 
-- Session Replay
-- REST
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Fullstory Agentic Access](https://apis.io/agentic-access/fullstory/fullstory-agentic-access/)
 
-- [Documentation](https://developer.fullstory.com/)
-- [OpenAPI](openapi/fullstory-sessions-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fullstory-sessions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fullstory-sessions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON Schema (25)
 
-### FullStory Segments Export API
+The data models the API reads and writes.
 
-FullStory Segments Export API for exporting segment data and audience definitions for downstream analytics.
+- [BatchEventsImportRequest](https://apis.io/schemas/fullstory/fullstory-batcheventsimportrequest/)
+- [BatchJob](https://apis.io/schemas/fullstory/fullstory-batchjob/)
+- [BatchUserImportRequest](https://apis.io/schemas/fullstory/fullstory-batchuserimportrequest/)
+- [CreateEndpointRequest](https://apis.io/schemas/fullstory/fullstory-createendpointrequest/)
+- [CreateEventRequest](https://apis.io/schemas/fullstory/fullstory-createeventrequest/)
+- [CreateExportRequest](https://apis.io/schemas/fullstory/fullstory-createexportrequest/)
+- [CreateUserRequest](https://apis.io/schemas/fullstory/fullstory-createuserrequest/)
+- [Endpoint](https://apis.io/schemas/fullstory/fullstory-endpoint/)
+- [EndpointList](https://apis.io/schemas/fullstory/fullstory-endpointlist/)
+- [Error](https://apis.io/schemas/fullstory/fullstory-error/)
+- [FullStory Event](https://apis.io/schemas/fullstory/fullstory-event/)
+- [EventType](https://apis.io/schemas/fullstory/fullstory-eventtype/)
+- [EventTypeConfig](https://apis.io/schemas/fullstory/fullstory-eventtypeconfig/)
+- [EventTypeList](https://apis.io/schemas/fullstory/fullstory-eventtypelist/)
+- [Operation](https://apis.io/schemas/fullstory/fullstory-operation/)
+- [FullStory Segment](https://apis.io/schemas/fullstory/fullstory-segment/)
+- [SegmentList](https://apis.io/schemas/fullstory/fullstory-segmentlist/)
+- [FullStory Session](https://apis.io/schemas/fullstory/fullstory-session/)
+- [SessionEvent](https://apis.io/schemas/fullstory/fullstory-sessionevent/)
+- [SessionEvents](https://apis.io/schemas/fullstory/fullstory-sessionevents/)
+- [SessionList](https://apis.io/schemas/fullstory/fullstory-sessionlist/)
+- [SessionSummary](https://apis.io/schemas/fullstory/fullstory-sessionsummary/)
+- [UpdateEndpointRequest](https://apis.io/schemas/fullstory/fullstory-updateendpointrequest/)
+- [FullStory User](https://apis.io/schemas/fullstory/fullstory-user/)
+- [FullStory Webhook Endpoint](https://apis.io/schemas/fullstory/fullstory-webhook-endpoint/)
 
-- **Human URL:** [https://developer.fullstory.com/](https://developer.fullstory.com/)
-- **Base URL:** `https://api.fullstory.com`
+#### JSON Structure (1)
 
-#### Tags
+Data models expressed in JSON Structure.
 
-- Analytics
-- Export
-- REST
+- [Fullstory Structure](https://apis.io/json-structure/fullstory/fullstory-structure/)
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://developer.fullstory.com/)
-- [OpenAPI](openapi/fullstory-segments-export-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fullstory-segments-export-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fullstory-segments-export-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Linked-data contexts for the provider's vocabulary.
 
-### FullStory Webhooks API
+- [Fullstory Context](https://apis.io/jsonld/fullstory/fullstory-context/)
 
-FullStory Webhooks API for subscribing to events from the FullStory platform and receiving push notifications.
+#### Vocabulary (1)
 
-- **Human URL:** [https://developer.fullstory.com/](https://developer.fullstory.com/)
-- **Base URL:** `https://api.fullstory.com`
+The provider's domain terms, defined.
 
-#### Tags
+- [FullStory Domain Vocabulary](https://apis.io/vocabularies/fullstory/fullstory-vocabulary/)
 
-- Webhooks
-- Events
-- REST
+#### Collections (14)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://developer.fullstory.com/)
-- [OpenAPI](openapi/fullstory-webhooks-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fullstory-webhooks-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fullstory-webhooks-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [FullStory Segments Export Batch Import API](https://apis.io/collections/fullstory/open-fullstory-batch-import-api/)
+- [FullStory Segments Export Batch Import Endpoints API](https://apis.io/collections/fullstory/open-fullstory-endpoints-api/)
+- [FullStory Segments Export Batch Import Event Types API](https://apis.io/collections/fullstory/open-fullstory-event-types-api/)
+- [FullStory Segments Export Batch Import Events API](https://apis.io/collections/fullstory/open-fullstory-events-api/)
+- [FullStory Segments Export Batch Import Exports API](https://apis.io/collections/fullstory/open-fullstory-exports-api/)
+- [FullStory Segments Export Batch Import Operations API](https://apis.io/collections/fullstory/open-fullstory-operations-api/)
+- [FullStory Export Batch Import Segments API](https://apis.io/collections/fullstory/open-fullstory-segments-api/)
+- [FullStory Segments Export API](https://apis.io/collections/fullstory/open-fullstory-segments-export-api/)
+- [FullStory Server API](https://apis.io/collections/fullstory/open-fullstory-server-api/)
+- [FullStory Segments Export Batch Import Session Events API](https://apis.io/collections/fullstory/open-fullstory-session-events-api/)
+- [FullStory Segments Export Batch Import Session Summaries API](https://apis.io/collections/fullstory/open-fullstory-session-summaries-api/)
+- [FullStory Segments Export Batch Import Sessions API](https://apis.io/collections/fullstory/open-fullstory-sessions-api/)
+- [FullStory Segments Export Batch Import Users API](https://apis.io/collections/fullstory/open-fullstory-users-api/)
+- [FullStory Webhooks API](https://apis.io/collections/fullstory/open-fullstory-webhooks-api/)
 
-## Common Properties
+#### Governance rules (2)
 
-- [GitHub Organization](https://github.com/fullstorydev)
-- [LinkedIn](https://www.linkedin.com/company/fullstory)
+Spectral rulesets for the provider's contracts.
+
+- [FullStory — asyncapi rules](https://apis.io/rules/fullstory/fullstory-asyncapi-spectral-rules/)
+- [FullStory — jsonschema rules](https://apis.io/rules/fullstory/fullstory-jsonschema-spectral-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Fullstory Authentication](https://apis.io/security/fullstory/fullstory-authentication/)
+- [Fullstory Domain Security](https://apis.io/security/fullstory/fullstory-domain-security/)
+- [Fullstory Trust Center](https://apis.io/security/fullstory/fullstory-trust-center/)
+- [Fullstory Vulnerability Disclosure](https://apis.io/security/fullstory/fullstory-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Fullstory Plans Pricing](https://apis.io/plans/fullstory/fullstory-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Fullstory Rate Limits](https://apis.io/rate-limits/fullstory/fullstory-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Fullstory Finops](https://apis.io/finops/fullstory/fullstory-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.fullstory.com/)
 - [Documentation](https://developer.fullstory.com/)
-- [Plans](plans/fullstory-plans-pricing.yml)
-- [Rate Limits](rate-limits/fullstory-rate-limits.yml)
-- [Fin Ops](finops/fullstory-finops.yml)
-- [Integrations](https://www.fullstory.com/platform/integrations/)
+- [Blog](https://www.fullstory.com/blog/)
+- [GitHub](https://github.com/fullstorydev)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 35.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 64.2 |
+| Contract governance | 13.6 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 13.2 |
+
+**Agent readiness 29.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | verified |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 27.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/fullstory/](https://apis.io/providers/fullstory/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for FullStory: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/fullstory/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
